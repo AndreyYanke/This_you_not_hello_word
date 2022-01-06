@@ -13,3 +13,10 @@ class Vacancy(TrackableUpdateCreateModel):
     salary_to = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Зарплата до', blank=True, null=True)
     address = models.CharField(max_length=255, verbose_name='Адрес', blank=True, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
+
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+
+    def __str__(self):
+        return self.name
