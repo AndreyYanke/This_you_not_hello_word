@@ -1,5 +1,5 @@
 """
-ASGI config for This_you_not_hello_word project.
+ASGI config for this_you_not_hello_word project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'This_you_not_hello_word.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'this_you_not_hello_word.settings')
 
 application = get_asgi_application()

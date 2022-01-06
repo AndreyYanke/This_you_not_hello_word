@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'userapp.apps.UserappConfig',
+    'vacancyapp.apps.VacancyappConfig',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'This_you_not_hello_word.urls'
+ROOT_URLCONF = 'this_you_not_hello_word.urls'
 
 TEMPLATES = [
     {
@@ -55,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'This_you_not_hello_word.wsgi.application'
+WSGI_APPLICATION = 'this_you_not_hello_word.wsgi.application'
 
 
 # Database
@@ -107,3 +109,5 @@ STATIC_URL = 'static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'userapp.User'
