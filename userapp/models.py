@@ -1,20 +1,26 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UnicodeUsernameValidator, UserManager
 from django.db import models
 
+from this_you_not_hello_word.models import TrackableUpdateCreateModel
 
-class UserType(models.Model):
-    """Класс описывающий модель типа пользователя"""
-    name = models.CharField(max_length=64, blank=False, null=False, verbose_name='Название типа пользователя')
-    description = models.CharField(max_length=256, blank=True, verbose_name='Описание типа пользователя')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата и время изменения')
+
+# class UserType(TrackableUpdateCreateModel):
+#     """Класс описывающий модель типа пользователя"""
+#     name = models.CharField(max_length=64, blank=False, null=False, verbose_name='Название типа пользователя')
+#     description = models.CharField(max_length=256, blank=True, verbose_name='Описание типа пользователя')
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Класс описывает пользователя"""
     username_validator = UnicodeUsernameValidator()
 
-    user_type = models.ForeignKey(UserType, on_delete=models.CASCADE, verbose_name='Тип пользователя')
+    USER_TYPE_USER = 'aspirant'
+    USER_TYPE_COMPANY = 'сompany'
+
+    TYPE_CHOICES = ((USER_TYPE_USER, 'Соискатель'), (USER_TYPE_COMPANY, 'Компания'))
+
+    user_type = models.CharField(max_length=64, choices=TYPE_CHOICES)
+    # user_type = models.ForeignKey(UserType, on_delete=models.CASCADE, verbose_name='Тип пользователя')
     username = models.CharField(max_length=64, unique=True, validators=[username_validator])
     first_name = models.CharField(max_length=64, blank=True, null=False, verbose_name='Имя пользователя')
     last_name = models.CharField(max_length=64, blank=True, null=False, verbose_name='Фамилия пользователя')
@@ -30,6 +36,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['user_type_id', 'email']
+    REQUIRED_FIELDS = ['user_type', 'email']
 
     objects = UserManager()
+
+
+class City(TrackableUpdateCreateModel):
+    name = models.CharField(max_length=255, verbose_name='Город')
