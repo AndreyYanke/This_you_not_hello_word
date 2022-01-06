@@ -1,4 +1,4 @@
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,8 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
+    'mainapp.apps.MainappConfig',
 ]
 
 MIDDLEWARE = [
@@ -104,10 +106,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'userapp.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
