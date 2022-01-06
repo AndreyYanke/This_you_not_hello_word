@@ -1,5 +1,5 @@
 from django.contrib import admin
-from userapp.models import User
+from userapp.models import User, City
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -19,3 +19,4 @@ class UserAdmin(admin.ModelAdmin):
             super().save_model(request, obj, form, change)
 
 admin.site.register(User, UserAdmin)
+admin.site.register(City)
