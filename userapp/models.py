@@ -29,6 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     company_name = models.CharField(max_length=64, blank=True, null=True, verbose_name='Название компании')
     is_staff = models.BooleanField(default=False, verbose_name='Модератор')
     is_active = models.BooleanField(default=True, verbose_name='Активный пользователь')
+    is_partner = models.BooleanField(default=False, verbose_name='Компания-партнер')
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_expires = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
