@@ -29,14 +29,26 @@
                 </div>
             </div>
         </div>
-            <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">Новостная лента</h1>
+                    {% for news in list_news %}
+                        <p>
+                            {{ news }}
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <h1 class="mt-5">Список компаний-партнеров</h1>
                     {% for company in list_company_partners %}
-                    <p>
-                        {{ company.company_name }}
-                    </p>
+                        <p>
+                            {{ company.company_name }}
+                        </p>
                     {% endfor %}
                 </div>
             </div>
