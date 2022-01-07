@@ -35,7 +35,7 @@
                     <h1 class="mt-5">Новостная лента</h1>
                     {% for news in list_news %}
                         <p>
-                            {{ news }}
+                            <a href="{% url 'news:detail_news' news.pk %}">{{ news }}</a>
                         </p>
                     {% endfor %}
                 </div>
@@ -47,7 +47,7 @@
                     <h1 class="mt-5">Список компаний-партнеров</h1>
                     {% for company in list_company_partners %}
                         <p>
-                            {{ company.company_name }}
+                            <a href="#">{{ company.company_name }}</a>
                         </p>
                     {% endfor %}
                 </div>
