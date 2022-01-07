@@ -6,6 +6,7 @@ from this_you_not_hello_word.models import TrackableUpdateCreateModel
 class NewsPost(TrackableUpdateCreateModel):
     title = models.CharField(max_length=256, null=True, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание новостного поста')
+    is_active = models.BooleanField(default=True, verbose_name='Активный пост')
 
     class Meta:
         verbose_name = 'Новостной пост'
