@@ -26,7 +26,7 @@ class Resume(TrackableUpdateCreateModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
     first_name = models.CharField(max_length=64, verbose_name='Имя пользователя')
     last_name = models.CharField(max_length=64,  verbose_name='Фамилия пользователя')
-    photo = models.ImageField(upload_to='this_you_not_hello_word/static/img/img_the_applicant', blank=True, null=True)
+    photo = models.ImageField(upload_to='resumeapp_image', blank=True, null=True)
     sex = models.CharField(max_length=9, choices=STATUS_SEX, verbose_name='Пол')
     age = models.PositiveSmallIntegerField()
     contact_info = models.CharField(max_length=300, verbose_name='Контактная информация')
