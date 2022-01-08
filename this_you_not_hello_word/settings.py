@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'vacancyapp.apps.VacancyappConfig',
     'mainapp.apps.MainappConfig',
     'newsapp.apps.NewsappConfig',
+    'resumeapp.apps.ResumeappConfig',
 ]
 
 MIDDLEWARE = [
