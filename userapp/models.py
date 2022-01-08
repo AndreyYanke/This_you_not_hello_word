@@ -25,6 +25,11 @@ class User(AbstractUser):
     activation_key = models.CharField(max_length=128, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата и время изменения')
+    partner = models.BooleanField(default=False,verbose_name='партнер')
+    partner_image = models.ImageField(upload_to='partner_image', blank=True, null=True)
+
+
+
 
 
     REQUIRED_FIELDS = ['user_type', 'email']

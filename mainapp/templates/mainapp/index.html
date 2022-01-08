@@ -2,68 +2,72 @@
 
 {% block content %}
     <!-- Page Content -->
-        <div class="container">
-            <div class="row">
-                    <div class="col-lg-6">
-                        <h1 class="mt-5">Правила портала</h1>
-                        <p>
-                            Здесь будет размещаться мини-текст с правилами портала.
-                            <br>
-                            <b>Например</b>, Размещать и/или передавать посредством Сайта информацию в виде текста,
-                            изображения, видео, звука, ссылки или программного кода, которая может быть противозаконной,
-                            угрожающей, оскорбительной,
-                            клеветнической, заведомо ложной, грубой, непристойной
-                            (содержать информацию и материалы эротического и/или порнографического характера),
-                            призывающей граждан к насилию, агрессии, действиям, нарушающим законодательство,
-                            вредить другим посетителям Сайта, нарушать их права...
-                            <br>
-                            Прошу ознакомиться с полной редакцией <a href="{% url 'main:rules' %}">правил портала</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Правила портала</h1>
+                <p>
+                    Здесь будет размещаться мини-текст с правилами портала.
+                    <br>
+                    <b>Например</b>, Размещать и/или передавать посредством Сайта информацию в виде текста,
+                    изображения, видео, звука, ссылки или программного кода, которая может быть противозаконной,
+                    угрожающей, оскорбительной,
+                    клеветнической, заведомо ложной, грубой, непристойной
+                    (содержать информацию и материалы эротического и/или порнографического характера),
+                    призывающей граждан к насилию, агрессии, действиям, нарушающим законодательство,
+                    вредить другим посетителям Сайта, нарушать их права...
+                    <br>
+                    Прошу ознакомиться с полной редакцией <a href="{% url 'main:rules' %}">правил портала</a>
 
-                        </p>
-                        {#                <button id="start-purchase-btn" type="button" class="btn btn-lg">#}
-                        {#                    <a id="start-purchase-link" href="#">#}
-                        {#                        Начать покупки#}
-                        {#                    </a>#}
-                        {#                </button>#}
-                    </div>
-                    <div class="col-lg-6">
-                        {% if not user.is_authenticated %}
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <h1 class="mt-5">Вход в систему</h1>
-                                        <form class="form-horizontal" action="{% url 'main:main' %}" method="post">
-                                            {% csrf_token %}
-                                            {{ form.as_p }}
-                                            <br>
-                                            <input class="form-control" type="submit" value="войти">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>
+                </p>
+                {#                <button id="start-purchase-btn" type="button" class="btn btn-lg">#}
+                {#                    <a id="start-purchase-link" href="#">#}
+                {#                        Начать покупки#}
+                {#                    </a>#}
+                {#                </button>#}
             </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h1 class="mt-5">Новостная лента</h1>
-                        {% for news in list_news %}
-                            <p>
-                                <a href="{% url 'news:detail_news' news.pk %}">{{ news }}</a>
-                            </p>
-                        {% endfor %}
+            <div class="col-lg-6">
+                {% if not user.is_authenticated %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h1 class="mt-5">Вход в систему</h1>
+                                <form class="form-horizontal" action="{% url 'main:main' %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <br>
+                                    <input class="form-control" type="submit" value="войти">
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h1 class="mt-5">Список компаний-партнеров</h1>
-                        {% for company in list_company_partners %}
-                            <p>
-                                <a href="#">{{ company.company_name }}</a>
-                            </p>
-                        {% endfor %}
-                    </div>
-                </div>
+                {% endif %}
+            </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Новостная лента</h1>
+                {% for news in list_news %}
+                    <p>
+                        <a href="{% url 'news:detail_news' news.pk %}">{{ news }}</a>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Список компаний-партнеров</h1>
+                {% for company in list_company_partners %}
+                    {% if company.partner %}
+                        <p>
+                            <a href="#">
+                                <img width="100" src="{{ company.partner_image.url }}" alt="partner">
+                            </a>
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
