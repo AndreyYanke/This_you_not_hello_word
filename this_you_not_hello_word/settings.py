@@ -28,6 +28,9 @@ INSTALLED_APPS = [
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
     'mainapp.apps.MainappConfig',
+    'newsapp.apps.NewsappConfig',
+    'resumeapp.apps.ResumeappConfig',
+    'mainapp.apps.MainappConfig',
     'resumeapp.apps.ResumeappConfig',
 ]
 
