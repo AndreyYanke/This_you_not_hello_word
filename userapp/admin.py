@@ -18,5 +18,6 @@ class UserAdmin(admin.ModelAdmin):
             obj.set_password(obj.password)
             super().save_model(request, obj, form, change)
 
+
 admin.site.register(User, UserAdmin)
 admin.site.register(City)
