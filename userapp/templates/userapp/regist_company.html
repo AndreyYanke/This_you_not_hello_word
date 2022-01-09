@@ -1,0 +1,10 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <form class="form-horizontal" action="{% url 'regist:company' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Регистрация работодателя</h2>
+        {{ form.as_p }}
+        <button type="submit" class="form-control">Регистрация</button>
+    </form>
+{% endblock content %}
