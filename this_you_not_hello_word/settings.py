@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
     'mainapp.apps.MainappConfig',
+    'newsapp.apps.NewsappConfig',
+    'resumeapp.apps.ResumeappConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +122,6 @@ AUTH_USER_MODEL = 'userapp.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
