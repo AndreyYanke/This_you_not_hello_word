@@ -42,13 +42,18 @@ class Resume(TrackableUpdateCreateModel):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
+    work_experiences = models.ForeignKey('Work_expirience', on_delete=models.CASCADE, verbose_name='Опыт работы')
+    education = models.ForeignKey('Education', verbose_name='Образование, дополнительные курсы',
+                                  on_delete=models.CASCADE)
+    citizenship = models.ForeignKey('Citizenship', verbose_name='Гражданство', on_delete=models.CASCADE)
+
     first_name = models.CharField(max_length=64, verbose_name='Имя пользователя')
     last_name = models.CharField(max_length=64, verbose_name='Фамилия пользователя')
     photo = models.ImageField(upload_to='resume_image', blank=True, null=True)
     sex = models.CharField(max_length=9, choices=STATUS_SEX, verbose_name='Пол')
     age = models.PositiveSmallIntegerField()
     contact_info = models.CharField(max_length=300, verbose_name='Контактная информация')
-    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город проживания')
     ready_to_move = models.BooleanField(default=True, verbose_name='Готов к перезду')
     position = models.CharField(max_length=64, verbose_name='Желаемая должность')
     salary = models.PositiveIntegerField(blank=True, null=True, verbose_name='Желаемая зарплата')
@@ -56,16 +61,8 @@ class Resume(TrackableUpdateCreateModel):
                                      blank=True, null=True)
     busyness = models.CharField(max_length=64, choices=STATUS_CHOICES_BUSYNESS, verbose_name='Тип занятости',
                                 blank=True, null=True)
-    work_experiences = models.ForeignKey('Work_expirience', on_delete=models.CASCADE, verbose_name='Опыт работы')
-
     about_myself = models.TextField(blank=True, null=True, verbose_name='Описание')
     is_publish = models.BooleanField(default=True, verbose_name='Опубликованное резюме')
-
-    # TODO создать отдельную модель
-    education = models.CharField(max_length=1024, verbose_name='Образование, дополнительные курсы')
-
-    # TODO создать отдельную модель
-    citizenship = models.CharField(max_length=64, verbose_name='Гражданство')
 
     class Meta:
         verbose_name = 'Резюме'
@@ -91,3 +88,43 @@ class Work_expirience(models.Model):
             return f'{self.organisation}: {self.start_of_work} - {self.end_of_work}'
         else:
             return f'{self.organisation}: {self.start_of_work}'
+
+
+class Education(models.Model):
+    LEVEL_OF_EDUCATION_PRIMARY = 'primary'
+    LEVEL_OF_EDUCATION_SECONDARY = 'secondary'
+    LEVEL_OF_EDUCATION_HIGHER = 'higher'
+
+    STATUS_CHOICES_LEVEL_OF_EDUCATION = (
+        (LEVEL_OF_EDUCATION_PRIMARY, 'начальное образование'),
+        (LEVEL_OF_EDUCATION_SECONDARY, 'среднее образование'),
+        (LEVEL_OF_EDUCATION_HIGHER, 'высшее образование'),
+    )
+
+    level = models.CharField(max_length=30, choices= STATUS_CHOICES_LEVEL_OF_EDUCATION, null=True, verbose_name='Уровень образования')
+    institution = models.CharField(max_length=124, verbose_name='Учебное учреждение', blank=True, null=True)
+    faculty = models.CharField(max_length=64, verbose_name='Факультет', blank=True, null=True)
+    specialisation = models.CharField(max_length=64, verbose_name='Специализация', blank=True, null=True)
+    year_of_completion = models.PositiveIntegerField(verbose_name='Год окончания', blank=True, null=True)
+    image_sertiificate = models.ImageField(upload_to='resume_sertiificate', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Образование'
+        verbose_name_plural = 'Образование'
+
+    def __str__(self):
+        if self.institution:
+            return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
+        else:
+            return f'Образование отсутствует'
+
+
+class Citizenship(models.Model):
+    country = models.CharField(max_length=124, verbose_name='Гражданство', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Гражданство'
+        verbose_name_plural = 'Гражданство'
+
+    def __str__(self):
+        return f'{self.country}'
