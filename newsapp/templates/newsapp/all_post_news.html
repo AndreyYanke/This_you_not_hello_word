@@ -1,0 +1,29 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Новостная лента</h1>
+                {% for news in object_list %}
+                    <p>
+                        <a href="{% url 'news:detail_news' news.pk %}">{{ news }}</a>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+            {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-item active">
+                        <a href="?page={{ p }}" class="page-link active">{{ p }}</a>
+                    </li>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                    <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
