@@ -58,13 +58,14 @@
             <div class="col-lg-6">
                 <h1 class="mt-5">Список компаний-партнеров</h1>
                 {% for company in list_company_partners %}
-                    {% if company.partner %}
-                        <p>
-                            <a href="#">
+                    <p>
+                        <a href="#">
+                            {{ company.company_name }}
+                            {% if company.partner_image %}
                                 <img width="100" src="{{ company.partner_image.url }}" alt="partner">
-                            </a>
-                        </p>
-                    {% endif %}
+                            {% endif %}
+                        </a>
+                    </p>
                 {% endfor %}
             </div>
         </div>
