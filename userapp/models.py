@@ -1,13 +1,7 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UnicodeUsernameValidator, UserManager, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
-
-
-# class UserType(TrackableUpdateCreateModel):
-#     """Класс описывающий модель типа пользователя"""
-#     name = models.CharField(max_length=64, blank=False, null=False, verbose_name='Название типа пользователя')
-#     description = models.CharField(max_length=256, blank=True, verbose_name='Описание типа пользователя')
 
 
 class User(AbstractUser):
@@ -18,19 +12,15 @@ class User(AbstractUser):
 
     TYPE_CHOICES = ((USER_TYPE_USER, 'Соискатель'), (USER_TYPE_COMPANY, 'Компания'))
 
-    user_type = models.CharField(max_length=64, choices=TYPE_CHOICES)
+    user_type = models.CharField(max_length=64, choices=TYPE_CHOICES, verbose_name='Тип пользователя')
     email = models.EmailField(max_length=64, unique=True, blank=False, verbose_name='Email')
     descriptions_company = models.TextField(blank=True, null=True, verbose_name='Описание компании')
     company_name = models.CharField(max_length=64, blank=True, null=True, verbose_name='Название компании')
     activation_key = models.CharField(max_length=128, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата и время изменения')
-    partner = models.BooleanField(default=False,verbose_name='партнер')
+    partner = models.BooleanField(default=False, verbose_name='партнер')
     partner_image = models.ImageField(upload_to='partner_image', blank=True, null=True)
-
-
-
-
 
     REQUIRED_FIELDS = ['user_type', 'email']
 
@@ -39,7 +29,12 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
     def __str__(self):
-        return self.username
+        if self.company_name:
+            return self.company_name
+        elif self.first_name and self.last_name:
+            return f"{self.last_name} {self.first_name}"
+        else:
+            return self.username
 
 
 class City(TrackableUpdateCreateModel):
