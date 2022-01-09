@@ -1,0 +1,6 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <button onclick="window.location.href = '{% url 'regist:aspirant' %}';">Соискатель</button>
+    <button onclick="window.location.href = '{% url 'regist:company' %}';">Работодатель</button>
+{% endblock content %}
