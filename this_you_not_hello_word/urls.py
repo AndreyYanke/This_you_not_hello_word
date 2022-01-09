@@ -24,4 +24,4 @@ urlpatterns = [
     path('news/', include('newsapp.urls', namespace='news')),
 ]
 
-urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
