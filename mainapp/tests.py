@@ -1,6 +1,5 @@
 from http import HTTPStatus
 
-from django.contrib import auth
 from django.test.client import Client
 
 from django.test import TestCase
@@ -24,17 +23,32 @@ class TestMainPage(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_login_user(self):
+        # главная без логина
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTrue(response.context['user'].is_anonymous)
 
+        # логинимся
         self.client.login(username='Vasy123', password='111333222qwe')
+
+        # главная с авторизированным пользователем
         response = self.client.get('/')
         self.assertFalse(response.context['user'].is_anonymous)
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context['user'], self.user)
 
     def test_logout_user(self):
-
+        # логинимся
         self.client.login(username='Vasy123', password='111333222qwe')
-        self.client.logout()
         response = self.client.get('/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        user = auth.get_user(self.client)
-        self.assertTrue(user.is_anonymous)
+        self.assertFalse(response.context['user'].is_anonymous)
+        self.assertEqual(response.context['user'], self.user)
+
+        # выходим из системы
+        response = self.client.get('/logout/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTrue(response.context['user'].is_anonymous)
