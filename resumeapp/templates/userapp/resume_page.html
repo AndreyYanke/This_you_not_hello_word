@@ -1,0 +1,10 @@
+{% extends 'userapp/first_page_registration.html' %}
+
+{% block content %}
+    <form class="form-horizontal" action="{% url 'resumeapp:resume' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Резюме соискателя</h2>
+        {{ form.resume }}
+        <button type="submit" class="form-control">Сохранить</button>
+    </form>
+{% endblock content %}
