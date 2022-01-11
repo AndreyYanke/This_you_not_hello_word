@@ -1,0 +1,20 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<form class="form-horizontal" action="{% url 'resume:resume' %}" method="post" enctype="multipart/form-data">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">{{ post.first_name }}</h1>
+                    <p>
+                        <br>
+                        <br>
+                        {{ post.last_name }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock content %}
