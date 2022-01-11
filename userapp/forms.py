@@ -22,6 +22,7 @@ class AspirantRegisterForm(RegisterForm):
         fields = ('first_name', 'last_name') + RegisterForm.Meta.fields
 
 
+
 class CompanyRegisterForm(RegisterForm):
     class Meta(RegisterForm.Meta):
         model = User
