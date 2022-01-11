@@ -43,9 +43,11 @@ class Resume(TrackableUpdateCreateModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
-    work_experiences = models.ForeignKey('Work_expirience', on_delete=models.CASCADE, verbose_name='Опыт работы')
-    education = models.ForeignKey('Education', verbose_name='Образование, дополнительные курсы',
-                                  on_delete=models.CASCADE)
+    # work_experiences = models.ForeignKey('Work_expirience', on_delete=models.CASCADE, verbose_name='Опыт работы')
+    work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы', related_name='work_experiences')
+    # education = models.ForeignKey('Education', verbose_name='Образование, дополнительные курсы',
+    #                               on_delete=models.CASCADE)
+    education = models.ManyToManyField('Education', verbose_name='Образование, дополнительные курсы')
     citizenship = models.ForeignKey('Citizenship', verbose_name='Гражданство', on_delete=models.CASCADE)
 
     first_name = models.CharField(max_length=64, verbose_name='Имя пользователя')
@@ -78,6 +80,7 @@ class Work_expirience(models.Model):
     organisation = models.CharField(max_length=64, verbose_name='Организация в которой работал')
     position = models.CharField(max_length=64, verbose_name='Должность')
     duties = models.TextField(blank=True, null=True, verbose_name='Обязанности')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='Резюме', null=True)
 
     class Meta:
         verbose_name = 'Опыт работы'
@@ -113,8 +116,12 @@ class Education(models.Model):
         verbose_name_plural = 'Образование'
 
     def __str__(self):
-        if self.institution:
+        if self.institution and self.specialisation and self.year_of_completion:
             return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
+        elif self.institution and self.specialisation:
+            return f'{self.institution}: {self.specialisation}'
+        elif self.institution:
+            return f'{self.institution}'
         else:
             return f'Образование отсутствует'
 
