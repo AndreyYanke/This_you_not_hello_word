@@ -22,6 +22,8 @@
                                 <div class="card-body">
                                     <form action="{% url 'user:regist_aspirant' %}" method="post">
                                         {% csrf_token %}
+                                        {{ form.non_fields_errors }}
+                                        {{ form.first_name.errors }}
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -29,6 +31,7 @@
                                                     {{ form.first_name }}
                                                 </div>
                                             </div>
+                                            {{ form.last_name.errors }}
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
@@ -37,11 +40,13 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
+                                            {{ form.username.errors }}
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя
                                                     пользователя</label>
                                                 {{ form.username }}
                                             </div>
+                                            {{ form.email.errors }}
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес
                                                     электронной
@@ -50,12 +55,14 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
+                                            {{ form.password1.errors }}
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
                                                     {{ form.password1 }}
                                                 </div>
                                             </div>
+                                            {{ form.password2.errors }}
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="{{ form.password2.id_for_label }}">Подтверждение
