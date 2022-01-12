@@ -37,5 +37,6 @@ class ResumeDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['work_experiences'] = Work_expirience.objects.filter(resume=self.kwargs['pk']).select_related()
+        context['work_experiences'] = Resume.objects.get(pk=self.kwargs['pk']).work_experiences.select_related()
+        context['educations'] = Resume.objects.get(pk=self.kwargs['pk']).education.select_related()
         return context

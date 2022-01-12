@@ -42,7 +42,6 @@ class City(TrackableUpdateCreateModel):
 
     name = models.CharField(max_length=100, null=True)
     country = CountryField(null=True)
-    # country_ru = models.CharField()
 
     class Meta:
         verbose_name = 'Город'
