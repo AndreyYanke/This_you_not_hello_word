@@ -13,7 +13,7 @@ class TestMainPage(TestCase):
         self.user = User.objects.create_user(username='Vasy123',
                                              password='111333222qwe',
                                              email='vasy123@mail.ru',
-                                             user_type='aspirant')
+                                             user_type=User.USER_TYPE_USER)
 
     def test_main_page_rules(self):
         response = self.client.get('/rules/')
@@ -22,12 +22,11 @@ class TestMainPage(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    def test_login_user(self):
-        # главная без логина
-        response = self.client.get('/')
+    def test_transition_auth(self):
+        response = self.client.get('/user/auth/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTrue(response.context['user'].is_anonymous)
 
+    def test_main_page(self):
         # логинимся
         self.client.login(username='Vasy123', password='111333222qwe')
 
@@ -36,19 +35,3 @@ class TestMainPage(TestCase):
         self.assertFalse(response.context['user'].is_anonymous)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context['user'], self.user)
-
-    def test_logout_user(self):
-        # логинимся
-        self.client.login(username='Vasy123', password='111333222qwe')
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertFalse(response.context['user'].is_anonymous)
-        self.assertEqual(response.context['user'], self.user)
-
-        # выходим из системы
-        response = self.client.get('/logout/')
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTrue(response.context['user'].is_anonymous)
