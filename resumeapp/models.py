@@ -1,45 +1,31 @@
 from django.db import models
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
+from this_you_not_hello_word import config
 from userapp.models import User, City
 
 
 class Resume(TrackableUpdateCreateModel):
-    WORK_SCHEDULE_TYPE_USER_FULL = 'full_time'
-    WORK_SCHEDULE_TYPE_USER_REPLACEABLE = 'replaceable'
-    WORK_SCHEDULE_TYPE_USER_FLEXIBLE = 'flexible'
-    WORK_SCHEDULE_TYPE_USER_REMOTE = 'remote'
-    WORK_SCHEDULE_TYPE_USER_SHIFT = 'remote'
+    WORK_SCHEDULE_TYPE_USER_FULL = config.WORK_SCHEDULE_TYPE_USER_FULL
+    WORK_SCHEDULE_TYPE_USER_REPLACEABLE = config.WORK_SCHEDULE_TYPE_USER_REPLACEABLE
+    WORK_SCHEDULE_TYPE_USER_FLEXIBLE = config.WORK_SCHEDULE_TYPE_USER_FLEXIBLE
+    WORK_SCHEDULE_TYPE_USER_REMOTE = config.WORK_SCHEDULE_TYPE_USER_REMOTE
+    WORK_SCHEDULE_TYPE_USER_SHIFT = config.WORK_SCHEDULE_TYPE_USER_SHIFT
 
-    BUSYNESS_TYPE_USER_FULL_EMLOYMENT = 'full employment'
-    BUSYNESS_TYPE_USER_PART_TIME_EMPLOYMENT = ' part-time employment'
-    BUSYNESSTYPE_USER_PROJECT_WORK = ' project work'
-    BUSYNESS_TYPE_USER_VOLUNTEERING = 'volunteering'
-    BUSYNESS_TYPE_USER_INTERNSHIP = ' internship'
+    STATUS_CHOICES_WORK_SCHEDULE = config.STATUS_CHOICES_WORK_SCHEDULE
 
-    SEX_M = 'man'
-    SEX_F = 'woman'
+    BUSYNESS_TYPE_USER_FULL_EMLOYMENT = config.BUSYNESS_TYPE_USER_FULL_EMLOYMENT
+    BUSYNESS_TYPE_USER_PART_TIME_EMPLOYMENT = config.BUSYNESS_TYPE_USER_PART_TIME_EMPLOYMENT
+    BUSYNESSTYPE_USER_PROJECT_WORK = config.BUSYNESSTYPE_USER_PROJECT_WORK
+    BUSYNESS_TYPE_USER_VOLUNTEERING = config.BUSYNESS_TYPE_USER_VOLUNTEERING
+    BUSYNESS_TYPE_USER_INTERNSHIP = config.BUSYNESS_TYPE_USER_INTERNSHIP
 
-    STATUS_CHOICES_WORK_SCHEDULE = (
-        (WORK_SCHEDULE_TYPE_USER_FULL, 'полный день'),
-        (WORK_SCHEDULE_TYPE_USER_REPLACEABLE, 'сменный график'),
-        (WORK_SCHEDULE_TYPE_USER_FLEXIBLE, 'гибкий работа'),
-        (WORK_SCHEDULE_TYPE_USER_REMOTE, 'удаленная работа'),
-        (WORK_SCHEDULE_TYPE_USER_SHIFT, 'вахтовый метод'),
-    )
+    STATUS_CHOICES_BUSYNESS = config.STATUS_CHOICES_BUSYNESS
+    
+    SEX_M = config.SEX_M
+    SEX_F = config.SEX_F
 
-    STATUS_CHOICES_BUSYNESS = (
-        (BUSYNESS_TYPE_USER_FULL_EMLOYMENT, 'полная занятость  '),
-        (BUSYNESS_TYPE_USER_PART_TIME_EMPLOYMENT, 'частичная занятость'),
-        (BUSYNESSTYPE_USER_PROJECT_WORK, 'проектная работа'),
-        (BUSYNESS_TYPE_USER_VOLUNTEERING, 'волонтерство '),
-        (BUSYNESS_TYPE_USER_INTERNSHIP, 'стажировка'),
-    )
-
-    STATUS_SEX = (
-        (SEX_M, 'мужской'),
-        (SEX_F, 'женский'),
-    )
+    STATUS_SEX = config.STATUS_SEX
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
