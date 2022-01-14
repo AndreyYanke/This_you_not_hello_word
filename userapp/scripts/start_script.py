@@ -12,8 +12,8 @@ def run():
     user = UserCreator()
     user()
 
-    # admin = AdminCreator()
-    # admin()
+    admin = AdminCreator()
+    admin()
 
     companies = CompanyCreator()
     companies()
