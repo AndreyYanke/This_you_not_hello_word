@@ -5,11 +5,15 @@ from database_filling.city_creator import CityCreator
 from database_filling.company_creator import CompanyCreator
 from database_filling.key_skill_creator import KeySkillsCreator
 from database_filling.admin_creator import AdminCreator
+from database_filling.user_creator import UserCreator
 
 
 def run():
-    admin = AdminCreator()
-    admin()
+    user = UserCreator()
+    user()
+
+    # admin = AdminCreator()
+    # admin()
 
     companies = CompanyCreator()
     companies()

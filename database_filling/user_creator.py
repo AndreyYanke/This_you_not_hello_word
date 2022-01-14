@@ -13,7 +13,7 @@ class UserCreator(BaseCreator):
                 'user_type': 'aspirant',
                 'username': 'nick',
                 'first_name': 'nick',
-                'last_name': 'shadrin',
+                'last_name': 'nick',
             },
         )
 
