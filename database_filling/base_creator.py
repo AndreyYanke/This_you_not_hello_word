@@ -9,10 +9,10 @@ class BaseCreator(metaclass=ABCMeta):
         pass
 
     def __call__(self):
-        self.create()
+        self.get_or_create()
 
 
-    def create(self):
+    def get_or_create(self):
         self.result = list()
         for object in self.data:
             self.result.append(self.models.objects.get_or_create(**object)[0])
