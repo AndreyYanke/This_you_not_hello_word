@@ -1,0 +1,29 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="mt-5">Вакансии:</h1>
+            <ul>
+            {% for vacancy in object_list %}
+                <li><b></b>
+                <a href="{% url 'vacancyapp:detail' pk=vacancy.id %}" class="">{{ vacancy.name }}</a>:</li>
+                Зарплата:
+                {% if vacancy.salary_from %}
+                  от {{ vacancy.salary_from }}
+                {% endif %}
+                {% if vacancy.salary_to %}
+                   до {{ vacancy.salary_to }}
+                {% endif %}
+                <br>
+                {{ vacancy.description|truncatechars:200 }}
+                <br><br>
+            {% empty %}
+                <li>No vacansies yet.</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

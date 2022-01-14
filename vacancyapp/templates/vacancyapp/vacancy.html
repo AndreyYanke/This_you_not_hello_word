@@ -1,0 +1,30 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">{{ vacancy.name }}</h1><br>
+                <h5>Адрес: <b>{{ city }}, {{ vacancy.address }}</b></h5><br>
+                <h6>Зарплата:
+                {% if vacancy.salary_from %}
+                  от {{ vacancy.salary_from }}
+                {% endif %}
+                {% if vacancy.salary_to %}
+                   до {{ vacancy.salary_to }}
+                {% endif %}</h6><br>
+                {{ vacancy.description }}<br><br>
+                {% if key_skills %}
+                  <h6>Ключевые навыки:<br>
+                    {% for key_skill in key_skills %}
+                      {{ key_skill }},
+                    {% endfor %}
+                  </h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+</form>
+{% endblock content %}
