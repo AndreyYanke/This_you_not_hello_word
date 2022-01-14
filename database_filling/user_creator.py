@@ -9,20 +9,11 @@ class UserCreator(BaseCreator):
         self.models = User
         self.data = (
             {
-                'email': '',
+                'email': 'nick@email.com',
                 'user_type': 'aspirant',
-                'username': '',
-                'password': '',
-                'first_name': '',
-                'last_name': '',
-            },
-            {
-                'email': '',
-                'user_type': 'aspirant',
-                'username': '',
-                'password': '',
-                'first_name': '',
-                'last_name': '',
+                'username': 'nick',
+                'first_name': 'nick',
+                'last_name': 'shadrin',
             },
         )
 
@@ -33,6 +24,7 @@ class UserCreator(BaseCreator):
 
 
     def __set_passwords__(self):
+        self.password = 'Password123'
         for user in self.result:
-            user.set_password(user.password)
+            user.set_password(self.password)
             user.save()

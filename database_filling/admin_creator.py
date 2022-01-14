@@ -12,7 +12,6 @@ class AdminCreator(UserCreator):
                 'email': 'email@email.com',
                 'user_type': 'aspirant',
                 'username': 'admin',
-                'password': 'Password123',
                 'is_superuser': True,
                 'is_staff': True,
                 'is_active': True,

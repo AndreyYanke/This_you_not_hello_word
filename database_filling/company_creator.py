@@ -10,7 +10,6 @@ class CompanyCreator(UserCreator):
         self.data = (
             {
                 'username': 'Ромашка',
-                'password': 'Password123',
                 'company_name': 'Ромашка',
                 'descriptions_company': 'ромашкуем',
                 'email': 'romashka@email.com',
@@ -19,7 +18,22 @@ class CompanyCreator(UserCreator):
             },
             {
                 'username': 'Рога и копыта',
-                'password': 'Password123',
+                'company_name': 'Рога и копыта',
+                'descriptions_company': 'рогуем и быкуем',
+                'email': 'roga-kopita@email.com',
+                'user_type': 'сompany',
+                'partner': True,
+            },
+            {
+                'username': 'Рога и копыта',
+                'company_name': 'Рога и копыта',
+                'descriptions_company': 'рогуем и быкуем',
+                'email': 'roga-kopita@email.com',
+                'user_type': 'сompany',
+                'partner': True,
+            },
+            {
+                'username': 'Рога и копыта',
                 'company_name': 'Рога и копыта',
                 'descriptions_company': 'рогуем и быкуем',
                 'email': 'roga-kopita@email.com',
