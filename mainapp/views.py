@@ -16,9 +16,10 @@ class MainPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['list_company_partners'] = User.objects.filter(partner=True)
-        context['list_news'] = NewsPost.objects.filter(is_active=True).order_by('-created_at')[:5]
-        # context['user'] = self.request.user
+        context['list_company_partners'] = User.objects.filter(partner=True).values('id',
+                                                                                    'company_name',
+                                                                                    'partner_image')
+        context['list_news'] = NewsPost.objects.filter(is_active=True).values('pk', 'title').order_by('-created_at')[:5]
         return context
 
 
