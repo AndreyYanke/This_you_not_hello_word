@@ -7,26 +7,29 @@ from vacancyapp.models import Vacancy, KeySkill
 from this_you_not_hello_word.settings import LOGIN_REDIRECT_URL
 
 
-class CreateVacancyView(CreateView):
+class CreateVacancyView(LoginRequiredMixin, CreateView):
     """Создание вакансии для компаний"""
     model = Vacancy
-    template_name = 'vacancyapp/vacancy.html'
+    template_name = 'vacancyapp/create.html'
     success_url = '/'
     form_class = VacancyForm
+    login_url = LOGIN_REDIRECT_URL
 
 
-class UpdateVacancyView(UpdateView):
+class UpdateVacancyView(LoginRequiredMixin, UpdateView):
     """Обновление вакансии для компаний"""
     model = Vacancy
     template_name = 'vacancyapp/update.html'
     success_url = '/'
     form_class = VacancyForm
+    login_url = LOGIN_REDIRECT_URL
 
 
-class DeleteVacancyView(DeleteView):
+class DeleteVacancyView(LoginRequiredMixin, DeleteView):
     """Удаление вакансии для компаний"""
     model = Vacancy
     template_name = 'mainapp/index.html'
+    login_url = LOGIN_REDIRECT_URL
 
 
 class VacancyDetailView(LoginRequiredMixin, DetailView):
@@ -48,4 +51,4 @@ class VacancyListView(ListView):
     """Отображение вакансий"""
     model = Vacancy
     template_name = 'vacancyapp/vacancies.html'
-    paginate_by = 100
+    paginate_by = 10

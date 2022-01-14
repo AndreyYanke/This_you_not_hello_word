@@ -6,7 +6,7 @@ from vacancyapp.models import Vacancy
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
-        exclude = ('user',)
+        exclude = ('user', 'is_active')
 
 
     def __init__(self, *args, **kwargs):

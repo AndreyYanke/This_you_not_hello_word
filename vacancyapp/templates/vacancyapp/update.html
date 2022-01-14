@@ -1,0 +1,16 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="mt-5">Изменение вакансии</h1>
+            <<form class="" action="index.html" method="post">
+              {% csrf_token %}
+              {{form}}
+              <input type="submit" name="Submit" value="Сохранить">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
