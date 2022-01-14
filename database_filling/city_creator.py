@@ -6,7 +6,7 @@ class CityCreator(BaseCreator):
     """Создает города."""
 
     def __init__(self):
-        self.models = City
+        self.model = City
         self.data = (
             {
                 'name': 'Saint-Petersburg',

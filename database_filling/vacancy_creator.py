@@ -10,7 +10,7 @@ class VacancyCreator(BaseCreator):
     def __init__(self, users, cities):
         self.users = users
         self.cities = cities
-        self.models = Vacancy
+        self.model = Vacancy
         self.data = (
             {
                 'name': 'Разработчик Python',
@@ -43,9 +43,9 @@ Python 3.6+, Django, Django REST Framework;\n\nхорошо уметь рабо�
                 'user': self.users[random.randint(0, len(users)-1)],
                 'required_experience_from': 0,
                 'required_experience_to': 3,
-                'work_schedule': self.models.STATUS_CHOICES_WORK_SCHEDULE[
+                'work_schedule': self.model.STATUS_CHOICES_WORK_SCHEDULE[
                     random.randint(
-                        0, len(self.models.STATUS_CHOICES_WORK_SCHEDULE)-1
+                        0, len(self.model.STATUS_CHOICES_WORK_SCHEDULE)-1
                     )
                 ][0],
             },
@@ -88,9 +88,9 @@ SQL, работали с реляционными базами данных;\n\n
                 'city': self.cities[random.randint(0, len(cities)-1)],
                 'user': self.users[random.randint(0, len(users)-1)],
                 'required_experience_to': 3,
-                'work_schedule': self.models.STATUS_CHOICES_WORK_SCHEDULE[
+                'work_schedule': self.model.STATUS_CHOICES_WORK_SCHEDULE[
                     random.randint(
-                        0, len(self.models.STATUS_CHOICES_WORK_SCHEDULE)-1
+                        0, len(self.model.STATUS_CHOICES_WORK_SCHEDULE)-1
                     )
                 ][0],
             },

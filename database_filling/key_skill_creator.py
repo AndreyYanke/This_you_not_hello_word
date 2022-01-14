@@ -6,7 +6,7 @@ class KeySkillsCreator(BaseCreator):
     '''Создает скилы.'''
 
     def __init__(self):
-        self.models = KeySkill
+        self.model = KeySkill
         self.data = (
             {
                 'name': 'Python',

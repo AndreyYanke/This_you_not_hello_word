@@ -15,4 +15,4 @@ class BaseCreator(metaclass=ABCMeta):
     def get_or_create(self):
         self.result = list()
         for object in self.data:
-            self.result.append(self.models.objects.get_or_create(**object)[0])
+            self.result.append(self.model.objects.get_or_create(**object)[0])

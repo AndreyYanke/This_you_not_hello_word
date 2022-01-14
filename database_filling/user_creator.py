@@ -6,7 +6,7 @@ class UserCreator(BaseCreator):
     """Создает города."""
 
     def __init__(self):
-        self.models = User
+        self.model = User
         self.data = (
             {
                 'email': 'nick@email.com',

@@ -29,10 +29,13 @@ def run():
         cities = cities.result,
     )
     vacancies()
-    for vacancy in vacancies.result:
-        before = random.randint(0, len(key_skills.result)-1)
-        after = random.randint(0, len(key_skills.result)-1)
 
-        while after < before:
-            after = random.randint(0, len(key_skills.result)-1)
-        vacancy.key_skills.add(*key_skills.result[before:after])
+    for vacancy in vacancies.result:
+        skills = set()
+        for _ in range(4):
+            skills.add(key_skills.result[random.randint(
+                0,
+                len(key_skills.result)-1,
+            )])
+
+        vacancy.key_skills.add(*skills)

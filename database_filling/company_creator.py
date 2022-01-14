@@ -6,7 +6,7 @@ class CompanyCreator(UserCreator):
     """Создает компании."""
 
     def __init__(self):
-        self.models = User
+        self.model = User
         self.data = (
             {
                 'username': 'Ромашка',

@@ -6,7 +6,7 @@ class AdminCreator(UserCreator):
     """Создает города."""
 
     def __init__(self):
-        self.models = User
+        self.model = User
         self.data = (
             {
                 'email': 'email@email.com',
