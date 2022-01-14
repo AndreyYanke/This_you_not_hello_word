@@ -31,6 +31,13 @@ class DeleteVacancyView(LoginRequiredMixin, DeleteView):
     template_name = 'mainapp/index.html'
     login_url = LOGIN_REDIRECT_URL
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vacancy = Vacancy.objects.get(pk=self.kwargs['pk'])
+        vacancy.delete()
+
+        return context
+
 
 class VacancyDetailView(LoginRequiredMixin, DetailView):
     """Вакансия для компаний"""
