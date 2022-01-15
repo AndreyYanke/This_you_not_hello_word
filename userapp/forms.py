@@ -7,7 +7,8 @@ from userapp.models import User
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('user_type', 'username', 'email', 'password1', 'password2')
+        widgets = {'user_type': forms.HiddenInput}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,5 +26,6 @@ class CompanyRegisterForm(RegisterForm):
     class Meta(RegisterForm.Meta):
         model = User
         fields = ('company_name',) + RegisterForm.Meta.fields
+
 
 
