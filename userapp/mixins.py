@@ -6,7 +6,6 @@ from this_you_not_hello_word.settings import LOGIN_REDIRECT_URL
 
 
 class AuthAfterRegistMixin:
-    success_url = LOGIN_REDIRECT_URL
 
     def form_valid(self, form):
         self.object = form.save()
