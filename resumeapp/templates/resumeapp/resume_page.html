@@ -1,62 +1,83 @@
 {% extends 'mainapp/base_main_page.html' %}
 
 {% block content %}
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <h1 class="mt-5">{{ resume.position }}</h1>
-                <p>
-                    {{ resume.first_name }}
-                    {{ resume.last_name }}
-                    {{ resume.age }} лет
-                    {{ resume.sex }}
-                    <br>
-                    {{ resume.city }} {{ resume.citizenship }}
-                    <br>
-                    <br>
-                    Желаемая зарплата: {{ resume.salary }}
-                    {% if resume.photo %}
-                        {{ resume.photo }}
-                    {% endif %}
-                    <br>
-                    <br>
-                {% if work_experiences %}
-                    Опыт работы:<br>
-                    {% for work_exper in work_experiences %}
-                            {{ work_exper.organisation }}<br>
-                            {{ work_exper.position }}<br>
-                        Дата работы: <br>
-                        {% if work_exper.start_of_work %}
-                            {{ work_exper.start_of_work | date:'m-Y'}} -
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">{{ resume.position }}</h1>
+                    <p>
+                        {{ resume.first_name }}
+                        {{ resume.last_name }}
+                        {% if resume.photo %}
+                            {{ resume.photo }}
                         {% endif %}
-                        {% if work_exper.end_of_work %}
-                                 {{ work_exper.end_of_work | date:'m-Y'}}
-                        {% endif %}<br>
-                         Обязанности: <br>
-                        {{ work_exper.duties  }}
                         <br>
-                    <br>
-                    {% endfor %}
-                {% endif %}
-                    <br>
-                {% if educations %}
-                     Образование:<br>
+                        {#TODO обрабоать слово год/лет взависимости от цифры возраста#}
+                        {{ resume.age }} года
+                        <br>
+                        Пол: {{ sex }}
+                        <br>
+                        {{ resume.contact_info }}
+                        <br>
+                        Город проживания: {{ resume.city }}
+                        <br>
+                        {% if resume.ready_to_move == True %}
+                            Готов к переезду: да
+                        {% else %}
+                            Готов к переезду: нет
+                        {% endif %}
+                        <br>
+                        Гражданство: {{ resume.citizenship }}
+                        <br>
+                        Желаемая позиция: {{ resume.position }}
+                        <br>
+                        Желаемая зарплата: {{ resume.salary }}
+                        <br>
+                        <br>
+                        Занятость: {{ busyness }}
+                        <br>
+
+                        <br>
+                        График работы: {{ work_schedule }}
+                        <br>
+                        <br>
+                        {{ resume.about_myself }}
+                        <br>
+
+                        {% if work_experiences %}
+                            Опыт работы:<br>
+                            {% for work_exper in work_experiences %}
+                                {{ work_exper.organisation }}<br>
+                                {{ work_exper.position }}<br>
+                                Дата работы: <br>
+                                {% if work_exper.start_of_work %}
+                                    {{ work_exper.start_of_work | date:'m-Y' }} :
+                                {% endif %}
+                                    {{ work_exper.end_of_work|date:'m-Y'|default:"по настоящее время"  }}
+                                <br>
+                                Обязанности: <br>
+                                {{ work_exper.duties }}
+                                <br>
+                                <br>
+                            {% endfor %}
+                        {% endif %}
+                        <br>
+                        {% if educations %}
+                            Образование:<br>
                     {% for education in educations %}
-                            {{ education.level }}<br>
-                            {{ education.institution }}<br>
-                            {{ education.faculty }}<br>
-                            {{ education.specialisation }}<br>
-                            {{ education.year_of_completion  }}<br>
-                            {{ education.image_sertiificate }}<br>
+                                {{ education.level }}<br>
+                                {{ education.institution }}<br>
+                                {{ education.faculty }}<br>
+                                {{ education.specialisation }}<br>
+                                {{ education.year_of_completion }}<br>
+                                {{ education.image_sertiificate }}<br>
                     {% endfor %}
-                {% endif %}
-
-
-                </p>
+                    {% endif %}
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-</form>
+    </section>
+    </form>
 {% endblock content %}
