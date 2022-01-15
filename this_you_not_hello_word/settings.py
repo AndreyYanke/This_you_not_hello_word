@@ -45,6 +45,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'this_you_not_hello_word.urls'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
