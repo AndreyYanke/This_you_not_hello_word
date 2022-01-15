@@ -44,12 +44,12 @@ def run():
 
         vacancy.key_skills.add(*skills)
 
-    citizenship = CitizenshipCreator()
-    citizenship()
+    citizenships = CitizenshipCreator()
+    citizenships()
 
-    resumes = ResumeCreator(
-        users = users.result,
-        cities = cities.result,
-        citizenships = citizenships.result,
-    )
-    resumes()
+    # resumes = ResumeCreator(
+    #     users = users.result,
+    #     cities = cities.result,
+    #     citizenships = citizenships.result,
+    # )
+    # resumes()
