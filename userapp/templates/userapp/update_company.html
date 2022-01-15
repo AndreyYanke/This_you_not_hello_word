@@ -1,0 +1,92 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    {#    <form class="form-horizontal" action="{% url 'regist:company' %}" method="post" enctype="multipart/form-data">#}
+    {#        {% csrf_token %}#}
+    {#        <h2>Редактиврование работодателя</h2>#}
+    {#        {{ form.as_p }}#}
+    {#        <button type="submit" class="form-control">Редактиврование</button>#}
+    {#    </form>#}
+
+    <body class="">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h2 class="text-center font-weight-light my-4">Редактиврование
+                                    работодателя</h2>
+                                </div>
+                                <div class="card-body">
+                                    <form action="{% url 'user:regist_company' %}" method="post">
+                                        {% csrf_token %}
+                                        {{ form.non_fields_errors }}
+                                        {{ form.user_type }}
+                                        {{ form.company_name.errors }}
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="small mb-1"
+                                                           for="{{ form.company_name.id_for_label }}">Название
+                                                        компании</label>
+                                                    {{ form.company_name }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            {{ form.username.errors }}
+                                            <div class="col-md-6">
+                                                <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя
+                                                    пользователя</label>
+                                                {{ form.username }}
+                                            </div>
+                                            {{ form.email.errors }}
+                                            <div class="col-md-6">
+                                                <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес
+                                                    электронной
+                                                    почты</label>
+                                                {{ form.email }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            {{ form.password1.errors }}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
+                                                    {{ form.password1 }}
+                                                </div>
+                                            </div>
+                                            {{ form.password2.errors }}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="{{ form.password2.id_for_label }}">Подтверждение
+                                                        пароля</label>
+                                                    {{ form.password2 }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4 mb-0">
+                                            <input class="btn btn-primary btn-block" type="submit"
+                                                   value="Сохранить">
+                                        </div>
+                                    </form>
+                                    <form class="form-group mt-4 mb-0" action="{% url 'user:delete' user.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" name="Submit" value="Удалить">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+{% endblock content %}

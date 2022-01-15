@@ -1,0 +1,15 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+              <h1 class="mt-5">{{ user.company_name }}</h1><br>
+              <h6>Описание:<br></h6>
+              {{ user.descriptions_company }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView
 
 from this_you_not_hello_word.settings import LOGIN_REDIRECT_URL
 from userapp.forms import AspirantRegisterForm, CompanyRegisterForm
@@ -23,13 +23,32 @@ class CompanyRegistration(AuthAfterRegistMixin, CreateView):
     success_url = LOGIN_REDIRECT_URL
 
 
+class CompanyUpdateView(AuthAfterRegistMixin, UpdateView):
+    model = User
+    form_class = CompanyRegisterForm
+    template_name = 'userapp/update_company.html'
+    success_url = reverse_lazy('main:main')
+
+
+class CompanyDeleteView(AuthAfterRegistMixin, DeleteView):
+    model = User
+    template_name = 'userapp/update_company.html'
+    success_url = reverse_lazy('main:main')
+
+
+class CompanyDetailView(AuthAfterRegistMixin, DetailView):
+    model = User
+    template_name = 'userapp/company.html'
+    success_url = reverse_lazy('main:main')
+
+
 class AspirantRegistration(AuthAfterRegistMixin, CreateView):
 
     """Регистрация для соискателя"""
     template_name = 'userapp/regist_aspirant.html'
     form_class = AspirantRegisterForm
     initial = {'user_type': User.USER_TYPE_USER}
-    success_url = reverse_lazy('vacancy:list')
+    success_url = reverse_lazy('main:main')
 
 
 class UserLogoutView(LogoutView):
