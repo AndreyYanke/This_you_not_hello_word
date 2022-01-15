@@ -23,6 +23,7 @@
                                     <form action="{% url 'user:regist_aspirant' %}" method="post">
                                         {% csrf_token %}
                                         {{ form.non_fields_errors }}
+                                        {{ form.user_type }}
                                         {{ form.first_name.errors }}
                                         <div class="form-row">
                                             <div class="col-md-6">
