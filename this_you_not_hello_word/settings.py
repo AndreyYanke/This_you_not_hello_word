@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
     'mainapp.apps.MainappConfig',
@@ -96,7 +97,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-Ru'
 
 TIME_ZONE = 'UTC'
 

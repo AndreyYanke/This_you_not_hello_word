@@ -22,6 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls', namespace='main')),
     path('news/', include('newsapp.urls', namespace='news')),
+    path('regist/', include('userapp.urls', namespace='regist')),
+    path('resume/', include('resumeapp.urls', namespace='resume')),
+    path('vacancy/', include('vacancyapp.urls', namespace='vacancy')),
+    path('user/', include('userapp.urls', namespace='user')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

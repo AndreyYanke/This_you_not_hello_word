@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django_countries.fields import CountryField
 from django.db import models
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
@@ -38,7 +39,9 @@ class User(AbstractUser):
 
 
 class City(TrackableUpdateCreateModel):
-    name = models.CharField(max_length=255, verbose_name='Город')
+
+    name = models.CharField(max_length=100, null=True)
+    country = CountryField(null=True)
 
     class Meta:
         verbose_name = 'Город'
