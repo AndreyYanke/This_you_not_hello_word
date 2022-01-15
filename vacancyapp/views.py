@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
 from vacancyapp.forms import VacancyForm
@@ -11,32 +12,23 @@ class CreateVacancyView(LoginRequiredMixin, CreateView):
     """Создание вакансии для компаний"""
     model = Vacancy
     template_name = 'vacancyapp/create.html'
-    success_url = '/'
     form_class = VacancyForm
-    login_url = LOGIN_REDIRECT_URL
+    success_url = reverse_lazy('main:main')
 
 
 class UpdateVacancyView(LoginRequiredMixin, UpdateView):
     """Обновление вакансии для компаний"""
     model = Vacancy
     template_name = 'vacancyapp/update.html'
-    success_url = '/'
     form_class = VacancyForm
-    login_url = LOGIN_REDIRECT_URL
+    success_url = reverse_lazy('main:main')
 
 
-class DeleteVacancyView(LoginRequiredMixin, DeleteView):
+class DeleteVacancyView(DeleteView):
     """Удаление вакансии для компаний"""
     model = Vacancy
-    template_name = 'mainapp/index.html'
-    login_url = LOGIN_REDIRECT_URL
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        vacancy = Vacancy.objects.get(pk=self.kwargs['pk'])
-        vacancy.delete()
-
-        return context
+    template_name = 'vacancyapp/update.html'
+    success_url = reverse_lazy('main:main')
 
 
 class VacancyDetailView(LoginRequiredMixin, DetailView):
@@ -44,7 +36,7 @@ class VacancyDetailView(LoginRequiredMixin, DetailView):
     model = Vacancy
     template_name = 'vacancyapp/vacancy.html'
     context_object_name = 'vacancy'
-    login_url = LOGIN_REDIRECT_URL
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

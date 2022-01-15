@@ -26,5 +26,9 @@
         </div>
     </div>
 </section>
-</form>
+        <form class="" action="{% url 'vacancy:update' vacancy.id %}">
+            {% csrf_token %}
+            <input type="submit" name="Submit" value="Редактирование">
+        </form>
+
 {% endblock content %}

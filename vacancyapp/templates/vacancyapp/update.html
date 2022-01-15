@@ -1,16 +1,20 @@
 {% extends 'mainapp/base_main_page.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1 class="mt-5">Изменение вакансии</h1>
-            <<form class="" action="index.html" method="post">
-              {% csrf_token %}
-              {{form}}
-              <input type="submit" name="Submit" value="Сохранить">
-            </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Изменение вакансии</h1>
+                <form class="" action="{% url 'vacancy:update' vacancy.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" name="Submit" value="Сохранить">
+                </form>
+                <form class="" action="{% url 'vacancy:delete' vacancy.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="Submit" value="Удалить">
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock content %}
