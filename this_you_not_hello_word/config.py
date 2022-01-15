@@ -36,3 +36,14 @@ STATUS_SEX = (
     (SEX_M, 'мужской'),
     (SEX_F, 'женский'),
 )
+
+
+LEVEL_OF_EDUCATION_PRIMARY = 'primary'
+LEVEL_OF_EDUCATION_SECONDARY = 'secondary'
+LEVEL_OF_EDUCATION_HIGHER = 'higher'
+
+STATUS_CHOICES_LEVEL_OF_EDUCATION = (
+    (LEVEL_OF_EDUCATION_PRIMARY, 'начальное образование'),
+    (LEVEL_OF_EDUCATION_SECONDARY, 'среднее образование'),
+    (LEVEL_OF_EDUCATION_HIGHER, 'высшее образование'),
+)

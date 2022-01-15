@@ -21,7 +21,7 @@ class Resume(TrackableUpdateCreateModel):
     BUSYNESS_TYPE_USER_INTERNSHIP = config.BUSYNESS_TYPE_USER_INTERNSHIP
 
     STATUS_CHOICES_BUSYNESS = config.STATUS_CHOICES_BUSYNESS
-    
+
     SEX_M = config.SEX_M
     SEX_F = config.SEX_F
 
@@ -75,15 +75,11 @@ class Work_expirience(models.Model):
 
 
 class Education(models.Model):
-    LEVEL_OF_EDUCATION_PRIMARY = 'primary'
-    LEVEL_OF_EDUCATION_SECONDARY = 'secondary'
-    LEVEL_OF_EDUCATION_HIGHER = 'higher'
+    LEVEL_OF_EDUCATION_PRIMARY = config.LEVEL_OF_EDUCATION_PRIMARY
+    LEVEL_OF_EDUCATION_SECONDARY = config.LEVEL_OF_EDUCATION_SECONDARY
+    LEVEL_OF_EDUCATION_HIGHER = config.LEVEL_OF_EDUCATION_HIGHER
 
-    STATUS_CHOICES_LEVEL_OF_EDUCATION = (
-        (LEVEL_OF_EDUCATION_PRIMARY, 'начальное образование'),
-        (LEVEL_OF_EDUCATION_SECONDARY, 'среднее образование'),
-        (LEVEL_OF_EDUCATION_HIGHER, 'высшее образование'),
-    )
+    STATUS_CHOICES_LEVEL_OF_EDUCATION = config.STATUS_CHOICES_LEVEL_OF_EDUCATION
 
     level = models.CharField(max_length=30, choices= STATUS_CHOICES_LEVEL_OF_EDUCATION, null=True, verbose_name='Уровень образования')
     institution = models.CharField(max_length=124, verbose_name='Учебное учреждение', blank=True, null=True)
