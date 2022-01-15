@@ -1,4 +1,4 @@
-from userapp.models import City
+from resumeapp.models import Citizenship
 from database_filling.base_creator import BaseCreator
 
 

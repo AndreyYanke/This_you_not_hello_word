@@ -39,8 +39,8 @@ Python 3.6+, Django, Django REST Framework;\n\nхорошо уметь рабо�
                 'is_active': True,
                 'salary_to': 80000,
                 'address': 'Ленинский пр., дом 45',
-                'city': self.cities[random.randint(0, len(cities)-1)],
-                'user': self.users[random.randint(0, len(users)-1)],
+                'city': self.cities[random.randint(0, len(self.cities)-1)],
+                'user': self.users[random.randint(0, len(self.users)-1)],
                 'required_experience_from': 0,
                 'required_experience_to': 3,
                 'work_schedule': self.model.STATUS_CHOICES_WORK_SCHEDULE[
@@ -85,8 +85,8 @@ SQL, работали с реляционными базами данных;\n\n
                 'salary_from': 70000,
                 'salary_to': 80000,
                 'address': 'Лесной пр., дом 31',
-                'city': self.cities[random.randint(0, len(cities)-1)],
-                'user': self.users[random.randint(0, len(users)-1)],
+                'city': self.cities[random.randint(0, len(self.cities)-1)],
+                'user': self.users[random.randint(0, len(self.users)-1)],
                 'required_experience_to': 3,
                 'work_schedule': self.model.STATUS_CHOICES_WORK_SCHEDULE[
                     random.randint(
