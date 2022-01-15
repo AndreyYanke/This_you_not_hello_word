@@ -26,33 +26,16 @@
                 {#                    </a>#}
                 {#                </button>#}
             </div>
-            <div class="col-lg-6">
-                {% if not user.is_authenticated %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h1 class="mt-5">Вход в систему</h1>
-                                <form class="form-horizontal" action="{% url 'main:main' %}" method="post">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <br>
-                                    <input class="form-control" type="submit" value="войти">
-                                </form>
-                                <p>Нет аккаунта?<a href="{% url 'regist:type_user' %}">Зарегистрироваться</a></p>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="mt-5">Новостная лента</h1>
                 {% for news in list_news %}
                     <p>
-                        <a href="{% url 'news:detail_news' news.pk %}">{{ news }}</a>
+                        <a href="{% url 'news:detail_news' news.pk %}">{{ news.title }}</a>
                     </p>
                 {% endfor %}
+                <a href="{% url 'news:list_news' %}">Все новости</a>
             </div>
         </div>
         <div class="row">

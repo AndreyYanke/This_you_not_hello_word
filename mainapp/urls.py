@@ -7,5 +7,4 @@ app_name = 'mainapp'
 urlpatterns = [
     path('', mainapp.MainPageView.as_view(), name='main'),
     path('rules/', mainapp.RulesSiteView.as_view(), name='rules'),
-    path('logout/', mainapp.UserLogoutView.as_view(), name='logout'),
 ]

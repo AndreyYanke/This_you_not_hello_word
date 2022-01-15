@@ -1,6 +1,16 @@
 {% extends 'mainapp/base_main_page.html' %}
 
 {% block content %}
-    <button onclick="window.location.href = '{% url 'regist:aspirant' %}';">Соискатель</button>
-    <button onclick="window.location.href = '{% url 'regist:company' %}';">Работодатель</button>
+    <div style="padding-top: 25%">
+        <div class="col text-center justify-content-center align-self-center">
+            <p>Вы хотите зарегистрироваться как:</p>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'user:regist_aspirant' %}';">
+                Соискатель
+            </button>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'user:regist_company' %}';">
+                Работодатель
+            </button>
+        </div>
+
+    </div>
 {% endblock content %}

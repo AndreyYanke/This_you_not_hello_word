@@ -4,11 +4,10 @@ from django import forms
 from userapp.models import User
 
 
-class AspirantRegisterForm(UserCreationForm):
+class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('user_type', 'username', 'first_name', 'last_name', 'email', 'password1', 'password2')
-        widgets = {'user_type': forms.HiddenInput}
+        fields = ('username', 'email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -16,13 +15,15 @@ class AspirantRegisterForm(UserCreationForm):
             field.widget.attrs['class'] = 'form-control'
 
 
-class CompanyRegisterForm(UserCreationForm):
-    class Meta:
+class AspirantRegisterForm(RegisterForm):
+    class Meta(RegisterForm.Meta):
         model = User
-        fields = ('user_type', 'username', 'company_name', 'email', 'password1', 'password2')
-        widgets = {'user_type': forms.HiddenInput}
+        fields = ('first_name', 'last_name') + RegisterForm.Meta.fields
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+
+class CompanyRegisterForm(RegisterForm):
+    class Meta(RegisterForm.Meta):
+        model = User
+        fields = ('company_name',) + RegisterForm.Meta.fields
+
+
