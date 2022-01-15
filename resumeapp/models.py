@@ -29,8 +29,8 @@ class Resume(TrackableUpdateCreateModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
-    work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы', related_name='work_experiences', blank=True, null=True)
-    education = models.ManyToManyField('Education', verbose_name='Образование, дополнительные курсы', related_name='educations', blank=True, null=True)
+    work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы', related_name='work_experiences', blank=True)
+    education = models.ManyToManyField('Education', verbose_name='Образование, дополнительные курсы', related_name='educations', blank=True)
     citizenship = models.ForeignKey('Citizenship', verbose_name='Гражданство', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64, verbose_name='Имя пользователя')
     last_name = models.CharField(max_length=64, verbose_name='Фамилия пользователя')
