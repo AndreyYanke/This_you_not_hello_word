@@ -33,7 +33,7 @@ class UpdateResumeView(UpdateView):
     model = Resume
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
-    success_url = reverse_lazy('resume:list')
+
 
 
 class DeleteResumeView(DeleteView):
