@@ -44,8 +44,7 @@ class UserLoginView(LoginView):
         if self.request.user.user_type == User.USER_TYPE_USER:
             url = reverse_lazy('vacancy:list')
         elif self.request.user.user_type == User.USER_TYPE_COMPANY:
-            # Добавить list view резюме вместо LOGIN_REDIRECT_URL
-            url = LOGIN_REDIRECT_URL
+            url = reverse_lazy('resume:list')
         else:
             url = LOGIN_REDIRECT_URL
         return url
