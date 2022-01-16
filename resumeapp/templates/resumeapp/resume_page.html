@@ -16,55 +16,53 @@
                         {#TODO обрабоать слово год/лет взависимости от цифры возраста#}
                         {{ resume.age }} года
                         <br>
-                        Пол: {{ sex }}
+                        <b>Пол:</b> {{ sex }}
                         <br>
                         {{ resume.contact_info }}
                         <br>
-                        Город проживания: {{ resume.city }}
+                        <b>Город проживания:</b> {{ resume.city }}
                         <br>
                         {% if resume.ready_to_move == True %}
-                            Готов к переезду: да
+                            <b>Готов к переезду:</b> да
                         {% else %}
-                            Готов к переезду: нет
+                            <b>Готов к переезду:</b> нет
                         {% endif %}
                         <br>
-                        Гражданство: {{ resume.citizenship }}
+                        <b>Гражданство:</b> {{ resume.citizenship }}
                         <br>
-                        Желаемая позиция: {{ resume.position }}
+                        <b>Желаемая позиция:</b> {{ resume.position }}
                         <br>
-                        Желаемая зарплата: {{ resume.salary }}
+                        <b>Желаемая зарплата:</b> {{ resume.salary }}
                         <br>
-                        <br>
-                        Занятость: {{ busyness }}
-                        <br>
-
-                        <br>
-                        График работы: {{ work_schedule }}
-                        <br>
-                        <br>
-                        {{ resume.about_myself }}
+                        <b>Занятость:</b> {{ busyness }}
                         <br>
 
+                        <b>График работы:</b> {{ work_schedule }}
+                        <br>
+                        <b>О Себе:</b> {{ resume.about_myself }}
+                        <br>
                         {% if work_experiences %}
-                            Опыт работы:<br>
+                            <b>Опыт работы:</b>
+                            <br>
                             {% for work_exper in work_experiences %}
                                 {{ work_exper.organisation }}<br>
                                 {{ work_exper.position }}<br>
-                                Дата работы: <br>
+                                <b>Дата работы:</b> <br>
                                 {% if work_exper.start_of_work %}
                                     {{ work_exper.start_of_work | date:'m-Y' }} :
                                 {% endif %}
                                     {{ work_exper.end_of_work|date:'m-Y'|default:"по настоящее время"  }}
                                 <br>
-                                Обязанности: <br>
-                                {{ work_exper.duties }}
+                                <b>Обязанности: </b>
                                 <br>
+                                {{ work_exper.duties }}
                                 <br>
                             {% endfor %}
                         {% endif %}
                         <br>
                         {% if educations %}
-                            Образование:<br>
+                            <b>Образование: </b>
+                            <br>
                     {% for education in educations %}
                                 {{ education.level }}<br>
                                 {{ education.institution }}<br>
@@ -79,5 +77,9 @@
             </div>
         </div>
     </section>
-    </form>
+        <form class="" action="{% url 'resume:update' resume.id %}">
+            {% csrf_token %}
+            <input type="submit" name="Submit" value="Редактирование">
+        </form>
+
 {% endblock content %}

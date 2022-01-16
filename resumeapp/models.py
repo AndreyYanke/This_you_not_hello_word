@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from this_you_not_hello_word import config
@@ -52,6 +53,10 @@ class Resume(TrackableUpdateCreateModel):
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
 
+    def get_absolute_url(self):
+        url = reverse('resume:detail', args=[self.id])
+        return url
+
     def __str__(self):
         return f'{self.position}'
 
@@ -94,15 +99,15 @@ class Education(models.Model):
         verbose_name = 'Образование'
         verbose_name_plural = 'Образование'
 
-    # def __str__(self):
-    #     if self.institution and self.specialisation and self.year_of_completion:
-    #         return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
-    #     elif self.institution and self.specialisation:
-    #         return f'{self.institution}: {self.specialisation}'
-    #     elif self.institution:
-    #         return f'{self.institution}'
-    #     else:
-    #         return f'Образование отсутствует'
+    def __str__(self):
+        if self.institution and self.specialisation and self.year_of_completion:
+            return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
+        elif self.institution and self.specialisation:
+            return f'{self.institution}: {self.specialisation}'
+        elif self.institution:
+            return f'{self.institution} | обучение не окончено'
+        else:
+            return f'Образование отсутствует'
 
 
 class Citizenship(models.Model):

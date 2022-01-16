@@ -21,7 +21,6 @@ class UpdateVacancyView(LoginRequiredMixin, UpdateView):
     model = Vacancy
     template_name = 'vacancyapp/update.html'
     form_class = VacancyForm
-    success_url = reverse_lazy('main:main')
 
 
 class DeleteVacancyView(DeleteView):
