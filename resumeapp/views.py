@@ -1,11 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
 from resumeapp.forms import ResumeForm
 from resumeapp.models import Resume
 from this_you_not_hello_word import config
-from this_you_not_hello_word.settings import LOGIN_REDIRECT_URL
+
+
+class ListResumeView(ListView):
+    """Просмотр всех резюме"""
+    model = Resume
+    template_name = 'resumeapp/all_resume.html'
+    form_class = ResumeForm
+    success_url = reverse_lazy('main:main')
 
 
 class CreateResumeView(CreateView):
@@ -36,7 +43,7 @@ class ResumeDetailView(LoginRequiredMixin, DetailView):
     model = Resume
     template_name = 'resumeapp/resume_page.html'
     context_object_name = 'resume'
-    login_url = LOGIN_REDIRECT_URL
+
 
     def get_context_data(self, **kwargs):
         resume = self.get_object()

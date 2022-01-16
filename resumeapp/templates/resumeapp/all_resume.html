@@ -1,0 +1,24 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="mt-5"> <b>{{ resume.position }}</b></h2><br>
+                    <p>Город проживания: {{ resume.city }} {{ resume.contact_info }}<br>
+                        Зарплата:
+                            {% if resume.salary_from %}
+                                от {{ resume.salary_from }}
+                            {% endif %}
+                            {% if resume.salary_to %}
+                                до {{ resume.salary_to }}
+                            {% endif %}
+                    </p>
+                    <br>
+                    Тип занятости: {{ resume.busyness }}<br><br>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
