@@ -7,7 +7,23 @@
                 <h1 class="mt-5">Изменение резюме</h1>
                 <form class="" action="{% url 'resume:update' resume.id %}" method="post">
                     {% csrf_token %}
-                    {{ form }}
+                    <h6>
+                        Имя: {{ form.first_name }} <br>
+                        Фамилия: {{ form.last_name }}<br>
+                        Фото: {{ form.photo }}<br>
+                        Возраст: {{ form.age }}<br>
+                        Пол: {{ form.sex }}<br>
+                        Контактная информация: {{ form.contact_info }}<br>
+                        Город проживания: {{ form.city }}<br>
+                        Готов к переезду: {{ form.ready_to_move }}<br>
+                        Гражданство: {{ form.citizenship }}<br>
+                        Желаемая позиция: {{ form.position }}<br>
+                        Желаемая зарплата: {{ form.salary }}<br>
+                        Занятость: {{ form.busyness }}<br>
+                        График работы: {{ form.work_schedule }}<br>
+                        О Себе:{{ form.about_myself }}<br>
+                        Опыт работы: {{ form.work_experiences }}<br>
+                    </h6>
                     <input type="submit" name="Submit" value="Сохранить">
                 </form>
                 <form class="" action="{% url 'resume:delete' resume.id %}" method="post">

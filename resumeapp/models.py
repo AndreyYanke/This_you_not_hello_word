@@ -98,15 +98,15 @@ class Education(models.Model):
         verbose_name = 'Образование'
         verbose_name_plural = 'Образование'
 
-    # def __str__(self):
-    #     if self.institution and self.specialisation and self.year_of_completion:
-    #         return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
-    #     elif self.institution and self.specialisation:
-    #         return f'{self.institution}: {self.specialisation}'
-    #     elif self.institution:
-    #         return f'{self.institution}'
-    #     else:
-    #         return f'Образование отсутствует'
+    def __str__(self):
+        if self.institution and self.specialisation and self.year_of_completion:
+            return f'{self.institution}: {self.specialisation} | {self.year_of_completion}'
+        elif self.institution and self.specialisation:
+            return f'{self.institution}: {self.specialisation}'
+        elif self.institution:
+            return f'{self.institution}'
+        else:
+            return f'Образование отсутствует'
 
 
 class Citizenship(models.Model):
