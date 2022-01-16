@@ -1,22 +1,37 @@
 {% extends 'mainapp/base_main_page.html' %}
-
 {% block content %}
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h2 class="mt-5"> <b>{{ resume.position }}</b></h2><br>
-                    <p>Город проживания: {{ resume.city }} {{ resume.contact_info }}<br>
-                        Зарплата:
-                            {% if resume.salary_from %}
-                                от {{ resume.salary_from }}
+                    {% for resume in object_list %}
+                        {% csrf_token %}
+                        <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:</li>
+                        {{ resume.photo }}
+                        <p>Город проживания: {{ resume.city }} <br>
+                            Контакты: {{ resume.contact_info }}<br>
+                            Зарплата:
+                            {% if resume.salary %}
+                                от {{ resume.salary }}
                             {% endif %}
-                            {% if resume.salary_to %}
-                                до {{ resume.salary_to }}
-                            {% endif %}
-                    </p>
-                    <br>
-                    Тип занятости: {{ resume.busyness }}<br><br>
+                            <br>
+                            Тип занятости:
+                            {% for status in config.STATUS_CHOICES_BUSYNESS %}
+                                {% if status.0 == resume.busyness %}
+                                    {{ status.1 }}
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                            График работы:
+                            {% for status in config.STATUS_CHOICES_WORK_SCHEDULE %}
+                                {% if status.0 == resume.work_schedule %}
+                                    {{ status.1 }}
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                            О себе: {{ resume.about_myself|truncatechars:200 }}
+                        </p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

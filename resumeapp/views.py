@@ -8,11 +8,16 @@ from this_you_not_hello_word import config
 
 
 class ListResumeView(ListView):
-    """Просмотр всех резюме"""
+    """Отображение всех резюме"""
     model = Resume
     template_name = 'resumeapp/all_resume.html'
     form_class = ResumeForm
-    success_url = reverse_lazy('main:main')
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['config'] = config
+        return context
 
 
 class CreateResumeView(CreateView):
@@ -20,7 +25,7 @@ class CreateResumeView(CreateView):
     model = Resume
     template_name = 'resumeapp/resume_create.html'
     form_class = ResumeForm
-    success_url = reverse_lazy('main:main')
+    success_url = reverse_lazy('resume:list')
 
 
 class UpdateResumeView(UpdateView):
@@ -28,14 +33,14 @@ class UpdateResumeView(UpdateView):
     model = Resume
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
-    success_url = reverse_lazy('main:main')
+    success_url = reverse_lazy('resume:list')
 
 
 class DeleteResumeView(DeleteView):
     """Удаление резюме для соискателя"""
     model = Resume
     template_name = 'resumeapp/resume_update.html'
-    success_url = reverse_lazy('main:main')
+    success_url = reverse_lazy('resume:list')
 
 
 class ResumeDetailView(LoginRequiredMixin, DetailView):
@@ -43,7 +48,6 @@ class ResumeDetailView(LoginRequiredMixin, DetailView):
     model = Resume
     template_name = 'resumeapp/resume_page.html'
     context_object_name = 'resume'
-
 
     def get_context_data(self, **kwargs):
         resume = self.get_object()

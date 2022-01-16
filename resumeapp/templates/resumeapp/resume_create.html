@@ -5,7 +5,6 @@
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="mt-5">Создание резюме </h1>
-                {#<form class="" action="index.html" method="post">#}
                 <form class="" action="{% url 'resume:create' %}" method="post">
                     {% csrf_token %}
                     <h6>
