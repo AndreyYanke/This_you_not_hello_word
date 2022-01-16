@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from userapp.models import User, City
@@ -41,6 +42,10 @@ class Vacancy(TrackableUpdateCreateModel):
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
+
+    def get_absolute_url(self):
+        url = reverse('vacancy:detail', args=[self.id])
+        return url
 
     def __str__(self):
         return self.name
