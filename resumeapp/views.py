@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
+from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm
 from resumeapp.models import Resume
 from this_you_not_hello_word import config
@@ -13,10 +14,12 @@ class ListResumeView(ListView):
     template_name = 'resumeapp/all_resume.html'
     form_class = ResumeForm
     paginate_by = 10
+    ordering = '-created_at'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['config'] = config
+        context['filter'] = ResumeFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 
@@ -33,7 +36,6 @@ class UpdateResumeView(UpdateView):
     model = Resume
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
-
 
 
 class DeleteResumeView(DeleteView):
