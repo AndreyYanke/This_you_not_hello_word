@@ -7,7 +7,7 @@
         {% if user.user_type == user.USER_TYPE_USER %}
             <a class="navbar-brand" href="{% url 'vacancy:list' %}">Вакансии</a>
         {% elif user.user_type == user.USER_TYPE_COMPANY %}
-            <a class="navbar-brand" href="#">Резюме</a>
+            <a class="navbar-brand" href="{% url 'resume:list' %}">Резюме</a>
         {% endif %}
     {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
