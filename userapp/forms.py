@@ -28,4 +28,13 @@ class CompanyRegisterForm(RegisterForm):
         fields = ('company_name',) + RegisterForm.Meta.fields
 
 
+class CompanyUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('company_name', 'partner_image', 'descriptions_company', 'email')
 
+
+class AspirantUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
