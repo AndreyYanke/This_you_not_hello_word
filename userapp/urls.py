@@ -10,7 +10,7 @@ urlpatterns = [
     path('company/', userapp.CompanyRegistration.as_view(), name='regist_company'),
     path('logout/', userapp.UserLogoutView.as_view(), name='logout'),
     path('auth/', userapp.UserLoginView.as_view(), name='auth'),
-    path('delete/<int:pk>/', userapp.CompanyDeleteView.as_view(), name='delete'),
-    path('update/<int:pk>/', userapp.CompanyUpdateView.as_view(), name='update'),
+    # path('delete/<int:pk>/', userapp.CompanyDeleteView.as_view(), name='delete'),
+    path('update/<int:pk>/', userapp.ProfileUpdateView.as_view(), name='update'),
     path('<int:pk>/', userapp.CompanyDetailView.as_view(), name='user'),
 ]
