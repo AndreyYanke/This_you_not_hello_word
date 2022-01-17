@@ -8,7 +8,7 @@ from resumeapp.models import Resume
 from this_you_not_hello_word import config
 
 
-class ListResumeView(ListView):
+class ListResumeView(LoginRequiredMixin, ListView):
     """Отображение всех резюме"""
     model = Resume
     template_name = 'resumeapp/all_resume.html'
@@ -23,7 +23,7 @@ class ListResumeView(ListView):
         return context
 
 
-class CreateResumeView(CreateView):
+class CreateResumeView(LoginRequiredMixin, CreateView):
     """Создание резюме для соискателя"""
     model = Resume
     template_name = 'resumeapp/resume_create.html'
@@ -31,14 +31,14 @@ class CreateResumeView(CreateView):
     success_url = reverse_lazy('resume:list')
 
 
-class UpdateResumeView(UpdateView):
+class UpdateResumeView(LoginRequiredMixin, UpdateView):
     """Обновление резюме для соискателя"""
     model = Resume
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
 
 
-class DeleteResumeView(DeleteView):
+class DeleteResumeView(LoginRequiredMixin, DeleteView):
     """Удаление резюме для соискателя"""
     model = Resume
     template_name = 'resumeapp/resume_update.html'
