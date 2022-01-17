@@ -2,19 +2,25 @@
 
 {% block content %}
 <div class="container">
+    <form method="GET">
+        {{ filter.form }}
+        <button class="btn btn-primary">Найти</button>
+    </form>
     <div class="row">
         <div class="col-lg-6">
             <h1 class="mt-5">Вакансии:</h1>
             <ul>
-            {% for vacancy in object_list %}
+            {% for vacancy in filter.qs %}
                 <li><b></b>
-                <a href="{% url 'vacancyapp:detail' pk=vacancy.id %}" class="">{{ vacancy.name }}</a>:</li>
+                <a href="{% url 'vacancy:detail' pk=vacancy.id %}" class="">{{ vacancy.name }}</a>:</li>
+                <a href="{% url 'user:user' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>, {{ vacancy.city.name }}
+                <br>
                 Зарплата:
                 {% if vacancy.salary_from %}
-                  от {{ vacancy.salary_from }}
+                  от {{ vacancy.salary_from }} руб.
                 {% endif %}
                 {% if vacancy.salary_to %}
-                   до {{ vacancy.salary_to }}
+                   до {{ vacancy.salary_to }} руб.
                 {% endif %}
                 <br>
                 {{ vacancy.description|truncatechars:200 }}
