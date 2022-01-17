@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+from resumeapp.managers import ResumeOrVacancyManager
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from userapp.models import User, City
 from this_you_not_hello_word import config
@@ -37,7 +38,9 @@ class Vacancy(TrackableUpdateCreateModel):
     required_experience_from = models.PositiveSmallIntegerField(verbose_name='Минимальный трудовой стаж', blank=True, null=True)
     required_experience_to = models.PositiveSmallIntegerField(verbose_name='Максимальный трудовой стаж', blank=True, null=True)
     work_schedule = models.CharField(max_length=64, choices=STATUS_CHOICES_WORK_SCHEDULE, verbose_name='Занятость', blank=True, null=True)
-    key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True, related_name='key_skills')
+    key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True, related_name='skills')
+
+    objects = ResumeOrVacancyManager()
 
     class Meta:
         verbose_name = 'Вакансия'

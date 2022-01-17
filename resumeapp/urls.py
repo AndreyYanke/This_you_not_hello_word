@@ -1,6 +1,7 @@
 from django.urls import path
 
-from resumeapp.views import CreateResumeView, UpdateResumeView, DeleteResumeView, ResumeDetailView, ListResumeView
+from resumeapp.views import CreateResumeView, UpdateResumeView, DeleteResumeView, ResumeDetailView, ListResumeView, \
+    MyResumeListView
 
 app_name = 'resumeapp'
 
@@ -10,4 +11,5 @@ urlpatterns = [
     path('delete/<int:pk>/', DeleteResumeView.as_view(), name='delete'),
     path('<int:pk>/', ResumeDetailView.as_view(), name='detail'),
     path('', ListResumeView.as_view(), name='list'),
+    path('my_resume/', MyResumeListView.as_view(), name='my_resume'),
 ]

@@ -7,14 +7,17 @@
                 <div class="col-lg-6">
                     <h1 class="mt-5">{{ resume.position }}</h1>
                     <p>
+                        <b>{{ resume.salary }} руб.</b>
+                        <br>
                         {{ resume.first_name }}
                         {{ resume.last_name }}
                         {% if resume.photo %}
-                            {{ resume.photo }}
+                            <img width="100" src="{{ resume.photo.url }}"
+                                 alt="partner">
                         {% endif %}
                         <br>
                         {#TODO обрабоать слово год/лет взависимости от цифры возраста#}
-                        {{ resume.age }} года
+                        {{ resume.age }} лет
                         <br>
                         <b>Пол:</b> {{ sex }}
                         <br>
@@ -32,26 +35,23 @@
                         <br>
                         <b>Желаемая позиция:</b> {{ resume.position }}
                         <br>
-                        <b>Желаемая зарплата:</b> {{ resume.salary }}
-                        <br>
                         <b>Занятость:</b> {{ busyness }}
                         <br>
-
                         <b>График работы:</b> {{ work_schedule }}
                         <br>
-                        <b>О Себе:</b> {{ resume.about_myself }}
-                        <br>
                         {% if work_experiences %}
+                            <br>
                             <b>Опыт работы:</b>
                             <br>
                             {% for work_exper in work_experiences %}
-                                {{ work_exper.organisation }}<br>
+                                <br>
+                                <b>{{ work_exper.organisation }}</b><br>
                                 {{ work_exper.position }}<br>
                                 <b>Дата работы:</b> <br>
                                 {% if work_exper.start_of_work %}
-                                    {{ work_exper.start_of_work | date:'m-Y' }} :
+                                    с {{ work_exper.start_of_work | date:'m-Y' }} до
                                 {% endif %}
-                                    {{ work_exper.end_of_work|date:'m-Y'|default:"по настоящее время"  }}
+                                {{ work_exper.end_of_work|date:'m-Y'|default:"настоящего время" }}
                                 <br>
                                 <b>Обязанности: </b>
                                 <br>
@@ -59,27 +59,33 @@
                                 <br>
                             {% endfor %}
                         {% endif %}
-                        <br>
-                        {% if educations %}
-                            <b>Образование: </b>
+                        {% if key_skills %}
                             <br>
-                    {% for education in educations %}
-                                {{ education.level }}<br>
-                                {{ education.institution }}<br>
-                                {{ education.faculty }}<br>
-                                {{ education.specialisation }}<br>
-                                {{ education.year_of_completion }}<br>
-                                {{ education.image_sertiificate }}<br>
-                    {% endfor %}
+                            <h6>Ключевые навыки:<br>
+                                {% for key_skill in key_skills %}
+                                    {{ key_skill }},
+                                {% endfor %}
+                            </h6>
+                        {% endif %}
+                    <br>
+                    <b>О Себе:</b> {{ resume.about_myself }}
+                    <br>
+                    <br>
+                    {% if educations %}
+                        <b>Образование: </b>
+                        <br>
+                        {% for education in educations %}
+                            {{ education_level }}<br>
+                            {{ education.institution }}<br>
+                            {{ education.faculty }}<br>
+                            {{ education.specialisation }}<br>
+                            {{ education.year_of_completion }}<br>
+                            {{ education.image_sertiificate }}<br>
+                        {% endfor %}
                     {% endif %}
                     </p>
                 </div>
             </div>
         </div>
     </section>
-{#        <form class="" action="{% url 'resume:update' resume.id %}">#}
-{#            {% csrf_token %}#}
-{#            <input type="submit" name="Submit" value="Редактирование">#}
-{#        </form>#}
-
 {% endblock content %}

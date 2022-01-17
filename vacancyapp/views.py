@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
+from userapp.models import City, User
 from vacancyapp.filters import VacancyFilter
 from vacancyapp.forms import VacancyForm
 from vacancyapp.models import Vacancy, KeySkill
@@ -39,7 +40,7 @@ class VacancyDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['city'] = Vacancy.objects.get(pk=self.kwargs['pk']).city
-        context['key_skills'] = Vacancy.objects.get(pk=self.kwargs['pk']).key_skills.select_related()
+        context['key_skills'] = Vacancy.objects.get_key_skills(self.kwargs['pk'])
 
         return context
 

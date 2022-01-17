@@ -37,4 +37,13 @@ class CompanyUpdateForm(forms.ModelForm):
 class AspirantUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'city', 'partner_image')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean_phone_number(self):
+        data = self.cleaned_data['phone_number']
+        if data == '':
+            return None
+        return data

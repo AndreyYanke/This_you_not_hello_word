@@ -1,9 +1,11 @@
 from django.db import models
 from django.urls import reverse
 
+from resumeapp.managers import ResumeOrVacancyManager
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from this_you_not_hello_word import config
 from userapp.models import User, City
+from vacancyapp.models import KeySkill
 
 
 class Resume(TrackableUpdateCreateModel):
@@ -48,6 +50,9 @@ class Resume(TrackableUpdateCreateModel):
                                 blank=True, null=True)
     about_myself = models.TextField(blank=True, null=True, verbose_name='Описание')
     is_publish = models.BooleanField(default=True, verbose_name='Опубликованное резюме')
+    key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True, related_name='skills_in_resume')
+
+    objects = ResumeOrVacancyManager()
 
     class Meta:
         verbose_name = 'Резюме'
@@ -92,8 +97,6 @@ class Education(models.Model):
     specialisation = models.CharField(max_length=64, verbose_name='Специализация', blank=True, null=True)
     year_of_completion = models.PositiveIntegerField(verbose_name='Год окончания', blank=True, null=True)
     image_sertiificate = models.ImageField(upload_to='resume_sertiificate', blank=True, null=True)
-
-
 
     class Meta:
         verbose_name = 'Образование'

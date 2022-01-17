@@ -12,5 +12,5 @@ urlpatterns = [
     path('auth/', userapp.UserLoginView.as_view(), name='auth'),
     # path('delete/<int:pk>/', userapp.CompanyDeleteView.as_view(), name='delete'),
     path('update/<int:pk>/', userapp.ProfileUpdateView.as_view(), name='update'),
-    path('<int:pk>/', userapp.CompanyDetailView.as_view(), name='user'),
+    path('<int:pk>/', userapp.UserDetailView.as_view(), name='user'),
 ]

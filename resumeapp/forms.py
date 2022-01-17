@@ -6,8 +6,8 @@ from resumeapp.models import Resume
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
-        exclude = ('user',)
-
+        fields = '__all__'
+        widgets = {'user': forms.HiddenInput}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

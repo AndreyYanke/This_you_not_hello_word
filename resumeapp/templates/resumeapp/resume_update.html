@@ -5,12 +5,15 @@
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="mt-5">Изменение резюме</h1>
-                <form class="" action="{% url 'resume:update' resume.id %}" method="post">
+                <form class="" action="{% url 'resume:update' object.id %}" method="post" enctype="multipart/form-data" >
                     {% csrf_token %}
                     <h6>
                         Имя: {{ form.first_name }} <br>
                         Фамилия: {{ form.last_name }}<br>
                         Фото: {{ form.photo }}<br>
+                        {% if object.photo %}
+                            <img width="100" src="{{ object.photo.url }}" alt="partner">
+                        {% endif %}
                         Возраст: {{ form.age }}<br>
                         Пол: {{ form.sex }}<br>
                         Контактная информация: {{ form.contact_info }}<br>
@@ -26,7 +29,7 @@
                     </h6>
                     <input type="submit" name="Submit" value="Сохранить">
                 </form>
-                <form class="" action="{% url 'resume:delete' resume.id %}" method="post">
+                <form class="" action="{% url 'resume:delete' object.id %}" method="post">
                     {% csrf_token %}
                     <input type="submit" name="Submit" value="Удалить">
                 </form>

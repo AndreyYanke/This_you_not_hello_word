@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 
@@ -22,6 +23,8 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата и время изменения')
     partner = models.BooleanField(default=False, verbose_name='партнер')
     partner_image = models.ImageField(upload_to='partner_image', blank=True, null=True)
+    city = models.ForeignKey('City', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Город')
+    phone_number = PhoneNumberField(blank=True, null=True, unique=True, default=None, verbose_name='Номер телефона')
 
     REQUIRED_FIELDS = ['user_type', 'email']
 

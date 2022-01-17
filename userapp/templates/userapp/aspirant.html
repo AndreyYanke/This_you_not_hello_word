@@ -1,0 +1,33 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">Личный кабинет соискателя</h1><br>
+                    <b>Имя:</b> {{ object.last_name }}<br>
+                    <b>Фамилия:</b> {{ object.first_name }}<br>
+                    {% if object.partner_image %}
+                        <img width="100" src="{{ object.partner_image.url }}"
+                             alt="partner">
+                    {% endif %}
+                    <b>Email:</b> {{ object.email }}<br>
+                    {% if object.partner_image %}
+                        {{ object.partner_image }}<br>
+                    {% endif %}
+                    <b>Город:</b> {{ object.city.name }}<br>
+                    <b>Мобильный телефон:</b> {{ object.phone_number }}
+                </div>
+            </div>
+            <button class="btn btn-primary btn-lg"
+                    onclick="window.location.href = '{% url 'user:update' user.id %}';">
+                Редактировать данные
+            </button>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'resume:my_resume' %}';">
+                Мои резюме
+            </button>
+        </div>
+    </section>
+
+{% endblock content %}

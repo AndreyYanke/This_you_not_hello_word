@@ -55,10 +55,14 @@ class CompanyRegistration(AuthAfterRegistMixin, CreateView):
 #     success_url = reverse_lazy('main:main')
 
 
-class CompanyDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
-    template_name = 'userapp/company.html'
-    success_url = reverse_lazy('main:main')
+
+    def get_template_names(self):
+        if self.request.user.user_type == User.USER_TYPE_USER:
+            return 'userapp/aspirant.html'
+        else:
+            return 'userapp/company.html'
 
 
 class AspirantRegistration(AuthAfterRegistMixin, CreateView):
@@ -75,7 +79,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
 
     def get_success_url(self):
-        url = reverse('user:update', args=[self.request.user.id])
+        url = reverse('user:user', args=[self.request.user.id])
         return url
 
     def get_form_class(self):
@@ -89,3 +93,5 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             return 'userapp/update_aspirant.html'
         else:
             return 'userapp/update_company.html'
+
+

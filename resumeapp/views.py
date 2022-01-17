@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
+from resumeapp import services
 from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm
 from resumeapp.models import Resume
@@ -28,7 +29,12 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
     model = Resume
     template_name = 'resumeapp/resume_create.html'
     form_class = ResumeForm
-    success_url = reverse_lazy('resume:list')
+    success_url = reverse_lazy('resume:my_resume')
+
+    def get_initial(self):
+        user = self.request.user
+        initial = {'user': user}
+        return initial
 
 
 class UpdateResumeView(LoginRequiredMixin, UpdateView):
@@ -42,7 +48,7 @@ class DeleteResumeView(LoginRequiredMixin, DeleteView):
     """Удаление резюме для соискателя"""
     model = Resume
     template_name = 'resumeapp/resume_update.html'
-    success_url = reverse_lazy('resume:list')
+    success_url = reverse_lazy('resume:my_resume')
 
 
 class ResumeDetailView(LoginRequiredMixin, DetailView):
@@ -57,11 +63,16 @@ class ResumeDetailView(LoginRequiredMixin, DetailView):
 
         context['work_experiences'] = resume.work_experiences.select_related()
         context['educations'] = resume.education.select_related()
-
-        context['sex'] = [status[1] for status in config.STATUS_SEX if status[0] == resume.sex][0]
-        context['busyness'] = [status[1] for status in config.STATUS_CHOICES_BUSYNESS if status[0] == resume.busyness][
-            0]
-        context['work_schedule'] = [status[1] for status in config.STATUS_CHOICES_WORK_SCHEDULE if
-                                    status[0] == resume.work_schedule][0]
-
+        context['education_level'] = services.get_level_education_rus_languange(context['educations'])
+        context['sex'] = services.get_sex_rus_languange(resume)
+        context['busyness'] = services.get_busyness_rus_languange(resume)
+        context['work_schedule'] = services.get_work_schedule_rus_languange(resume)
+        context['key_skills'] = Resume.objects.get_key_skills(self.kwargs['pk'])
         return context
+
+
+class MyResumeListView(LoginRequiredMixin, ListView):
+    template_name = 'resumeapp/my_list_resume.html'
+
+    def get_queryset(self):
+        return Resume.objects.filter_my_resume(self.request.user.id)
