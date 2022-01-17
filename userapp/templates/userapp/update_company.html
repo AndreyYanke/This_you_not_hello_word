@@ -17,17 +17,16 @@
 
                         <div class="col-lg-7">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h2 class="text-center font-weight-light my-4">Редактиврование
+                                <div class="card-header"><h2 class="text-center font-weight-light my-4">Редактирование личных данных
                                     работодателя</h2>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{% url 'user:regist_company' %}" method="post">
+                                    <form action="{% url 'user:update' user.id %}" method="post"
+                                          enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {{ form.non_fields_errors }}
-                                        {{ form.user_type }}
-                                        {{ form.company_name.errors }}
                                         <div class="form-row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="small mb-1"
                                                            for="{{ form.company_name.id_for_label }}">Название
@@ -35,15 +34,30 @@
                                                     {{ form.company_name }}
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6">
+                                                {% if user.partner_image %}
+                                                    <img width="100" src="{{ user.partner_image.url }}"
+                                                         alt="partner">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                            {{ form.partner_image.errors }}
+                                            <div class="col-md-6">
+                                                <label class="small mb-1" for="{{ form.partner_image.id_for_label }}">
+                                                    Лого компании:</label>
+                                                {{ form.partner_image }}
+                                            </div>
                                         </div>
                                         <div class="form-row">
-                                            {{ form.username.errors }}
+                                            {{ form.descriptions_company.errors }}
                                             <div class="col-md-6">
-                                                <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя
-                                                    пользователя</label>
-                                                {{ form.username }}
+                                                <label class="small mb-1"
+                                                       for="{{ form.descriptions_company.id_for_label }}">Описание
+                                                    компании:</label>
+                                                {{ form.descriptions_company }}
                                             </div>
+                                        </div>
+                                        <div class="form-row">
                                             {{ form.email.errors }}
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес
@@ -52,40 +66,25 @@
                                                 {{ form.email }}
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            {{ form.password1.errors }}
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
-                                                    {{ form.password1 }}
-                                                </div>
-                                            </div>
-                                            {{ form.password2.errors }}
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="small mb-1" for="{{ form.password2.id_for_label }}">Подтверждение
-                                                        пароля</label>
-                                                    {{ form.password2 }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mt-4 mb-0">
-                                            <input class="btn btn-primary btn-block" type="submit"
-                                                   value="Сохранить">
-                                        </div>
-                                    </form>
-                                    <form class="form-group mt-4 mb-0" action="{% url 'user:delete' user.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="submit" name="Submit" value="Удалить">
-                                    </form>
                                 </div>
-
+                                <div class="form-group mt-4 mb-0">
+                                    <input class="btn btn-primary btn-block" type="submit"
+                                           value="Сохранить">
+                                </div>
+                                </form>
+{#                                <form class="form-group mt-4 mb-0" action="{% url 'user:delete' user.id %}"#}
+{#                                      method="post">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input type="submit" name="Submit" value="Удалить">#}
+{#                                </form>#}
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
 
 
