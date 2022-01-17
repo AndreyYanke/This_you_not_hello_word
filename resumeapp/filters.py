@@ -10,7 +10,7 @@ class ResumeFilter(FilterSet):
     position = filters.CharFilter(lookup_expr='icontains', label='',
                                   widget=forms.TextInput(attrs={'placeholder': 'Поиск по резюме'}))
 
-    city = filters.ModelChoiceFilter(queryset=City.objects.all())
+    city = filters.ModelChoiceFilter(queryset=City.objects.all(), label='Город:')
 
     class Meta:
         model = Resume

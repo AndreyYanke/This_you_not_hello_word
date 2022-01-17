@@ -11,7 +11,7 @@ class VacancyFilter(FilterSet):
     name = filters.CharFilter(lookup_expr='icontains', label='', method='name_or_company_name_filter',
                               widget=forms.TextInput(attrs={'placeholder': 'Профессия, должность или компания'}))
 
-    city = filters.ModelChoiceFilter(queryset=City.objects.all())
+    city = filters.ModelChoiceFilter(queryset=City.objects.all(), label='Город:')
 
     class Meta:
         model = Vacancy
