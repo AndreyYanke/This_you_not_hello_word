@@ -2,11 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
-from userapp.models import City, User
 from vacancyapp.filters import VacancyFilter
 from vacancyapp.forms import VacancyForm
-from vacancyapp.models import Vacancy, KeySkill
-from this_you_not_hello_word.settings import LOGIN_REDIRECT_URL
+from vacancyapp.models import Vacancy
 
 
 class CreateVacancyView(LoginRequiredMixin, CreateView):
@@ -14,7 +12,12 @@ class CreateVacancyView(LoginRequiredMixin, CreateView):
     model = Vacancy
     template_name = 'vacancyapp/create.html'
     form_class = VacancyForm
-    success_url = reverse_lazy('main:main')
+    success_url = reverse_lazy('vacancy:my_vacancies')
+
+    def get_initial(self):
+        user = self.request.user
+        initial = {'user': user}
+        return initial
 
 
 class UpdateVacancyView(LoginRequiredMixin, UpdateView):
@@ -22,6 +25,7 @@ class UpdateVacancyView(LoginRequiredMixin, UpdateView):
     model = Vacancy
     template_name = 'vacancyapp/update.html'
     form_class = VacancyForm
+    success_url = reverse_lazy('vacancy:my_vacancies')
 
 
 class DeleteVacancyView(DeleteView):
@@ -56,3 +60,10 @@ class VacancyListView(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = VacancyFilter(self.request.GET, queryset=self.get_queryset())
         return context
+
+
+class MyVacanciesListView(LoginRequiredMixin, ListView):
+    template_name = 'vacancyapp/my_list_vacancies.html'
+
+    def get_queryset(self):
+        return Vacancy.objects.filter_my_resume_or_vacancies(self.request.user.id)

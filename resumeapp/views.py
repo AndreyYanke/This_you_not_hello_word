@@ -75,4 +75,4 @@ class MyResumeListView(LoginRequiredMixin, ListView):
     template_name = 'resumeapp/my_list_resume.html'
 
     def get_queryset(self):
-        return Resume.objects.filter_my_resume(self.request.user.id)
+        return Resume.objects.filter_my_resume_or_vacancies(self.request.user.id)

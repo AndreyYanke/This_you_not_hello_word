@@ -41,21 +41,13 @@ class CompanyRegistration(AuthAfterRegistMixin, CreateView):
     initial = {'user_type': User.USER_TYPE_COMPANY}
     success_url = LOGIN_REDIRECT_URL
 
-
-# class CompanyUpdateView(LoginRequiredMixin, UpdateView):
-#     model = User
-#     form_class = CompanyRegisterForm
-#     template_name = 'userapp/update_company.html'
-#     success_url = reverse_lazy('main:main')
-
-
 # class CompanyDeleteView(LoginRequiredMixin, DeleteView):
 #     model = User
 #     template_name = 'userapp/update_company.html'
 #     success_url = reverse_lazy('main:main')
 
-
-class UserDetailView(LoginRequiredMixin, DetailView):
+    """Общий класс для просмотра страницы ЛК"""
+class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = User
 
     def get_template_names(self):
@@ -94,4 +86,12 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         else:
             return 'userapp/update_company.html'
 
+
+class CompanyDetailView(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = 'userapp/other_detail_company.html'
+
+    def get_context_data(self, **kwargs):
+        context = {'object': kwargs['object']}
+        return context
 

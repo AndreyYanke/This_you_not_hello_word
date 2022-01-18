@@ -14,13 +14,6 @@
                     {{ object.descriptions_company }}
                 </div>
             </div>
-            <button class="btn btn-primary btn-lg"
-                    onclick="window.location.href = '{% url 'user:update' user.id %}';">
-                Редактировать данные
-            </button>
-            <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'vacancy:my_vacancies' %}';">
-                Мои вакансии
-            </button>
         </div>
     </section>
 {% endblock content %}

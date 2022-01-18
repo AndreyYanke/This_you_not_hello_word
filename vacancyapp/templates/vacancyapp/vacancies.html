@@ -12,8 +12,8 @@
             <ul>
             {% for vacancy in filter.qs %}
                 <li><b></b>
-                <a href="{% url 'vacancy:detail' pk=vacancy.id %}" class="">{{ vacancy.name }}</a>:</li>
-                <a href="{% url 'user:user' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>, {{ vacancy.city.name }}
+                <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:</li>
+                <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>, {{ vacancy.city.name }}
                 <br>
                 Зарплата:
                 {% if vacancy.salary_from %}

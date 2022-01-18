@@ -6,8 +6,8 @@ from vacancyapp.models import Vacancy
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
-        exclude = ('user', 'is_active')
-
+        exclude = ('is_active', )
+        widgets = {'user': forms.HiddenInput}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

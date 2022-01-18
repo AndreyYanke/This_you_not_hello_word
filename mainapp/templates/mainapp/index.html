@@ -43,10 +43,10 @@
                 <h1 class="mt-5">Список компаний-партнеров</h1>
                 {% for company in list_company_partners %}
                     <p>
-                        <a href="{% url 'user:user' company.id %}">
+                        <a href="{% url 'user:detail' company.id %}">
                             {{ company.company_name }}
                             {% if company.partner_image %}
-                                <img width="100" src="{{ company.partner_image.url }}" alt="partner">
+                                <img width="100" src="{{ company.partner_image.url }}" alt="partner_image">
                             {% endif %}
                         </a>
                     </p>
