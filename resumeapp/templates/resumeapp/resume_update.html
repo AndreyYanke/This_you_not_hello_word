@@ -5,27 +5,46 @@
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="mt-5">Изменение резюме</h1>
-                <form class="" action="{% url 'resume:update' object.id %}" method="post" enctype="multipart/form-data" >
+                <form class="" action="{% url 'resume:update' object.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h6>
+                        {{ form.first_name.errors }}
                         Имя: {{ form.first_name }} <br>
+                        {{ form.last_name.errors }}
                         Фамилия: {{ form.last_name }}<br>
+                        {{ form.photo.errors }}
                         Фото: {{ form.photo }}<br>
                         {% if object.photo %}
                             <img width="100" src="{{ object.photo.url }}" alt="partner">
                         {% endif %}
+                        {{ form.age.errors }}
                         Возраст: {{ form.age }}<br>
+                        {{ form.sex.errors }}
                         Пол: {{ form.sex }}<br>
+                        {{ form.contact_info.errors }}
                         Контактная информация: {{ form.contact_info }}<br>
+                        {{ form.city.errors }}
                         Город проживания: {{ form.city }}<br>
+                        {{ form.ready_to_move.errors }}
                         Готов к переезду: {{ form.ready_to_move }}<br>
+                        {{ form.citizenship.errors }}
                         Гражданство: {{ form.citizenship }}<br>
+                        {{ form.position.errors }}
                         Желаемая позиция: {{ form.position }}<br>
-                        Желаемая зарплата: {{ form.salary }}<br>
+                        {{ form.busyness.errors }}
                         Занятость: {{ form.busyness }}<br>
+                        {{ form.work_schedule.errors }}
                         График работы: {{ form.work_schedule }}<br>
+                        {{ form.about_myself.errors }}
                         О Себе:{{ form.about_myself }}<br>
+                        {{ form.work_experiences.errors }}
                         Опыт работы: {{ form.work_experiences }}<br>
+                        {{ form.work_experiences.errors }}
+                        Опыт работы: {{ form.work_experiences }}<br>
+                        {{ form.key_skills.errors }}
+                        Ключевые навыки: {{ form.key_skills }}<br>
+                        {{ form.education.errors }}
+                        Образование: {{ form.education }}<br>
                     </h6>
                     <input type="submit" name="Submit" value="Сохранить">
                 </form>
