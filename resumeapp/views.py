@@ -32,9 +32,7 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('resume:my_resume')
 
     def get_initial(self):
-        user = self.request.user
-        initial = {'user': user}
-        return initial
+        return {'user': self.request.user}
 
 
 class UpdateResumeView(LoginRequiredMixin, UpdateView):
@@ -43,6 +41,8 @@ class UpdateResumeView(LoginRequiredMixin, UpdateView):
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
 
+    def get_initial(self):
+        return {'user': self.request.user}
 
 class DeleteResumeView(LoginRequiredMixin, DeleteView):
     """Удаление резюме для соискателя"""

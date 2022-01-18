@@ -8,6 +8,8 @@
                 <form class="" action="{% url 'resume:update' object.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h6>
+                        {{ form.user.errors }}
+                        {{ form.user }}
                         {{ form.first_name.errors }}
                         Имя: {{ form.first_name }} <br>
                         {{ form.last_name.errors }}
@@ -32,6 +34,8 @@
                         {{ form.position.errors }}
                         Желаемая позиция: {{ form.position }}<br>
                         {{ form.busyness.errors }}
+                        {{ form.salary.errors }}
+                        Желаемая зарплата: {{ form.salary }}<br>
                         Занятость: {{ form.busyness }}<br>
                         {{ form.work_schedule.errors }}
                         График работы: {{ form.work_schedule }}<br>
