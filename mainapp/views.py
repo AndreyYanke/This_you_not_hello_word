@@ -11,17 +11,14 @@ from userapp.models import User
 
 class MainPageView(TemplateView):
     """Класс, который полностью разворачивает главную страницу"""
-    form_class = AuthenticationForm
+    # form_class = AuthenticationForm
     template_name = 'mainapp/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['list_company_partners'] = User.objects.filter(partner=True).values('id',
-                                                                                    'company_name',
-                                                                                    'partner_image')
+        context['list_company_partners'] = User.objects.filter(partner=True)
         context['list_news'] = NewsPost.objects.filter(is_active=True).values('pk', 'title').order_by('-created_at')[:5]
         return context
-
 
 class UserLogoutView(LogoutView):
     template_name = 'mainapp/index.html'
