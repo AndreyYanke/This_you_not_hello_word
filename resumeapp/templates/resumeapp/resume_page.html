@@ -6,13 +6,14 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h1 class="mt-5">{{ resume.position }}</h1>
-                    <p>
+                    <p> {% if resume.salary %}
                         <b>{{ resume.salary }} руб.</b>
                         <br>
+                        {% endif %}
                         {{ resume.first_name }}
                         {{ resume.last_name }}
-                        {% if resume.photo %}
-                            <img width="100" src="{{ resume.photo.url }}"
+                        {% if resume.user.partner_image %}
+                            <img width="100" src="{{ resume.user.partner_image.url }}"
                                  alt="partner">
                         {% endif %}
                         <br>
@@ -68,9 +69,11 @@
                             </h6>
                         {% endif %}
                     <br>
-                    <b>О Себе:</b> {{ resume.about_myself }}
+                    {% if resume.about_myself %}
+                        <b>О Себе:</b> {{ resume.about_myself }}
                     <br>
                     <br>
+                    {% endif %}
                     {% if educations %}
                         <b>Образование: </b>
                         <br>

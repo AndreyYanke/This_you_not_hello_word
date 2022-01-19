@@ -24,6 +24,8 @@
                 {% endif %}
                 <br>
                 {{ vacancy.description|truncatechars:200 }}
+                <br>
+                {{ vacancy.updated_at|date:'d.m.Y' }}
                 <br><br>
             {% empty %}
                 <li>No vacansies yet.</li>

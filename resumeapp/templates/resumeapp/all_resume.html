@@ -13,11 +13,11 @@
                         <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:</li>
                         <p>Город проживания: {{ resume.city }} <br>
                             Контакты: {{ resume.contact_info }}<br>
-                            Зарплата:
                             {% if resume.salary %}
-                                от {{ resume.salary }}
+                                Зарплата:
+                                от <b>{{ resume.salary }} руб.</b>
+                                <br>
                             {% endif %}
-                            <br>
                             Тип занятости:
                             {% for status in config.STATUS_CHOICES_BUSYNESS %}
                                 {% if status.0 == resume.busyness %}

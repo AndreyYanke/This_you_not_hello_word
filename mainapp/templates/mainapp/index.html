@@ -20,11 +20,9 @@
                     Прошу ознакомиться с полной редакцией <a href="{% url 'main:rules' %}">правил портала</a>
 
                 </p>
-                {#                <button id="start-purchase-btn" type="button" class="btn btn-lg">#}
-                {#                    <a id="start-purchase-link" href="#">#}
-                {#                        Начать покупки#}
-                {#                    </a>#}
-                {#                </button>#}
+                {% if not user.is_authenticated %}
+                    {% include 'userapp/authorisation.html' %}
+                {% endif %}
             </div>
         </div>
         <div class="row">
