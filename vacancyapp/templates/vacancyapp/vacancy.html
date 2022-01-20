@@ -1,8 +1,8 @@
 {% extends 'mainapp/base_main_page.html' %}
 
 {% block content %}
-    <section>
-        <div class="container">
+{#    <section>#}
+{#        <div class="container">#}
             <div class="row">
                 <div class="col-lg-6">
                     <h1 class="mt-5">{{ vacancy.name }}</h1><br>
@@ -11,10 +11,10 @@
                         {% if vacancy.user.partner_image %}
                             <img width="100" src="{{ vacancy.user.partner_image.url }}"
                                  alt="partner">
-                     {% endif %}
+                        {% endif %}
                     </a>
                     <h5>Адрес: <b>{{ city }} {% if vacancy.address %}, {{ vacancy.address }} {% endif %}</b></h5><br>
-                    {% if vacancy.salary_from and vacancy.salary_to%}
+                    {% if vacancy.salary_from and vacancy.salary_to %}
                         <h6>Зарплата:
                             {% if vacancy.salary_from %}
                                 от {{ vacancy.salary_from }}
@@ -31,10 +31,16 @@
                             {% endfor %}
                         </h6>
                     {% endif %}
+                    <div class="col-lg4">
+                        <div class="form-group mt-6 mb-0">
+                            <input class="btn btn-primary btn-block" type="submit"
+                                   value="Оставить отклик">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+{#        </div>#}
+{#    </section>#}
     {#        <form class="" action="{% url 'vacancy:update' vacancy.id %}">#}
     {#            {% csrf_token %}#}
     {#            <input type="submit" name="Submit" value="Редактирование">#}
