@@ -21,58 +21,66 @@
             {#            {{ filter.form }}#}
             <button class="btn btn-primary">Найти</button>
         </form>
-        <div class="row">
-            <div class="col-lg-6">
-                <h1 class="mt-5">Вакансии:</h1>
-                <ul>
-                    {% for vacancy in filter.qs %}
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <li><b></b>
-                                    <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
-                                </li>
-                                <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>,
-                                {{ vacancy.city.name }}
-                                <br>
-                                Зарплата:
-                                {% if vacancy.salary_from %}
-                                    от {{ vacancy.salary_from }} руб.
-                                {% endif %}
-                                {% if vacancy.salary_to %}
-                                    до {{ vacancy.salary_to }} руб.
-                                {% endif %}
-                                <br>
-                                {{ vacancy.description|truncatechars:200 }}
-                                <br>
-                                {{ vacancy.updated_at|date:'d.m.Y' }}
-                                <br><br>
-                            </div>
-                            <div class="col-lg4">
-                                <div class="form-group mt-6 mb-0">
-                                    <input class="btn btn-primary btn-block" type="submit"
-                                           value="Отклик">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">Вакансии:</h1>
+                    <ul>
+                        {% for vacancy in filter.qs %}
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <li><b></b>
+                                        <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
+                                    </li>
+                                    <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>,
+                                    {{ vacancy.city.name }}
+                                    <br>
+                                    Зарплата:
+                                    {% if vacancy.salary_from %}
+                                        от {{ vacancy.salary_from }} руб.
+                                    {% endif %}
+                                    {% if vacancy.salary_to %}
+                                        до {{ vacancy.salary_to }} руб.
+                                    {% endif %}
+                                    <br>
+                                    {{ vacancy.description|truncatechars:200 }}
+                                    <br>
+                                    {{ vacancy.updated_at|date:'d.m.Y' }}
+                                    <br><br>
+                                </div>
+                                <div class="col-lg4">
+                                    <div class="form-group mt-6 mb-0">
+                                        {% if not vacancy == response.selected_vacancy %}
+                                            <a class="form-group mt-6 mb-0"
+                                           href="{% url 'resume:my_response_add' vacancy.id %}">
+                                            <input class="btn btn-primary btn-block" type="submit"
+                                                   value="Отклик">
+                                        </a>
+                                        {% endif %}
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% empty %}
-                        <li>No vacansies yet.</li>
-                    {% endfor %}
-                    {% if page_obj.has_other_pages %}
-                        <div class="pagination">
-                            {% for p in paginator.page_range %}
-                                {% if page_obj.number == p %}
-                                    <li class="page-item active">
-                                        <a href="?page={{ p }}" class="page-link active">{{ p }}</a>
-                                    </li>
-                                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-                                    <a href="?page={{ p }}" class="page-link">{{ p }}</a>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </ul>
-
+                        {% empty %}
+                            <li>No vacansies yet.</li>
+                        {% endfor %}
+                        {% if page_obj.has_other_pages %}
+                            <div class="pagination">
+                                {% for p in paginator.page_range %}
+                                    {% if page_obj.number == p %}
+                                        <li class="page-item active">
+                                            <a href="?page={{ p }}" class="page-link active">{{ p }}</a>
+                                        </li>
+                                    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                        <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>
+         </div>
+
 {% endblock content %}
+
+

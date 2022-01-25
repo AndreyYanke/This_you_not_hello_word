@@ -5,7 +5,7 @@ from resumeapp.managers import ResumeOrVacancyManager
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from this_you_not_hello_word import config
 from userapp.models import User, City
-from vacancyapp.models import KeySkill
+from vacancyapp.models import KeySkill, Vacancy
 
 
 class Resume(TrackableUpdateCreateModel):
@@ -122,3 +122,17 @@ class Citizenship(models.Model):
 
     def __str__(self):
         return f'{self.country}'
+
+# TODO создать статусы, прописать choices для status
+class ResponseAspirant(TrackableUpdateCreateModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
+    selected_vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='Выбранные вакансии', null=True)
+    # status = models.CharField(max_length=30, choices= , null=True, verbose_name='Уровень образования')
+    quantity_response = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Отклики соискателей'
+        verbose_name_plural = 'Отклики соискателей'
+
+    def __str__(self):
+        return f'{self.user} | {self.selected_vacancy}'

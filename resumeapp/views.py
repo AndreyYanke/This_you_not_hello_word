@@ -88,3 +88,12 @@ class MyResponseListView(LoginRequiredMixin, ListView):
     form_class = ResumeForm
     paginate_by = 10
     ordering = '-created_at'
+
+# TODO доработать логику , чтобы вакансии на которые откликались не были доступны
+class AspirantResponseView(LoginRequiredMixin, TemplateView):
+    template_name = 'vacancyapp/vacancies.html'
+
+    def get(self, request, *args, **kwargs):
+        ResponseAspirant.objects.get_or_create(user=request.user,
+                                                  selected_vacancy=Vacancy.objects.get(id=kwargs['vacancy_id']))
+        return HttpResponseRedirect(reverse_lazy('vacancy:list'))
