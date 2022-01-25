@@ -24,6 +24,9 @@
             <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'resume:my_resume' %}';">
                 Мои резюме
             </button>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href = '{% url 'resume:my_response' user.id%}';">
+                Отклики
+            </button>
         </div>
     </section>
 
