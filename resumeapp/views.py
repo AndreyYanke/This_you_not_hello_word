@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
+from django.views import View
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView, TemplateView
 
 from resumeapp import services
 from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm
-from resumeapp.models import Resume
+from resumeapp.models import Resume, ResponseAspirant
 from this_you_not_hello_word import config
+from vacancyapp.models import Vacancy
 
 
 class ListResumeView(LoginRequiredMixin, ListView):
@@ -44,6 +47,7 @@ class UpdateResumeView(LoginRequiredMixin, UpdateView):
     def get_initial(self):
         return {'user': self.request.user}
 
+
 class DeleteResumeView(LoginRequiredMixin, DeleteView):
     """Удаление резюме для соискателя"""
     model = Resume
@@ -76,3 +80,11 @@ class MyResumeListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Resume.objects.filter_my_resume_or_vacancies(self.request.user.id)
+
+
+class MyResponseListView(LoginRequiredMixin, ListView):
+    model = ResponseAspirant
+    template_name = 'resumeapp/my_response.html'
+    form_class = ResumeForm
+    paginate_by = 10
+    ordering = '-created_at'
