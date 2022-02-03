@@ -1,6 +1,6 @@
 from django import forms
 
-from resumeapp.models import Resume
+from resumeapp.models import Resume, ResponseAspirant
 
 
 class ResumeForm(forms.ModelForm):
@@ -13,3 +13,8 @@ class ResumeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+class ResponseAspirantForm(forms.ModelForm):
+    class Meta:
+        model = ResponseAspirant
+        fields = '__all__'

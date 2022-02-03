@@ -50,11 +50,11 @@
                                 <div class="col-lg4">
                                     <div class="form-group mt-6 mb-0">
                                         {% if not vacancy == response.selected_vacancy %}
-                                            <a class="form-group mt-6 mb-0"
-                                           href="{% url 'resume:my_response_add' vacancy.id %}">
+                                            <form action="{% url 'resume:my_response_add' vacancy.id %}" method="post">
+                                           {% csrf_token %}
                                             <input class="btn btn-primary btn-block" type="submit"
                                                    value="Отклик">
-                                        </a>
+                                            </form>
                                         {% endif %}
 
                                     </div>

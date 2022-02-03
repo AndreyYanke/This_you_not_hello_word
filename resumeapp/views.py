@@ -6,7 +6,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView,
 
 from resumeapp import services
 from resumeapp.filters import ResumeFilter
-from resumeapp.forms import ResumeForm
+from resumeapp.forms import ResumeForm, ResponseAspirantForm
 from resumeapp.models import Resume, ResponseAspirant
 from this_you_not_hello_word import config
 from vacancyapp.models import Vacancy
@@ -90,10 +90,13 @@ class MyResponseListView(LoginRequiredMixin, ListView):
     ordering = '-created_at'
 
 # TODO доработать логику , чтобы вакансии на которые откликались не были доступны
-class AspirantResponseView(LoginRequiredMixin, TemplateView):
+
+class AspirantResponseView(LoginRequiredMixin, CreateView):
+    model = ResponseAspirant
+    form = ResponseAspirantForm
     template_name = 'vacancyapp/vacancies.html'
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         ResponseAspirant.objects.get_or_create(user=request.user,
-                                                  selected_vacancy=Vacancy.objects.get(id=kwargs['vacancy_id']))
+                                                  selected_vacancy=Vacancy.objects.get(id=kwargs['pk']))
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
