@@ -11,15 +11,30 @@
             <div class="row">
                 <div class="col-lg-6">
                     {% for resume in object_list %}
-                        <a href="{% url 'resume:detail' resume.id %}" class=""><h2>{{ resume }}</h2></a>
-                        <button class="btn btn-primary btn-lg"
-                                onclick="window.location.href = '{% url 'resume:update' resume.id %}';">
-                            Редактировать
-                        </button>
-                        <br>
-                        Обновлено: {{ resume.updated_at|date:'j F в H:i' }}
-                        <br>
-                        <br>
+                        {% if resume.is_publish and not resume.draft %}
+                             <h2>Мои опубликованные резюме</h2>
+                            <a href="{% url 'resume:detail' resume.id %}" class=""><h2>{{ resume }}</h2></a>
+                            <button class="btn btn-primary btn-lg"
+                                    onclick="window.location.href = '{% url 'resume:update' resume.id %}';">
+                                Редактировать
+                            </button>
+                            <br>
+                            Обновлено: {{ resume.updated_at|date:'j F в H:i' }}
+                            <br>
+                            <br>
+                        {% elif resume.draft %}
+                             <h2>Мои черновики</h2>
+                            <a href="{% url 'resume:detail' resume.id %}" class=""><h2>{{ resume }}</h2></a>
+                            <button class="btn btn-primary btn-lg"
+                                    onclick="window.location.href = '{% url 'resume:update' resume.id %}';">
+                                Редактировать
+                            </button>
+                            <br>
+                            Обновлено: {{ resume.updated_at|date:'j F в H:i' }}
+                            <br>
+                            <br>
+
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

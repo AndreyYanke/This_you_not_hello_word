@@ -34,6 +34,7 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
     form_class = ResumeForm
     success_url = reverse_lazy('resume:my_resume')
 
+
     def get_initial(self):
         return {'user': self.request.user}
 
@@ -85,9 +86,14 @@ class MyResumeListView(LoginRequiredMixin, ListView):
 class MyResponseListView(LoginRequiredMixin, ListView):
     model = ResponseAspirant
     template_name = 'resumeapp/my_response.html'
-    form_class = ResumeForm
+    form_class = ResponseAspirantForm
     paginate_by = 10
     ordering = '-created_at'
+
+    def get_queryset(self):
+        return ResponseAspirant.objects.filter(user=self.request.user)
+
+
 
 # TODO доработать логику , чтобы вакансии на которые откликались не были доступны
 

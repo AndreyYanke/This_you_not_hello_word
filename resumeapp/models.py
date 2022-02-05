@@ -49,7 +49,8 @@ class Resume(TrackableUpdateCreateModel):
     busyness = models.CharField(max_length=64, choices=STATUS_CHOICES_BUSYNESS, verbose_name='Тип занятости',
                                 blank=True, null=True)
     about_myself = models.TextField(blank=True, null=True, verbose_name='Описание')
-    is_publish = models.BooleanField(default=True, verbose_name='Опубликованное резюме')
+    is_publish = models.BooleanField(default=False, verbose_name='Опубликованное резюме')
+    draft = models.BooleanField(default=False, verbose_name='Черновик')
     key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True, related_name='skills_in_resume')
 
     objects = ResumeOrVacancyManager()
@@ -125,8 +126,16 @@ class Citizenship(models.Model):
 
 # TODO создать статусы, прописать choices для status
 class ResponseAspirant(TrackableUpdateCreateModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
-    selected_vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='Выбранные вакансии', null=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Соискатель',
+        null=True)
+    selected_vacancy = models.ForeignKey(
+        Vacancy,
+        on_delete=models.CASCADE,
+        verbose_name='Выбранные вакансии',
+        related_name='selected_vacancy', null=True)
     # status = models.CharField(max_length=30, choices= , null=True, verbose_name='Уровень образования')
     quantity_response = models.PositiveIntegerField(default=0)
 
