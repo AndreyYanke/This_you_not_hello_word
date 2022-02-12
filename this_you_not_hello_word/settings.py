@@ -137,3 +137,31 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 PHONENUMBER_DEFAULT_REGION = "RU"
+
+
+
+#celery
+
+#smtp
+# https://myaccount.google.com/u/1/security?hl=ru
+#Ненадежные приложения, у которых есть доступ к аккаунту True
+# https://mail.google.com/mail/u/1/#settings/fwdandpop = Включить IMAP True
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'django.celery.redis@gmail.com'
+EMAIL_HOST_PASSWORD = 'Qwert123$'
+
+
+
+#REDIS related setting
+REDIS_HOST = '0.0.0.0'
+REDIS_PORT = '6379'
+REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_BROKER_URL =REDIS_URL
+CELERY_BROKER_TRANSPORT_OPTIONS ={'visibility_timeout':3600}#таймаут
+CELERY_RESULT_BACKEND =REDIS_URL
+CELERY_ACCEPT_CONTENT = ['applications/json']#заголовки
+CELERY_TASK_SERIALIZER = 'json'#задачи в каком формате
+CELERY_RESULT_SERIALIZER = 'json'#получаем результат в какком формате
+

@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 from resumeapp.managers import ResumeOrVacancyManager
+# from resumeapp.models import Resume
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from userapp.models import User, City
 from this_you_not_hello_word import config
@@ -52,3 +53,6 @@ class Vacancy(TrackableUpdateCreateModel):
 
     def __str__(self):
         return self.name
+
+
+
