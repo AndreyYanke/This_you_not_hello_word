@@ -122,7 +122,7 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
         user_name = request.user.username
         send_response_email.delay(user_name,text_message,email)
 
-        # if request.POST.get('cover_letter'):
+
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
 
 
