@@ -1,42 +1,99 @@
 {% extends 'mainapp/base_main_page.html' %}
 {% block content %}
-    <section>
-        <div class="container">
-            <form method="GET">
-                {{ filter.form }}
-                <button class="btn btn-primary">Найти</button>
-            </form>
+
+
+    <div class="container">
+        <form method="GET">
             <div class="row">
                 <div class="col-lg-6">
-                    {% for resume in filter.qs %}
-                        {% csrf_token %}
-                        <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:</li>
-                        <p>Город проживания: {{ resume.city }} <br>
-                            Контакты: {{ resume.contact_info }}<br>
-                            {% if resume.salary %}
-                                Зарплата:
-                                от <b>{{ resume.salary }} руб.</b>
-                                <br>
-                            {% endif %}
-                            Тип занятости:
-                            {% for status in config.STATUS_CHOICES_BUSYNESS %}
-                                {% if status.0 == resume.busyness %}
-                                    {{ status.1 }}
-                                {% endif %}
-                            {% endfor %}
-                            <br>
-                            График работы:
-                            {% for status in config.STATUS_CHOICES_WORK_SCHEDULE %}
-                                {% if status.0 == resume.work_schedule %}
-                                    {{ status.1 }}
-                                {% endif %}
-                            {% endfor %}
-                            <br>
-                            О себе: {{ resume.about_myself|truncatechars:200 }}
-                        </p>
-                    {% endfor %}
+                    <div class="form-group">
+                        <label class="mb-8" for="{{ filter.form.position.id_for_label }}">Должность</label>
+                        {{ filter.form.position }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-8" for="{{ filter.form.city.id_for_label }}">Город</label>
+                        {{ filter.form.city }}
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="mb-8">
+                            <button style="margin-top: 33px" class="btn btn-primary">Найти</button>
+                        </label>
+                    </div>
                 </div>
             </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mt-5">Вакансии:</h1>
+            <ul>
+                {% for resume in filter.qs %}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <li><b></b>
+                                <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:
+                            </li>
+                            <p>Город проживания: {{ resume.city }} <br>
+                                Контакты: {{ resume.contact_info }}<br>
+                                {% if resume.salary %}
+                                    Зарплата:
+                                    от <b>{{ resume.salary }} руб.</b>
+                                    <br>
+                                {% endif %}
+                                Тип занятости:
+                                {% for status in config.STATUS_CHOICES_BUSYNESS %}
+                                    {% if status.0 == resume.busyness %}
+                                        {{ status.1 }}
+                                    {% endif %}
+                                {% endfor %}
+                                <br>
+                                График работы:
+                                {% for status in config.STATUS_CHOICES_WORK_SCHEDULE %}
+                                    {% if status.0 == resume.work_schedule %}
+                                        {{ status.1 }}
+                                    {% endif %}
+                                {% endfor %}
+                                <br>
+                                О себе: {{ resume.about_myself|truncatechars:200 }}
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mt-6 mb-0">
+                                {#                                {% if not vacancy == response.selected_vacancy %}#}
+                                <form action="{% url 'resume:my_response_add_company' resume.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input class="btn btn-primary btn-block" type="submit"
+                                           value="Отклик">
+                                </form>
+                                {#                                {% endif %}#}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if page_obj.has_other_pages %}
+                    <div class="pagination">
+                        {% for p in paginator.page_range %}
+                            {% if page_obj.number == p %}
+                                <li class="page-item active">
+                                    <a href="?page={{ p }}" class="page-link active">{{ p }}</a>
+                                </li>
+                            {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            </ul>
         </div>
-    </section>
+    </div>
+
+
 {% endblock content %}

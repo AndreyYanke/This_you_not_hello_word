@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from resumeapp.models import Resume, Work_expirience, Education, Citizenship, ResponseAspirant
+from resumeapp.models import Resume, Work_expirience, Education, Citizenship, ResponseAspirant, ResponseCompany
 
 
 class ResumeAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ admin.site.register(Work_expirience)
 admin.site.register(Education)
 admin.site.register(Citizenship)
 admin.site.register(ResponseAspirant)
+admin.site.register(ResponseCompany)

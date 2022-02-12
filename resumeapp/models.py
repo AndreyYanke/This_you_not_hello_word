@@ -39,7 +39,7 @@ class Resume(TrackableUpdateCreateModel):
     last_name = models.CharField(max_length=64, verbose_name='Фамилия пользователя')
     photo = models.ImageField(upload_to='resume_image', blank=True, null=True)
     sex = models.CharField(max_length=9, choices=STATUS_SEX, verbose_name='Пол')
-    age = models.PositiveSmallIntegerField()
+    age = models.PositiveSmallIntegerField(default=18)
     contact_info = models.CharField(max_length=300, verbose_name='Контактная информация')
     ready_to_move = models.BooleanField(default=True, verbose_name='Готов к перезду')
     position = models.CharField(max_length=64, verbose_name='Желаемая должность')
@@ -149,3 +149,26 @@ class ResponseAspirant(TrackableUpdateCreateModel):
 
     def __str__(self):
         return f'{self.user} | {self.selected_vacancy}'
+
+class ResponseCompany(TrackableUpdateCreateModel):
+    RESPONSE_STATUS = config.RESPONSE_STATUS
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Работодатель',
+        null=True)
+    selected_resume = models.ForeignKey(
+        Resume,
+        on_delete=models.CASCADE,
+        verbose_name='Выбранные резюме',
+        related_name='selected_resume', null=True)
+    status = models.CharField(max_length=30, choices=RESPONSE_STATUS ,default=RESPONSE_STATUS[0][0], null=True, verbose_name='Статус отклика на резюме')
+    quantity_response = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Отклики работодателей'
+        verbose_name_plural = 'Отклики работодателей'
+
+    def __str__(self):
+        return f'{self.user} | {self.selected_resume}'
