@@ -8,6 +8,7 @@ from resumeapp import services
 from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm, ResponseAspirantForm
 from resumeapp.models import Resume, ResponseAspirant, ResponseCompany, FollowerAspirant
+from resumeapp.tasks import send_response_email
 from this_you_not_hello_word import config
 from vacancyapp.models import Vacancy
 
@@ -117,9 +118,9 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
         text_message = request.POST.get("cover_letter")
         ResponseAspirant.objects.get_or_create(user=request.user,
                                                selected_vacancy=vacancy)
-        # send_messange_on_email(request.user,text_message,vacancy.user.email)
-        send_mail('На вашу вакансию откликнулися',f'пользователь:  {request.user} \n{text_message}', 'django.celery.redis@gmail.com',
-                  [vacancy.user.email], fail_silently=False)
+        email = vacancy.user.email
+        user_name = request.user.username
+        send_response_email.delay(user_name,text_message,email)
 
         # if request.POST.get('cover_letter'):
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))

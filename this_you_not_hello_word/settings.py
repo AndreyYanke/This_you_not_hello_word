@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'ru-Ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
@@ -157,11 +157,11 @@ EMAIL_HOST_PASSWORD = 'Qwert123$'
 #REDIS related setting
 REDIS_HOST = '0.0.0.0'
 REDIS_PORT = '6379'
-REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_BROKER_URL =REDIS_URL
 CELERY_BROKER_TRANSPORT_OPTIONS ={'visibility_timeout':3600}#таймаут
 CELERY_RESULT_BACKEND =REDIS_URL
-CELERY_ACCEPT_CONTENT = ['applications/json']#заголовки
+CELERY_ACCEPT_CONTENT = ['application/json']#заголовки
 CELERY_TASK_SERIALIZER = 'json'#задачи в каком формате
 CELERY_RESULT_SERIALIZER = 'json'#получаем результат в какком формате
 
