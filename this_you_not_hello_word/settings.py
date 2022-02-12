@@ -27,7 +27,7 @@ INSTALLED_APPS = [
 
     'django_filters',
     'django_extensions',
-    'phonenumber_field',
+    # 'phonenumber_field',
 
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
@@ -136,7 +136,7 @@ LOGIN_URL = '/user/auth/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-PHONENUMBER_DEFAULT_REGION = "RU"
+# PHONENUMBER_DEFAULT_REGION = "RU"
 
 
 

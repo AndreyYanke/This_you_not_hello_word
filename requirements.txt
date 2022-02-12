@@ -7,6 +7,7 @@ click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.2.0
 Deprecated==1.2.13
+asgiref==3.5.0
 Django==3.2.10
 django-countries==7.2.1
 django-extensions==3.1.5
@@ -26,3 +27,9 @@ tzdata==2021.5
 vine==5.0.0
 wcwidth==0.2.5
 wrapt==1.13.3
+
+Pillow==9.0.0
+django-extensions
+django-filter
+django-phonenumber-field
+phonenumbers==8.12.42

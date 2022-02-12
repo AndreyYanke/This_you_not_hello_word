@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
@@ -62,7 +63,6 @@ class VacancyListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = VacancyFilter(self.request.GET, queryset=self.get_queryset())
-        # context['response'] = ResponseAspirant.objects.filter(user=self.request.user)
         return context
 
 
@@ -71,3 +71,28 @@ class MyVacanciesListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Vacancy.objects.filter_my_resume_or_vacancies(self.request.user.id)
+
+
+# TODO Заготовка для откликов Работодателей
+
+# class MyResponseListView(LoginRequiredMixin, ListView):
+#     model = ResponseCompany
+#     template_name = 'resumeapp/my_response.html'
+#     form_class = ResponseCompanyForm
+#     paginate_by = 10
+#     ordering = '-created_at'
+#
+#     def get_queryset(self):
+#         return ResponseCompany.objects.filter(user=self.request.user)
+#
+#     # TODO доработать логику , чтобы резюме на которые откликались не были доступны
+#
+# class AspirantResponseView(LoginRequiredMixin, CreateView):
+#     model =ResponseCompany
+#     form = ResponseCompanyForm
+#     template_name = 'resumeapp/all_resume.html'
+#
+#     def post(self, request, *args, **kwargs):
+#         ResponseCompany.objects.get_or_create(user=request.user,
+#                                                selected_resume=Resume.objects.get(id=kwargs['pk']))
+#         return HttpResponseRedirect(reverse_lazy('vacancy:list'))

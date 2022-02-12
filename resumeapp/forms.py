@@ -1,6 +1,8 @@
 from django import forms
+from django.db.models import TextField
 
 from resumeapp.models import Resume, ResponseAspirant
+from this_you_not_hello_word import config
 
 
 class ResumeForm(forms.ModelForm):
@@ -18,3 +20,5 @@ class ResponseAspirantForm(forms.ModelForm):
     class Meta:
         model = ResponseAspirant
         fields = '__all__'
+
+

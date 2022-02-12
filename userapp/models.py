@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 
@@ -16,7 +17,8 @@ class User(AbstractUser):
 
     user_type = models.CharField(max_length=64, choices=TYPE_CHOICES, verbose_name='Тип пользователя')
     email = models.EmailField(max_length=64, unique=True, blank=False, verbose_name='Email')
-    descriptions_company = models.TextField(blank=True, null=True, verbose_name='Описание компании')
+    descriptions_company = models.TextField(blank=True, null=True, verbose_name='Карточка компании')
+    # is_publish_descriptions = models.BooleanField(default=False, verbose_name='Опубликованная карточка компании')
     company_name = models.CharField(max_length=64, blank=True, null=True, verbose_name='Название компании')
     activation_key = models.CharField(max_length=128, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
@@ -24,7 +26,7 @@ class User(AbstractUser):
     partner = models.BooleanField(default=False, verbose_name='партнер')
     partner_image = models.ImageField(upload_to='partner_image', blank=True, null=True)
     city = models.ForeignKey('City', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Город')
-    phone_number = PhoneNumberField(blank=True, null=True, unique=True, default=None, verbose_name='Номер телефона')
+    phone_number = models.CharField(max_length= 18, blank=True, null=True, verbose_name='Номер телефона')
 
     REQUIRED_FIELDS = ['user_type', 'email']
 

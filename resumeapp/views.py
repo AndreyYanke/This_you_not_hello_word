@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView, TemplateView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
 from resumeapp import services
 from resumeapp.filters import ResumeFilter
@@ -33,7 +33,6 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
     template_name = 'resumeapp/resume_create.html'
     form_class = ResumeForm
     success_url = reverse_lazy('resume:my_resume')
-
 
     def get_initial(self):
         return {'user': self.request.user}
@@ -93,6 +92,10 @@ class MyResponseListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return ResponseAspirant.objects.filter(user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['config'] = config
+        return context
 
 
 # TODO доработать логику , чтобы вакансии на которые откликались не были доступны
@@ -103,6 +106,11 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
     template_name = 'vacancyapp/vacancies.html'
 
     def post(self, request, *args, **kwargs):
+        vacancy = Vacancy.objects.get(id=kwargs['pk'])
         ResponseAspirant.objects.get_or_create(user=request.user,
-                                                  selected_vacancy=Vacancy.objects.get(id=kwargs['pk']))
+                                               selected_vacancy=vacancy)
+        send_mail('На вашу вакансию откликнулись', request.POST.get('cover_letter'), 'django.celery.redis@gmail.com',
+                  [vacancy.user.email], fail_silently=False)
+
+        # if request.POST.get('cover_letter'):
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))

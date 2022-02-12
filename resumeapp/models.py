@@ -125,7 +125,10 @@ class Citizenship(models.Model):
         return f'{self.country}'
 
 # TODO создать статусы, прописать choices для status
+
 class ResponseAspirant(TrackableUpdateCreateModel):
+    RESPONSE_STATUS = config.RESPONSE_STATUS
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -136,7 +139,8 @@ class ResponseAspirant(TrackableUpdateCreateModel):
         on_delete=models.CASCADE,
         verbose_name='Выбранные вакансии',
         related_name='selected_vacancy', null=True)
-    # status = models.CharField(max_length=30, choices= , null=True, verbose_name='Уровень образования')
+    cover_letter = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=30, choices=RESPONSE_STATUS, default=RESPONSE_STATUS[0][0], null=True, verbose_name='Статус отклика на вакансию')
     quantity_response = models.PositiveIntegerField(default=0)
 
     class Meta:
