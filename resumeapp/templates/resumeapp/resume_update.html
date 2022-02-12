@@ -8,6 +8,11 @@
                 <form class="" action="{% url 'resume:update' object.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h6>
+                        <div class="text-center">
+                            {% if object.photo %}
+                                <img width="300" src="{{ object.photo.url }}" alt="partner">
+                            {% endif %}
+                        </div>
                         {{ form.user.errors }}
                         {{ form.user }}
                         {{ form.first_name.errors }}
@@ -16,9 +21,6 @@
                         Фамилия: {{ form.last_name }}<br>
                         {{ form.photo.errors }}
                         Фото: {{ form.photo }}<br>
-                        {% if object.photo %}
-                            <img width="100" src="{{ object.photo.url }}" alt="partner">
-                        {% endif %}
                         {{ form.age.errors }}
                         Возраст: {{ form.age }}<br>
                         {{ form.sex.errors }}
@@ -47,13 +49,33 @@
                         Ключевые навыки: {{ form.key_skills }}<br>
                         {{ form.education.errors }}
                         Образование: {{ form.education }}<br>
+                        <div class="row">
+                            <div class="col">
+                                Черновик:
+                            </div>
+                            <div class="col">
+                                {{ form.draft }}
+                            </div>
+                        </div>
                     </h6>
-                    <input type="submit" name="Submit" value="Сохранить">
+                    <div class="row">
+                        <div class="col">
+                            <input class="btn btn-primary" type="submit" name="Submit" value="Сохранить">
+                        </div>
+
                 </form>
-                <form class="" action="{% url 'resume:delete' object.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" name="Submit" value="Удалить">
-                </form>
+                <div class="col">
+                    <form action="{% url 'resume:delete' object.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" name="Submit" value="Удалить">
+                    </form>
+                </div>
+             </div>
+{#                </form>#}
+                {#                <form action="{% url 'resume:delete' object.id %}" method="post">#}
+                {#                    {% csrf_token %}#}
+                {#                    <input class="btn btn-primary" type="submit" name="Submit" value="Удалить">#}
+                {#                </form>#}
             </div>
         </div>
     </div>

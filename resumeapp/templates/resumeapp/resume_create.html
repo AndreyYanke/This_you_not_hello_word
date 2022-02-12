@@ -43,10 +43,18 @@
                         Ключевые навыки: {{ form.key_skills }}<br>
                         {{ form.education.errors }}
                         Образование: {{ form.education }}<br>
-                        Черновик: {{ form.draft }}<br>
+                        <div class="row">
+                            <div class="col">
+                               Черновик:
+                            </div>
+                                                        <div class="col">
+                              {{ form.draft }}
+                            </div>
+                        </div>
+                        <br>
                     </h6>
                     <br><br>
-                    <input type="submit" name="Submit" value="Сохранить">
+                    <input type="submit" class="btn btn-primary" name="Submit" value="Сохранить">
                 </form>
             </div>
         </div>

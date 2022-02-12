@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
@@ -37,6 +37,11 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         return {'user': self.request.user}
+    # def post(self, request, *args, **kwargs):
+    #
+    #     self.object = self.get_object()
+    #     self.object.draft = False
+    #     return redirect(self.success_url)
 
 
 class UpdateResumeView(LoginRequiredMixin, UpdateView):
@@ -44,6 +49,7 @@ class UpdateResumeView(LoginRequiredMixin, UpdateView):
     model = Resume
     template_name = 'resumeapp/resume_update.html'
     form_class = ResumeForm
+    success_url = reverse_lazy('resume:my_resume')
 
     def get_initial(self):
         return {'user': self.request.user}
@@ -111,6 +117,7 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
         text_message = request.POST.get("cover_letter")
         ResponseAspirant.objects.get_or_create(user=request.user,
                                                selected_vacancy=vacancy)
+        # send_messange_on_email(request.user,text_message,vacancy.user.email)
         send_mail('На вашу вакансию откликнулися',f'пользователь:  {request.user} \n{text_message}', 'django.celery.redis@gmail.com',
                   [vacancy.user.email], fail_silently=False)
 
