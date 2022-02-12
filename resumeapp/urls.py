@@ -1,7 +1,7 @@
 from django.urls import path
 
 from resumeapp.views import CreateResumeView, UpdateResumeView, DeleteResumeView, ResumeDetailView, ListResumeView, \
-    MyResumeListView, MyResponseListView, AspirantResponseView, CompanyResponseView
+    MyResumeListView, MyResponseListView, AspirantResponseView, CompanyResponseView, MyFolowerListView
 
 app_name = 'resumeapp'
 
@@ -13,6 +13,7 @@ urlpatterns = [
     path('', ListResumeView.as_view(), name='list'),
     path('my_resume/', MyResumeListView.as_view(), name='my_resume'),
     path('my_response/<int:pk>/', MyResponseListView.as_view(), name='my_response'),
+    path('my_folower/', MyFolowerListView.as_view(), name='my_folower'),
     path('my_response_add/<int:pk>/', AspirantResponseView.as_view(), name='my_response_add'),
     path('my_response_add_company/<int:pk>/', CompanyResponseView.as_view(), name='my_response_add_company'),
 ]

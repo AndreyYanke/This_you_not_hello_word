@@ -11,4 +11,6 @@ urlpatterns = [
     path('<int:pk>/', views.VacancyDetailView.as_view(), name='detail'),
     path('', views.VacancyListView.as_view(), name='list'),
     path('my_vacancies/', views.MyVacanciesListView.as_view(), name='my_vacancies'),
+
+    path('my_folower/<int:pk>/', views.AddFolowerAspirians.as_view(), name='add_folower'),
 ]

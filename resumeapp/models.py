@@ -172,3 +172,22 @@ class ResponseCompany(TrackableUpdateCreateModel):
 
     def __str__(self):
         return f'{self.user} | {self.selected_resume}'
+
+class FollowerAspirant(TrackableUpdateCreateModel):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Соискатель',
+        null=True)
+    vacancy = models.ForeignKey(
+        Vacancy,
+        on_delete=models.CASCADE,
+        verbose_name='Выбранные вакансии',null=True)
+
+    class Meta:
+        verbose_name = 'Подписка соискателя'
+        verbose_name_plural = 'Подписки соискателей'
+
+    def __str__(self):
+        return f'{self.user} | {self.vacancy}'

@@ -1,4 +1,5 @@
 {% extends 'mainapp/base_main_page.html' %}
+{% load static %}
 
 {% block content %}
     <div class="container">
@@ -35,9 +36,26 @@
                 {% for vacancy in filter.qs %}
                     <div class="row">
                         <div class="col-lg-8">
-                            <li><b></b>
-                                <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
-                            </li>
+                            {#                            <li><b></b>#}
+                            <div class="row">
+                                {#                                <li><b></b>#}
+                                <div class="col">
+                                    <li><b></b>
+                                        <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
+                                    </li>
+                                </div>
+                                {#                                </li>#}
+                                <div class="col">
+                                    <form action="{% url 'vacancy:add_folower' vacancy.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button style=" background-size: contain;" type="submit">
+                                            <img width="20" src="{% static 'img/icons.gif' %}" alt="">
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </div>
+
                             <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>,
                             {{ vacancy.city.name }}
                             <br>
@@ -56,53 +74,54 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group mt-6 mb-0">
-{#                                {% if not vacancy == response.selected_vacancy %}#}
-                                    <form action="{% url 'resume:my_response_add' vacancy.id %}" method="POST">
-                                        {% csrf_token %}
+                                {#                                {% if not vacancy == response.selected_vacancy %}#}
+                                <form action="{% url 'resume:my_response_add' vacancy.id %}" method="POST">
+                                    {% csrf_token %}
 
-                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                                data-target="#exampleModal"
-                                                data-whatever="@mdo">Отклик
-                                        </button>
+                                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                            data-target="#exampleModal"
+                                            data-whatever="@mdo">Отклик
+                                    </button>
 
-                                        <!-- Модальное окно -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Новое
-                                                            сообщение</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{% url 'resume:my_response_add' vacancy.id %}"
-                                                              method="POST">
-                                                            {% csrf_token %}
-                                                            <div class="form-group">
-                                                                <label for="message-text" class="col-form-label">Сообщение:</label>
-                                                                <textarea name="cover_letter"   class="form-control"
-                                                                          id="message-text"></textarea>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Закрыть
-                                                                </button>
-                                                                <button type="submit" class="btn btn-primary">Отправить
-                                                                    сообщение
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                    <!-- Модальное окно -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Новое
+                                                        сообщение</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'resume:my_response_add' vacancy.id %}"
+                                                          method="POST">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <label for="message-text"
+                                                                   class="col-form-label">Сообщение:</label>
+                                                            <textarea name="cover_letter" class="form-control"
+                                                                      id="message-text"></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Закрыть
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary">Отправить
+                                                                сообщение
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                    </form>
-{#                                {% endif %}#}
+                                </form>
+                                {#                                {% endif %}#}
 
                             </div>
                         </div>

@@ -7,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView,
 from resumeapp import services
 from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm, ResponseAspirantForm
-from resumeapp.models import Resume, ResponseAspirant, ResponseCompany
+from resumeapp.models import Resume, ResponseAspirant, ResponseCompany, FollowerAspirant
 from this_you_not_hello_word import config
 from vacancyapp.models import Vacancy
 
@@ -134,3 +134,18 @@ class CompanyResponseView(LoginRequiredMixin, CreateView):
         ResponseCompany.objects.get_or_create(user=request.user,
                                                   selected_resume=Resume.objects.get(id=kwargs['pk']))
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
+
+class MyFolowerListView(LoginRequiredMixin, ListView):
+    model = FollowerAspirant
+    template_name = 'resumeapp/my_folower.html'
+    # form_class = ResponseAspirantForm
+    paginate_by = 10
+    ordering = '-created_at'
+
+    def get_queryset(self):
+        return FollowerAspirant.objects.filter(user=self.request.user)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['config'] = config
+    #     return context
