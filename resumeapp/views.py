@@ -7,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView,
 from resumeapp import services
 from resumeapp.filters import ResumeFilter
 from resumeapp.forms import ResumeForm, ResponseAspirantForm
-from resumeapp.models import Resume, ResponseAspirant
+from resumeapp.models import Resume, ResponseAspirant, ResponseCompany
 from this_you_not_hello_word import config
 from vacancyapp.models import Vacancy
 
@@ -17,7 +17,7 @@ class ListResumeView(LoginRequiredMixin, ListView):
     model = Resume
     template_name = 'resumeapp/all_resume.html'
     form_class = ResumeForm
-    paginate_by = 10
+    paginate_by = 3
     ordering = '-created_at'
 
     def get_context_data(self, **kwargs):
@@ -33,6 +33,7 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
     template_name = 'resumeapp/resume_create.html'
     form_class = ResumeForm
     success_url = reverse_lazy('resume:my_resume')
+
 
     def get_initial(self):
         return {'user': self.request.user}
@@ -107,10 +108,22 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         vacancy = Vacancy.objects.get(id=kwargs['pk'])
+        text_message = request.POST.get("cover_letter")
         ResponseAspirant.objects.get_or_create(user=request.user,
                                                selected_vacancy=vacancy)
-        send_mail('На вашу вакансию откликнулись', request.POST.get('cover_letter'), 'django.celery.redis@gmail.com',
+        send_mail('На вашу вакансию откликнулися',f'пользователь:  {request.user} \n{text_message}', 'django.celery.redis@gmail.com',
                   [vacancy.user.email], fail_silently=False)
 
         # if request.POST.get('cover_letter'):
+        return HttpResponseRedirect(reverse_lazy('vacancy:list'))
+
+
+class CompanyResponseView(LoginRequiredMixin, CreateView):
+    model = ResponseCompany
+    form = ResponseAspirantForm
+    template_name = 'vacancyapp/vacancies.html'
+
+    def post(self, request, *args, **kwargs):
+        ResponseCompany.objects.get_or_create(user=request.user,
+                                                  selected_resume=Resume.objects.get(id=kwargs['pk']))
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
