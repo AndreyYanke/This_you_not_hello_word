@@ -117,11 +117,10 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
         text_message = request.POST.get("cover_letter")
         ResponseAspirant.objects.get_or_create(user=request.user,
                                                selected_vacancy=vacancy)
-        # send_messange_on_email(request.user,text_message,vacancy.user.email)
         send_mail('На вашу вакансию откликнулися',f'пользователь:  {request.user} \n{text_message}', 'django.celery.redis@gmail.com',
                   [vacancy.user.email], fail_silently=False)
 
-        # if request.POST.get('cover_letter'):
+
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
 
 

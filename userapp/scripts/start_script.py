@@ -6,9 +6,9 @@ from database_filling.company_creator import CompanyCreator
 from database_filling.key_skill_creator import KeySkillsCreator
 from database_filling.admin_creator import AdminCreator
 from database_filling.user_creator import UserCreator
-# from database_filling.education_creator import EducationCreator
+from database_filling.education_creator import EducationCreator
 from database_filling.resume_creator import ResumeCreator
-# from database_filling.work_expirience_creator import Work_expirienceCreator
+from database_filling.work_expirience_creator import Work_expirienceCreator
 from database_filling.citizenship_creator import CitizenshipCreator
 
 
@@ -47,9 +47,28 @@ def run():
     citizenships = CitizenshipCreator()
     citizenships()
 
+
+    # work_experiences = Work_expirienceCreator()
+    # work_experiences()
+    #
+    # education = EducationCreator()
+    # education()
+
     resumes = ResumeCreator(
         users = users.result,
         cities = cities.result,
         citizenships = citizenships.result,
+        # work_experiences = work_experiences.result,
+        # education = education.result,
     )
     resumes()
+
+    for  resumes in resumes.result:
+        skills = set()
+        for _ in range(4):
+            skills.add(key_skills.result[random.randint(
+                0,
+                len(key_skills.result)-1,
+            )])
+
+        resumes.key_skills.add(*skills)

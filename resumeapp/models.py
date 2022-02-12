@@ -2,8 +2,8 @@ from django.db import models
 from django.urls import reverse
 
 from resumeapp.managers import ResumeOrVacancyManager
-from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from this_you_not_hello_word import config
+from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from userapp.models import User, City
 from vacancyapp.models import KeySkill, Vacancy
 
@@ -32,8 +32,10 @@ class Resume(TrackableUpdateCreateModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
-    work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы', related_name='work_experiences', blank=True)
-    education = models.ManyToManyField('Education', verbose_name='Образование, дополнительные курсы', related_name='educations', blank=True)
+    work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы',
+                                              related_name='work_experiences', blank=True)
+    education = models.ManyToManyField('Education', verbose_name='Образование, дополнительные курсы',
+                                       related_name='educations', blank=True)
     citizenship = models.ForeignKey('Citizenship', verbose_name='Гражданство', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64, verbose_name='Имя пользователя')
     last_name = models.CharField(max_length=64, verbose_name='Фамилия пользователя')
@@ -51,7 +53,8 @@ class Resume(TrackableUpdateCreateModel):
     about_myself = models.TextField(blank=True, null=True, verbose_name='Описание')
     is_publish = models.BooleanField(default=False, verbose_name='Опубликованное резюме')
     draft = models.BooleanField(default=False, verbose_name='Черновик')
-    key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True, related_name='skills_in_resume')
+    key_skills = models.ManyToManyField(KeySkill, verbose_name='Ключевые навыки', blank=True,
+                                        related_name='skills_in_resume')
 
     objects = ResumeOrVacancyManager()
 
@@ -92,7 +95,8 @@ class Education(models.Model):
 
     STATUS_CHOICES_LEVEL_OF_EDUCATION = config.STATUS_CHOICES_LEVEL_OF_EDUCATION
 
-    level = models.CharField(max_length=30, choices= STATUS_CHOICES_LEVEL_OF_EDUCATION, null=True, verbose_name='Уровень образования')
+    level = models.CharField(max_length=30, choices=STATUS_CHOICES_LEVEL_OF_EDUCATION, null=True,
+                             verbose_name='Уровень образования')
     institution = models.CharField(max_length=124, verbose_name='Учебное учреждение', blank=True, null=True)
     faculty = models.CharField(max_length=64, verbose_name='Факультет', blank=True, null=True)
     specialisation = models.CharField(max_length=64, verbose_name='Специализация', blank=True, null=True)
@@ -124,7 +128,6 @@ class Citizenship(models.Model):
     def __str__(self):
         return f'{self.country}'
 
-# TODO создать статусы, прописать choices для status
 
 class ResponseAspirant(TrackableUpdateCreateModel):
     RESPONSE_STATUS = config.RESPONSE_STATUS
@@ -140,7 +143,8 @@ class ResponseAspirant(TrackableUpdateCreateModel):
         verbose_name='Выбранные вакансии',
         related_name='selected_vacancy', null=True)
     cover_letter = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=30, choices=RESPONSE_STATUS, default=RESPONSE_STATUS[0][0], null=True, verbose_name='Статус отклика на вакансию')
+    status = models.CharField(max_length=30, choices=RESPONSE_STATUS, default=RESPONSE_STATUS[0][0], null=True,
+                              verbose_name='Статус отклика на вакансию')
     quantity_response = models.PositiveIntegerField(default=0)
 
     class Meta:
