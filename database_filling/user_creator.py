@@ -3,7 +3,7 @@ from database_filling.base_creator import BaseCreator
 
 
 class UserCreator(BaseCreator):
-    """Создает города."""
+    """Создает пользователя."""
 
     def __init__(self):
         self.model = User
