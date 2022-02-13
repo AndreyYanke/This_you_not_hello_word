@@ -24,10 +24,7 @@ class ResumeCreator(BaseCreator):
                 'first_name': 'Андрей',
                 'last_name': 'Иванов',
                 # 'photo': 'Иванов',
-                'sex': self.model.STATUS_SEX[
-                    random.randint(
-                        0, len(self.model.SEX_M) - 1
-                    )][0],
+                'sex': self.model.SEX_M,
                 'age': '32',
                 'contact_info': 'ayanke@bk.ru',
                 'ready_to_move': True,

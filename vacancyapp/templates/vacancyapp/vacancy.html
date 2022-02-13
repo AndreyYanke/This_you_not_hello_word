@@ -1,8 +1,6 @@
 {% extends 'mainapp/base_main_page.html' %}
 
 {% block content %}
-{#    <section>#}
-{#        <div class="container">#}
             <div class="row">
                 <div class="col-lg-6">
                     <h1 class="mt-5">{{ vacancy.name }}</h1><br>
@@ -39,11 +37,4 @@
                     </div>
                 </div>
             </div>
-{#        </div>#}
-{#    </section>#}
-    {#        <form class="" action="{% url 'vacancy:update' vacancy.id %}">#}
-    {#            {% csrf_token %}#}
-    {#            <input type="submit" name="Submit" value="Редактирование">#}
-    {#        </form>#}
-
 {% endblock content %}

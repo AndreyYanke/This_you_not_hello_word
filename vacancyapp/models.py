@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 
 from resumeapp.managers import ResumeOrVacancyManager
-# from resumeapp.models import Resume
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 from userapp.models import User, City
 from this_you_not_hello_word import config
@@ -53,31 +52,3 @@ class Vacancy(TrackableUpdateCreateModel):
 
     def __str__(self):
         return self.name
-
-
-
-# class ResponseCompany(models.Model, TrackableUpdateCreateModel):
-#     RESPONSE_STATUS = config.RESPONSE_STATUS
-#
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         verbose_name='Работодатель',
-#         null=True)
-#     selected_resume = models.ForeignKey(
-#         Resume,
-#         on_delete=models.CASCADE,
-#         verbose_name='Выбранные резюме',
-#         related_name='selected_resume', null=True)
-#     status = models.CharField(max_length=30, choices=RESPONSE_STATUS , null=True, verbose_name='Статус отклика на резюме')
-#     quantity_response = models.PositiveIntegerField(default=0)
-#
-#     class Meta:
-#         verbose_name = 'Отклики работодателей'
-#         verbose_name_plural = 'Отклики работодателей'
-#
-#     def __str__(self):
-#         return f'{self.user} | {self.selected_resume}'
-
-
-

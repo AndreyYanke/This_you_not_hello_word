@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
-from resumeapp.models import ResponseAspirant, FollowerAspirant
+from resumeapp.models import FollowerAspirant
 from vacancyapp.filters import VacancyFilter
 from vacancyapp.forms import VacancyForm
 from vacancyapp.models import Vacancy
@@ -93,6 +93,7 @@ class AddFolowerAspirians(CreateView):
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
         # else:
         #     return HttpResponseRedirect(reverse_lazy('resumeapp:my_folower'))
+
 # TODO Заготовка для откликов Работодателей
 
 # class MyResponseListView(LoginRequiredMixin, ListView):

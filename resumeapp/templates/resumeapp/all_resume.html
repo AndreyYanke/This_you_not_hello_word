@@ -64,14 +64,11 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group mt-6 mb-0">
-                                {#                                {% if not vacancy == response.selected_vacancy %}#}
                                 <form action="{% url 'resume:my_response_add_company' resume.id %}" method="post">
                                     {% csrf_token %}
                                     <input class="btn btn-primary btn-block" type="submit"
                                            value="Отклик">
                                 </form>
-                                {#                                {% endif %}#}
-
                             </div>
                         </div>
                     </div>

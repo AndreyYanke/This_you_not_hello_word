@@ -44,7 +44,6 @@
                 {% for company in list_company_partners %}
 
                         <a href="{% url 'user:detail' company.id %}">
-{#                            {{ company.company_name }}#}
                             {% if company.partner_image %}
                                 <img width="100" src="{{ company.partner_image.url }}" alt="partner_image">
                             {% endif %}

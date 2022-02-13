@@ -2,53 +2,54 @@
 
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="card shadow-lg border-0 rounded-lg mt-5">
-            <div class="card-header"><h2 class="text-center font-weight-light my-4">Вход в
-                систему</h2>
-            </div>
-            <div class="card-body">
-                <form action="{% url 'user:auth' %}" method="post">
-                    {% csrf_token %}
-                    {% if form.non_field_errors  or messages %}
-                        <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
-                             role="alert"
-                             style="margin-top: 50px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h2 class="text-center font-weight-light my-4">Вход в
+                    систему</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'user:auth' %}" method="post">
+                        {% csrf_token %}
+                        {% if form.non_field_errors  or messages %}
+                            <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
+                                 role="alert"
+                                 style="margin-top: 50px;">
 
-                            {% if messages %}
-                                {% for mes in messages %}
-                                    {{ mes }}
-                                {% endfor %}
-                            {% else %}
-                                {% for error in form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            {% endif %}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                                {% if messages %}
+                                    {% for mes in messages %}
+                                        {{ mes }}
+                                    {% endfor %}
+                                {% else %}
+                                    {% for error in form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                {% endif %}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label style="padding-right: 10px" class="small mb-2"
+                                   for="{{ form.username.id_for_label }}">Логин </label>
+                            {{ form.username }}
                         </div>
-                    {% endif %}
-                    <div class="form-group">
-                        <label style="padding-right: 10px" class="small mb-2" for="{{ form.username.id_for_label }}">Логин </label>
-                        {{ form.username }}
-                    </div>
-                    <div class="form-group">
-                        <label class="small mb-2"
-                               for="{{ form.password.id_for_label }}">Пароль</label>
-                        {{ form.password }}
-                    </div>
-                    <div class="form-group mt-4 mb-0">
-                        <input class="btn btn-primary btn-block" type="submit"
-                               value="Войти">
-                    </div>
-                </form>
-                <p>Нет аккаунта?<a href="{% url 'user:type_user' %}"> Зарегистрироваться</a></p>
-            </div>
+                        <div class="form-group">
+                            <label class="small mb-2"
+                                   for="{{ form.password.id_for_label }}">Пароль</label>
+                            {{ form.password }}
+                        </div>
+                        <div class="form-group mt-4 mb-0">
+                            <input class="btn btn-primary btn-block" type="submit"
+                                   value="Войти">
+                        </div>
+                    </form>
+                    <p>Нет аккаунта?<a href="{% url 'user:type_user' %}"> Зарегистрироваться</a></p>
+                </div>
 
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock content %}

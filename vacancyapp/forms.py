@@ -13,11 +13,3 @@ class VacancyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-
-# TODO Заготовка для откликов Работодателей
-
-# class ResponseCompanyForm(forms.ModelForm):
-#     class Meta:
-#         model = ResponseCompany
-#         fields = '__all__'
-
