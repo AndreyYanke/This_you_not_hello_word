@@ -1,8 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from django.db import models
-# from phonenumber_field.modelfields import PhoneNumberField
-# from phonenumber_field.modelfields import PhoneNumberField
+
 
 from this_you_not_hello_word.models import TrackableUpdateCreateModel
 

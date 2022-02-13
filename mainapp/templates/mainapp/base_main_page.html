@@ -13,12 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-{#     <link href="{% static 'bootstrap/index/css/style.css' %}" rel="stylesheet">#}
-    {#    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">#}
+
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/index.css' %}" rel="stylesheet">
-    {#    <link href="css/index.css" rel="stylesheet">#}
+
 
 </head>
 {% include 'mainapp/include/inc_main_menu.html' %}
@@ -27,11 +26,11 @@
     <div id="layoutAuthentication_content">
         <main>
             <div class="container">
-{#                <div class="row justify-content-center">#}
-                    {% block content %}
 
-                    {% endblock %}
-{#                </div>#}
+                {% block content %}
+
+                {% endblock %}
+
             </div>
         </main>
     </div>

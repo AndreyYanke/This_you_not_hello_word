@@ -35,6 +35,8 @@
             <h1 class="mt-5">Вакансии:</h1>
             <ul>
                 {% for resume in filter.qs %}
+                    {% for resume in object_list %}
+                        {% if resume.is_publish and not resume.draft %}
                     <div class="row">
                         <div class="col-lg-8">
                             {#                            <li><b></b>#}
@@ -85,17 +87,16 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group mt-6 mb-0">
-                                {#                                {% if not vacancy == response.selected_vacancy %}#}
                                 <form action="{% url 'resume:my_response_add_company' resume.id %}" method="post">
                                     {% csrf_token %}
                                     <input class="btn btn-primary btn-block" type="submit"
                                            value="Отклик">
                                 </form>
-                                {#                                {% endif %}#}
-
                             </div>
                         </div>
                     </div>
+                {% endif %}
+                {% endfor %}
                 {% endfor %}
 
                 {% if page_obj.has_other_pages %}

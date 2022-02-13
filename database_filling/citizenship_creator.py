@@ -1,4 +1,3 @@
-# from userapp.models import Citizenship
 from database_filling.base_creator import BaseCreator
 from resumeapp.models import Citizenship
 

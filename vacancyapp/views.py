@@ -83,7 +83,7 @@ class AddFolowerAspirians(CreateView):
             return Resume.objects.filter_my_resume_or_vacancies(self.request.user.id)
         else:
             return Vacancy.objects.filter_my_resume_or_vacancies(self.request.user.id)
-
+    #Можно улучшить
     def post(self, request, *args, **kwargs):
         if self.request.user.user_type == self.request.user.USER_TYPE_COMPANY:
             resume = Resume.objects.get(id=kwargs.get('pk'))

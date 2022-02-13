@@ -1,5 +1,6 @@
 import random
 
+from database_filling.news_creator import NewsPostCreator
 from database_filling.vacancy_creator import VacancyCreator
 from database_filling.city_creator import CityCreator
 from database_filling.company_creator import CompanyCreator
@@ -28,6 +29,10 @@ def run():
     key_skills = KeySkillsCreator()
     key_skills()
 
+    news = NewsPostCreator()
+    news()
+
+
     vacancies = VacancyCreator(
         users = companies.result,
         cities = cities.result,
@@ -44,12 +49,13 @@ def run():
 
         vacancy.key_skills.add(*skills)
 
+
     citizenships = CitizenshipCreator()
     citizenships()
 
+    work_experiences = Work_expirienceCreator()
+    work_experiences()
 
-    # work_experiences = Work_expirienceCreator()
-    # work_experiences()
     #
     # education = EducationCreator()
     # education()

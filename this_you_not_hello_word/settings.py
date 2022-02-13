@@ -27,7 +27,6 @@ INSTALLED_APPS = [
 
     'django_filters',
     'django_extensions',
-    # 'phonenumber_field',
 
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
@@ -84,7 +83,6 @@ DATABASES = {
 
 # Password validation
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -103,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
-
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'ru-Ru'
 
@@ -115,7 +112,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-
 
 STATIC_URL = '/static/'
 
@@ -136,9 +132,6 @@ LOGIN_URL = '/user/auth/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# PHONENUMBER_DEFAULT_REGION = "RU"
-
-
 
 #celery
 
@@ -151,7 +144,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'django.celery.redis@gmail.com'
 EMAIL_HOST_PASSWORD = 'Qwert123$'
-
 
 
 #REDIS related setting
