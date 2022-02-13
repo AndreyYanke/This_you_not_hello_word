@@ -20,6 +20,7 @@ class ListResumeView(LoginRequiredMixin, ListView):
     paginate_by = 3
     ordering = '-created_at'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['config'] = config
@@ -37,11 +38,6 @@ class CreateResumeView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         return {'user': self.request.user}
-    # def post(self, request, *args, **kwargs):
-    #
-    #     self.object = self.get_object()
-    #     self.object.draft = False
-    #     return redirect(self.success_url)
 
 
 class UpdateResumeView(LoginRequiredMixin, UpdateView):
@@ -67,6 +63,8 @@ class ResumeDetailView(LoginRequiredMixin, DetailView):
     model = Resume
     template_name = 'resumeapp/resume_page.html'
     context_object_name = 'resume'
+
+
 
     def get_context_data(self, **kwargs):
         resume = self.get_object()
@@ -132,7 +130,7 @@ class CompanyResponseView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         ResponseCompany.objects.get_or_create(user=request.user,
                                                   selected_resume=Resume.objects.get(id=kwargs['pk']))
-        return HttpResponseRedirect(reverse_lazy('vacancy:list'))
+        return HttpResponseRedirect(reverse_lazy('resume:list'))
 
 class MyFolowerListView(LoginRequiredMixin, ListView):
     model = FollowerAspirant
@@ -143,8 +141,3 @@ class MyFolowerListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return FollowerAspirant.objects.filter(user=self.request.user)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['config'] = config
-    #     return context

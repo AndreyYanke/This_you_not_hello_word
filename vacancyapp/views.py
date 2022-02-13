@@ -94,18 +94,7 @@ class AddFolowerAspirians(CreateView):
         # else:
         #     return HttpResponseRedirect(reverse_lazy('resumeapp:my_folower'))
 
-# TODO Заготовка для откликов Работодателей
 
-# class MyResponseListView(LoginRequiredMixin, ListView):
-#     model = ResponseCompany
-#     template_name = 'resumeapp/my_response.html'
-#     form_class = ResponseCompanyForm
-#     paginate_by = 10
-#     ordering = '-created_at'
-#
-#     def get_queryset(self):
-#         return ResponseCompany.objects.filter(user=self.request.user)
-#
 #     # TODO доработать логику , чтобы резюме на которые откликались не были доступны
 #
 # class AspirantResponseView(LoginRequiredMixin, CreateView):

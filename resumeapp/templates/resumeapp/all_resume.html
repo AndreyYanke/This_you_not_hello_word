@@ -33,6 +33,8 @@
             <h1 class="mt-5">Вакансии:</h1>
             <ul>
                 {% for resume in filter.qs %}
+                    {% for resume in object_list %}
+                        {% if resume.is_publish and not resume.draft %}
                     <div class="row">
                         <div class="col-lg-8">
                             <li><b></b>
@@ -72,6 +74,8 @@
                             </div>
                         </div>
                     </div>
+                {% endif %}
+                {% endfor %}
                 {% endfor %}
 
                 {% if page_obj.has_other_pages %}

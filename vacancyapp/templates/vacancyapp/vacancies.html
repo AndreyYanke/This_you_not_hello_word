@@ -36,15 +36,12 @@
                 {% for vacancy in filter.qs %}
                     <div class="row">
                         <div class="col-lg-8">
-                            {#                            <li><b></b>#}
                             <div class="row">
-                                {#                                <li><b></b>#}
                                 <div class="col">
                                     <li><b></b>
                                         <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
                                     </li>
                                 </div>
-                                {#                                </li>#}
                                 <div class="col">
                                     <form action="{% url 'vacancy:add_folower' vacancy.id %}" method="post">
                                         {% csrf_token %}
@@ -119,10 +116,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
-                                {#                                {% endif %}#}
-
                             </div>
                         </div>
                     </div>

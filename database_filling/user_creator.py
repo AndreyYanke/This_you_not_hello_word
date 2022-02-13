@@ -14,6 +14,7 @@ class UserCreator(BaseCreator):
                 'username': 'nick',
                 'first_name': 'nick',
                 'last_name': 'nick',
+                'partner_image': 'partner_image/dfa0b1b5f53005eac0d8985eef9f72a4.jpg',
             },
         )
 

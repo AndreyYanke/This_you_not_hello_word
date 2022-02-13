@@ -66,6 +66,7 @@ class Resume(TrackableUpdateCreateModel):
         url = reverse('resume:detail', args=[self.id])
         return url
 
+
     def __str__(self):
         return f'{self.position}'
 
