@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
-from resumeapp.models import ResponseAspirant, FollowerAspirant
+from resumeapp.models import ResponseAspirant, FollowerAspirant, Resume
 from vacancyapp.filters import VacancyFilter
 from vacancyapp.forms import VacancyForm
 from vacancyapp.models import Vacancy
@@ -79,20 +79,32 @@ class AddFolowerAspirians(CreateView):
 
 
     def get_queryset(self):
-        return Vacancy.objects.filter_my_resume_or_vacancies(self.request.user.id)
+        if self.request.user.user_type == self.request.user.USER_TYPE_COMPANY:
+            return Resume.objects.filter_my_resume_or_vacancies(self.request.user.id)
+        else:
+            return Vacancy.objects.filter_my_resume_or_vacancies(self.request.user.id)
 
     def post(self, request, *args, **kwargs):
-        vacancy  = Vacancy.objects.get(id= kwargs.get('pk'))
-        follow = FollowerAspirant.objects.filter(Q(user=request.user)&Q(vacancy=vacancy)).first()
-        if follow:
-            follow.delete()
+        if self.request.user.user_type == self.request.user.USER_TYPE_COMPANY:
+            resume = Resume.objects.get(id=kwargs.get('pk'))
+            follow = FollowerAspirant.objects.filter(Q(user=request.user) & Q(resume=resume))
+            if follow:
+                follow.delete()
+            else:
+                FollowerAspirant.objects.create(user=request.user, resume_id=kwargs.get('pk'))
+            return HttpResponseRedirect(reverse_lazy('resume:list'))
         else:
-            FollowerAspirant.objects.create(user=request.user,vacancy_id=kwargs.get('pk'))
-        #ЗАКОЛХОЗИЛ
-        # if request.path == '/vacancy/my_folower/2/':
-        return HttpResponseRedirect(reverse_lazy('vacancy:list'))
-        # else:
-        #     return HttpResponseRedirect(reverse_lazy('resumeapp:my_folower'))
+            vacancy  = Vacancy.objects.get(id= kwargs.get('pk'))
+            follow = FollowerAspirant.objects.filter(Q(user=request.user)&Q(vacancy=vacancy)).first()
+            if follow:
+                follow.delete()
+            else:
+                FollowerAspirant.objects.create(user=request.user,vacancy_id=kwargs.get('pk'))
+            return HttpResponseRedirect(reverse_lazy('vacancy:list'))
+
+
+
+
 # TODO Заготовка для откликов Работодателей
 
 # class MyResponseListView(LoginRequiredMixin, ListView):

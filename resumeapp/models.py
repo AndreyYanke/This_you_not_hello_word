@@ -189,6 +189,11 @@ class FollowerAspirant(TrackableUpdateCreateModel):
         on_delete=models.CASCADE,
         verbose_name='Выбранные вакансии',null=True)
 
+    resume = models.ForeignKey(
+        Resume,
+        on_delete=models.CASCADE,
+        verbose_name='Выбранные резюме',null=True)
+
     class Meta:
         verbose_name = 'Подписка соискателя'
         verbose_name_plural = 'Подписки соискателей'

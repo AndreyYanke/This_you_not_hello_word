@@ -1,5 +1,7 @@
 {% extends 'mainapp/base_main_page.html' %}
+{% load static %}
 {% block content %}
+
 
 
     <div class="container">
@@ -35,9 +37,28 @@
                 {% for resume in filter.qs %}
                     <div class="row">
                         <div class="col-lg-8">
-                            <li><b></b>
-                                <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:
-                            </li>
+                            {#                            <li><b></b>#}
+                            {#                                <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:#}
+                            {#                            </li>#}
+                            <div class="row">
+                                <div class="col">
+                                    <li><b></b>
+                                        <a href="{% url 'resume:detail' pk=resume.id %}"
+                                           class="">{{ resume.position }}</a>:
+                                    </li>
+                                </div>
+                                <div class="col">
+                                    <form action="{% url 'vacancy:add_folower' resume.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button style=" background-size: contain;" type="submit">
+                                            <img width="20" src="{% static 'img/icons.gif' %}" alt="">
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </div>
+
+
                             <p>Город проживания: {{ resume.city }} <br>
                                 Контакты: {{ resume.contact_info }}<br>
                                 {% if resume.salary %}

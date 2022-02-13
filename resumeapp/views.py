@@ -134,7 +134,10 @@ class CompanyResponseView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         ResponseCompany.objects.get_or_create(user=request.user,
                                                   selected_resume=Resume.objects.get(id=kwargs['pk']))
-        return HttpResponseRedirect(reverse_lazy('vacancy:list'))
+        if request.user.user_type ==request.user.USER_TYPE_COMPANY:
+            return HttpResponseRedirect(reverse_lazy('resume:list'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('vacancy:list'))
 
 class MyFolowerListView(LoginRequiredMixin, ListView):
     model = FollowerAspirant
