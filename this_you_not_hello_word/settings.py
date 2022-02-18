@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'newsapp.apps.NewsappConfig',
     'resumeapp.apps.ResumeappConfig',
+    'flower'
 ]
 
 MIDDLEWARE = [
