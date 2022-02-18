@@ -30,26 +30,26 @@
                 <br>
                 <br>
                 <div class="form-row">
-                    <div class="col-lg-6" style="margin-top: 33px;">
-                        <button class="btn btn-primary btn-lg"
+                    <div class="col-lg-4" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
                                 onclick="window.location.href = '{% url 'user:update' user.id %}';">
-                            Редактировать данные
+                            Изменить
                         </button>
                     </div>
-                    <div class="col-lg-2" style="margin-top: 33px;">
-                        <button class="btn btn-primary btn-lg"
+                    <div class="col-lg-3" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
                                 onclick="window.location.href = '{% url 'vacancy:my_vacancies' %}';">
                             Вакансии
                         </button>
                     </div>
-                    <div class="col-lg-2" style="margin-top: 33px;">
-                        <button class="btn btn-primary btn-lg"
+                    <div class="col-lg-3" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
                                 onclick="window.location.href = '{% url 'resume:my_response' user.id %}';">
                             Отклики
                         </button>
                     </div>
                     <div class="col-lg-2" style="margin-top: 33px;">
-                        <button class="btn btn-primary btn-lg"
+                        <button class="btn btn-primary"
                                 onclick="window.location.href = '{% url 'resume:my_folower' %}';">
                             Подписки
                         </button>
