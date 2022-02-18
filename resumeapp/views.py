@@ -118,7 +118,8 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
                                                selected_vacancy=vacancy)
         email = vacancy.user.email
         user_name = request.user.username
-        send_response_email.delay(user_name,text_message,email)
+        # send_response_email.delay(user_name,text_message,email)
+        send_response_email(user_name,text_message,email)
 
 
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
