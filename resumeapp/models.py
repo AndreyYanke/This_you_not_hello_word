@@ -30,7 +30,7 @@ class Resume(TrackableUpdateCreateModel):
 
     STATUS_SEX = config.STATUS_SEX
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', related_name='resume',null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name='Город проживания')
     work_experiences = models.ManyToManyField('Work_expirience', verbose_name='Опыт работы',
                                               related_name='work_experiences', blank=True)
@@ -146,6 +146,10 @@ class ResponseAspirant(TrackableUpdateCreateModel):
     cover_letter = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=30, choices=RESPONSE_STATUS, default=RESPONSE_STATUS[0][0], null=True,
                               verbose_name='Статус отклика на вакансию')
+    resume = models.ForeignKey(
+        Resume,
+        on_delete=models.CASCADE,
+        verbose_name='Резюме соискателя', null=True)
     quantity_response = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -200,4 +204,4 @@ class FollowerAspirant(TrackableUpdateCreateModel):
         verbose_name_plural = 'Подписки соискателей'
 
     def __str__(self):
-        return f'{self.user} | {self.vacancy}'
+        return f'{self.user} | {self.vacancy} | {self.resume}'

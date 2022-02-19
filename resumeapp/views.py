@@ -114,8 +114,9 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         vacancy = Vacancy.objects.get(id=kwargs['pk'])
         text_message = request.POST.get("cover_letter")
+        resume = Resume.objects.get(id=request.POST.get("resume"))
         ResponseAspirant.objects.get_or_create(user=request.user,
-                                               selected_vacancy=vacancy)
+                                               selected_vacancy=vacancy,resume=resume)
         email = vacancy.user.email
         user_name = request.user.username
         send_response_email.delay(user_name,text_message,email)

@@ -42,15 +42,17 @@
                                         <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
                                     </li>
                                 </div>
-                                <div class="col">
-                                    <form action="{% url 'vacancy:add_folower' vacancy.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button style=" background-size: contain;" type="submit">
-                                            <img width="20" src="{% static 'img/icons.gif' %}" alt="">
-                                        </button>
+                                {% if user.is_authenticated %}
+                                    <div class="col">
+                                        <form action="{% url 'vacancy:add_folower' vacancy.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button style=" background-size: contain;" type="submit">
+                                                <img width="20" src="{% static 'img/icons.gif' %}" alt="">
+                                            </button>
 
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>,
@@ -72,51 +74,66 @@
                         <div class="col-lg-4">
                             <div class="form-group mt-6 mb-0">
                                 {#                                {% if not vacancy == response.selected_vacancy %}#}
-                                <form action="{% url 'resume:my_response_add' vacancy.id %}" method="POST">
-                                    {% csrf_token %}
+                                {% if user.is_authenticated %}
+                                    <form action="{% url 'resume:my_response_add' vacancy.id %}" method="POST">
+                                        {% csrf_token %}
 
-                                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                            data-target="#exampleModal"
-                                            data-whatever="@mdo">Отклик
-                                    </button>
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                                data-target="#exampleModal"
+                                                data-whatever="@mdo">Отклик
+                                        </button>
 
-                                    <!-- Модальное окно -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Новое
-                                                        сообщение</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{% url 'resume:my_response_add' vacancy.id %}"
-                                                          method="POST">
-                                                        {% csrf_token %}
-                                                        <div class="form-group">
-                                                            <label for="message-text"
-                                                                   class="col-form-label">Сообщение:</label>
-                                                            <textarea name="cover_letter" class="form-control"
-                                                                      id="message-text"></textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Закрыть
-                                                            </button>
-                                                            <button type="submit" class="btn btn-primary">Отправить
-                                                                сообщение
-                                                            </button>
-                                                        </div>
-                                                    </form>
+                                        <!-- Модальное окно -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Новое
+                                                            сообщение</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{% url 'resume:my_response_add' vacancy.id %}"
+                                                              method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <label for="message-text"
+                                                                       class="col-form-label">Сообщение:</label>
+                                                                <textarea name="cover_letter" class="form-control"
+                                                                          id="message-text"></textarea>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                     <label for="id_resume"
+                                                                       class="col-form-label">Резюме:</label>
+                                                                    <select name="resume" class="form-control"
+                                                                            required="" id="id_resume">
+                                                                        {% for resume in form_user %}
+                                                                            <option value="{{ resume.id }}"> {{ resume.position }}</option>
+                                                                        {% endfor %}
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Закрыть
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">Отправить
+                                                                    сообщение
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

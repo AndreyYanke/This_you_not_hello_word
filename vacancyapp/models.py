@@ -29,7 +29,7 @@ class Vacancy(TrackableUpdateCreateModel):
 
     name = models.CharField(max_length=255, verbose_name='Название', db_index=True)
     description = models.TextField(verbose_name='Описание')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Компания')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancy',verbose_name='Компания')
     is_active = models.BooleanField(default=False, verbose_name='Активная вакансия')
     salary_from = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Зарплата от', blank=True, null=True)
     salary_to = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Зарплата до', blank=True, null=True)

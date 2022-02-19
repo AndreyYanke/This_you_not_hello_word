@@ -5,7 +5,9 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 
+from resumeapp.forms import ResumeUser
 from resumeapp.models import ResponseAspirant, FollowerAspirant, Resume
+from userapp.models import User
 from vacancyapp.filters import VacancyFilter
 from vacancyapp.forms import VacancyForm
 from vacancyapp.models import Vacancy
@@ -64,6 +66,7 @@ class VacancyListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = VacancyFilter(self.request.GET, queryset=self.get_queryset())
+        context['form_user'] = User.objects.get(id=self.request.user.id).resume.select_related()
         return context
 
 
