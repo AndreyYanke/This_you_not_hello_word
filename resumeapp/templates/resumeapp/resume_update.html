@@ -62,7 +62,6 @@
                         <div class="col">
                             <input class="btn btn-primary" type="submit" name="Submit" value="Сохранить">
                         </div>
-
                 </form>
                 <div class="col">
                     <form action="{% url 'resume:delete' object.id %}" method="post">
@@ -70,7 +69,7 @@
                         <input class="btn btn-primary" type="submit" name="Submit" value="Удалить">
                     </form>
                 </div>
-             </div>
             </div>
         </div>
+    </div>
 {% endblock content %}

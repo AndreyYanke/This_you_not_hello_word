@@ -104,30 +104,3 @@ class AddFolowerAspirians(CreateView):
             else:
                 FollowerAspirant.objects.create(user=request.user,vacancy_id=kwargs.get('pk'))
             return HttpResponseRedirect(reverse_lazy('vacancy:list'))
-
-
-
-
-# TODO Заготовка для откликов Работодателей
-
-# class MyResponseListView(LoginRequiredMixin, ListView):
-#     model = ResponseCompany
-#     template_name = 'resumeapp/my_response.html'
-#     form_class = ResponseCompanyForm
-#     paginate_by = 10
-#     ordering = '-created_at'
-#
-#     def get_queryset(self):
-#         return ResponseCompany.objects.filter(user=self.request.user)
-#
-#     # TODO доработать логику , чтобы резюме на которые откликались не были доступны
-#
-# class AspirantResponseView(LoginRequiredMixin, CreateView):
-#     model =ResponseCompany
-#     form = ResponseCompanyForm
-#     template_name = 'resumeapp/all_resume.html'
-#
-#     def post(self, request, *args, **kwargs):
-#         ResponseCompany.objects.get_or_create(user=request.user,
-#                                                selected_resume=Resume.objects.get(id=kwargs['pk']))
-#         return HttpResponseRedirect(reverse_lazy('vacancy:list'))

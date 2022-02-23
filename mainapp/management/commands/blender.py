@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 from mixer.backend.django import mixer
 
 from resumeapp.models import Resume
-from userapp.models import User
 from vacancyapp.models import Vacancy
 
 

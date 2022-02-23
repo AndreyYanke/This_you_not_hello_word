@@ -5,4 +5,4 @@ from userapp.models import User
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        User.objects.create_superuser('nikolay','admin@mail.ru','1')
+        User.objects.create_superuser('nikolay', 'admin@mail.ru', '1')

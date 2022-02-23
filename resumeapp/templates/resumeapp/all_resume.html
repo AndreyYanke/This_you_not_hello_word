@@ -1,9 +1,7 @@
 {% extends 'mainapp/base_main_page.html' %}
 {% load static %}
+
 {% block content %}
-
-
-
     <div class="container">
         <form method="GET">
             <div class="row">
@@ -37,66 +35,62 @@
                 {% for resume in filter.qs %}
                     {% for resume in object_list %}
                         {% if resume.is_publish and not resume.draft %}
-                    <div class="row">
-                        <div class="col-lg-8">
-                            {#                            <li><b></b>#}
-                            {#                                <a href="{% url 'resume:detail' pk=resume.id %}" class="">{{ resume.position }}</a>:#}
-                            {#                            </li>#}
                             <div class="row">
-                                <div class="col">
-                                    <li><b></b>
-                                        <a href="{% url 'resume:detail' pk=resume.id %}"
-                                           class="">{{ resume.position }}</a>:
-                                    </li>
-                                </div>
-                                <div class="col">
-                                    <form action="{% url 'vacancy:add_folower' resume.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button style=" background-size: contain;" type="submit">
-                                            <img width="20" src="{% static 'img/icons.gif' %}" alt="">
-                                        </button>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col">
+                                            <li><b></b>
+                                                <a href="{% url 'resume:detail' pk=resume.id %}"
+                                                   class="">{{ resume.position }}</a>:
+                                            </li>
+                                        </div>
+                                        <div class="col">
+                                            <form action="{% url 'vacancy:add_folower' resume.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button style=" background-size: contain;" type="submit">
+                                                    <img width="20" src="{% static 'img/icons.gif' %}" alt="">
+                                                </button>
 
-                                    </form>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p>Город проживания: {{ resume.city }} <br>
+                                        Контакты: {{ resume.contact_info }}<br>
+                                        {% if resume.salary %}
+                                            Зарплата:
+                                            от <b>{{ resume.salary }} руб.</b>
+                                            <br>
+                                        {% endif %}
+                                        Тип занятости:
+                                        {% for status in config.STATUS_CHOICES_BUSYNESS %}
+                                            {% if status.0 == resume.busyness %}
+                                                {{ status.1 }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+                                        График работы:
+                                        {% for status in config.STATUS_CHOICES_WORK_SCHEDULE %}
+                                            {% if status.0 == resume.work_schedule %}
+                                                {{ status.1 }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+                                        О себе: {{ resume.about_myself|truncatechars:200 }}
+                                    </p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mt-6 mb-0">
+                                        <form action="{% url 'resume:my_response_add_company' resume.id %}"
+                                              method="post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-primary btn-block" type="submit"
+                                                   value="Отклик">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            <p>Город проживания: {{ resume.city }} <br>
-                                Контакты: {{ resume.contact_info }}<br>
-                                {% if resume.salary %}
-                                    Зарплата:
-                                    от <b>{{ resume.salary }} руб.</b>
-                                    <br>
-                                {% endif %}
-                                Тип занятости:
-                                {% for status in config.STATUS_CHOICES_BUSYNESS %}
-                                    {% if status.0 == resume.busyness %}
-                                        {{ status.1 }}
-                                    {% endif %}
-                                {% endfor %}
-                                <br>
-                                График работы:
-                                {% for status in config.STATUS_CHOICES_WORK_SCHEDULE %}
-                                    {% if status.0 == resume.work_schedule %}
-                                        {{ status.1 }}
-                                    {% endif %}
-                                {% endfor %}
-                                <br>
-                                О себе: {{ resume.about_myself|truncatechars:200 }}
-                            </p>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mt-6 mb-0">
-                                <form action="{% url 'resume:my_response_add_company' resume.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input class="btn btn-primary btn-block" type="submit"
-                                           value="Отклик">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
 
                 {% if page_obj.has_other_pages %}
@@ -112,10 +106,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-
             </ul>
         </div>
     </div>
-
-
 {% endblock content %}

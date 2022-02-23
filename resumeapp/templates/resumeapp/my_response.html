@@ -13,7 +13,8 @@
                         {% endif %}</h3><br>
                     Вакансия: <a href="{% url 'user:detail' selected_vac.selected_vacancy.id %}" class="">
                     {{ selected_vac.selected_vacancy }}   </a>
-                    статус: <div style="color: red">{{ selected_vac.status }} </div>
+                    статус:
+                    <div style="color: red">{{ selected_vac.status }} </div>
                 {% endfor %}
                 <br>
             </ul>

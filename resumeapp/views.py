@@ -103,9 +103,6 @@ class MyResponseListView(LoginRequiredMixin, ListView):
         context['config'] = config
         return context
 
-
-# TODO доработать логику , чтобы вакансии на которые откликались не были доступны
-
 class AspirantResponseView(LoginRequiredMixin, CreateView):
     model = ResponseAspirant
     form = ResponseAspirantForm
@@ -120,9 +117,6 @@ class AspirantResponseView(LoginRequiredMixin, CreateView):
         email = vacancy.user.email
         user_name = request.user.username
         send_response_email.delay(user_name,text_message,email)
-        # send_response_email(user_name,text_message,email)
-
-
         return HttpResponseRedirect(reverse_lazy('vacancy:list'))
 
 
@@ -142,7 +136,6 @@ class CompanyResponseView(LoginRequiredMixin, CreateView):
 class MyFolowerListView(LoginRequiredMixin, ListView):
     model = FollowerAspirant
     template_name = 'resumeapp/my_folower.html'
-    # form_class = ResponseAspirantForm
     paginate_by = 10
     ordering = '-created_at'
 

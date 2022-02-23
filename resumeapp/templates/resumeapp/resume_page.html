@@ -9,7 +9,7 @@
                     <p> {% if resume.salary %}
                         <b>{{ resume.salary }} руб.</b>
                         <br>
-                        {% endif %}
+                    {% endif %}
                         {{ resume.first_name }}
                         {{ resume.last_name }}
                         {% if resume.user.partner_image %}
@@ -70,8 +70,8 @@
                     <br>
                     {% if resume.about_myself %}
                         <b>О Себе:</b> {{ resume.about_myself }}
-                    <br>
-                    <br>
+                        <br>
+                        <br>
                     {% endif %}
                     {% if educations %}
                         <b>Образование: </b>

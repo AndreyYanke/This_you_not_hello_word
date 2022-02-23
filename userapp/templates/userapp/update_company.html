@@ -2,13 +2,6 @@
 {% load static %}
 
 {% block content %}
-    {#    <form class="form-horizontal" action="{% url 'regist:company' %}" method="post" enctype="multipart/form-data">#}
-    {#        {% csrf_token %}#}
-    {#        <h2>Редактиврование работодателя</h2>#}
-    {#        {{ form.as_p }}#}
-    {#        <button type="submit" class="form-control">Редактиврование</button>#}
-    {#    </form>#}
-
     <div class="row justify-content-center">
         <div class="col-lg-7">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
@@ -35,20 +28,7 @@
                                     {{ form.company_name }}
                                 </div>
                             </div>
-                            {#                            <div class="col-md-12">#}
-                            {#                                {% if object.partner_image %}#}
-                            {#                                    <img width="100" src="{{ object.partner_image.url }}"#}
-                            {#                                         alt="partner">#}
-                            {#                                {% endif %}#}
-                            {#                            </div>#}
                         </div>
-                        {#                        {{ form.partner_image.errors }}#}
-                        {#                        <div class="col-md-6">#}
-                        {#                            <label class="small mb-1" for="{{ form.partner_image.id_for_label }}">#}
-                        {#                                Лого компании:</label>#}
-                        {#                            {{ form.partner_image }}#}
-                        {#                        </div>#}
-                        {#                        #}
                         <div class="form-row mb-2">
                             <div class="col-lg-12">
                                 <div class="custom-file">
@@ -70,7 +50,6 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            {#                            {{ form.email.errors }}#}
                             <div class="col-md-12">
                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес
                                     электронной
@@ -78,18 +57,12 @@
                                 {{ form.email }}
                             </div>
                         </div>
-
                         <div class="form-group mt-4 mb-0">
                             <input class="btn btn-primary btn-block" type="submit"
                                    value="Сохранить">
                         </div>
                     </form>
                 </div>
-                {#                                <form class="form-group mt-4 mb-0" action="{% url 'user:delete' user.id %}"#}
-                {#                                      method="post">#}
-                {#                                    {% csrf_token %}#}
-                {#                                    <input type="submit" name="Submit" value="Удалить">#}
-                {#                                </form>#}
             </div>
 
 

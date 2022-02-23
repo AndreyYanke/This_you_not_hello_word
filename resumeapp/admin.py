@@ -8,7 +8,7 @@ class ResumeAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'position', 'is_publish')
     list_filter = ('position',)
     exclude = ('groups', 'user_permissions')
-    ordering = ('is_publish', )
+    ordering = ('is_publish',)
 
 
 admin.site.register(Resume, ResumeAdmin)

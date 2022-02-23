@@ -1,7 +1,5 @@
-from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
-from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
 from newsapp.models import NewsPost

@@ -7,13 +7,12 @@ from userapp.models import City
 
 
 class ResumeFilter(FilterSet):
-
-
     position = filters.CharFilter(lookup_expr='icontains', label='', method='name_or_company_name_filter',
-                              widget=forms.TextInput(attrs={'placeholder': 'Поиск по резюме','class':'form-control'}))
+                                  widget=forms.TextInput(
+                                      attrs={'placeholder': 'Поиск по резюме', 'class': 'form-control'}))
 
-    city = filters.ModelChoiceFilter(queryset=City.objects.all(), label='Город:',widget=forms.Select(attrs={'class':'form-control'}))
-
+    city = filters.ModelChoiceFilter(queryset=City.objects.all(), label='Город:',
+                                     widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Resume
