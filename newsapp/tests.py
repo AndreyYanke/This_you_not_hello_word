@@ -1,9 +1,8 @@
 from http import HTTPStatus
 
 from django.contrib import auth
-from django.test.client import Client
-
 from django.test import TestCase
+from django.test.client import Client
 
 from newsapp.models import NewsPost
 

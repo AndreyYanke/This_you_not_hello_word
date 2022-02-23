@@ -1,0 +1,85 @@
+{% extends 'mainapp/base_main_page.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="mt-3 mb-3">Профайл соискателя</h4>
+                <div class="col-lg-12 text-center">
+                    <img width="250" height="100"
+                         src="{% if object.partner_image %} {{ object.partner_image.url }} {% else %}{% static 'img/default_avatar.jpg' %}{% endif %}"
+
+                         class="img-thumbnail">
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="small mb-1" for="{{ object.first_name.id_for_label }}"><h6>Имя:</h6></label>
+                            {{ object.first_name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="small mb-1" for="{{ object.last_name.id_for_label }}"><h6>Фамилия: </h6>
+                            </label>
+                            {{ object.last_name }}
+                        </div>
+                    </div>
+                </div>
+                  <div class="form-row">
+                    <div class="col-lg-12">
+                        <label class="small mb-1" for="{{ object.phone_number.id_for_label }}"><h6>Номер телефона:</h6>
+                        </label>
+                        {{ object.phone_number }}
+                    </div>
+                </div>
+            <div class="form-row">
+
+                    <div class="col-lg-12">
+                        <label class="small mb-1" for="{{ object.email.id_for_label }}"><h6>Адрес электронной
+                            почты:</h6>
+                        </label>
+                        {{ object.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="col-lg-12">
+                        <label class="small mb-1" for="{{ object.city.id_for_label }}"><h6>Город:</h6>
+                        </label>
+                        {{ object.city.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-4" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
+                                onclick="window.location.href = '{% url 'user:update' user.id %}';">
+                            Изменить
+                        </button>
+                    </div>
+                    <div class="col-lg-3" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
+                                onclick="window.location.href = '{% url 'resume:my_resume' %}';">
+                            Резюме
+                        </button>
+                    </div>
+                    <div class="col-lg-3" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
+                                onclick="window.location.href = '{% url 'resume:my_response' user.id %}';">
+                            Отклики
+                        </button>
+                    </div>
+                    <div class="col-lg-2" style="margin-top: 33px;">
+                        <button class="btn btn-primary"
+                                onclick="window.location.href = '{% url 'resume:my_folower' %}';">
+                            Подписки
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

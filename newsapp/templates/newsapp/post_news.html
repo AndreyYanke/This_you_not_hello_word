@@ -8,6 +8,9 @@
                 <div class="col-lg-6">
                     <h1 class="mt-5">{{ post.title }}</h1>
                     <p>
+                        {% if post.photo %}
+                            <img width="780" src="{{ post.photo.url }}" alt="partner_image">
+                        {% endif %}
                         <br>
                         <br>
                         {{ post.description }}

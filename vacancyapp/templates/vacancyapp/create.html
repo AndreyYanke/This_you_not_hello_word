@@ -1,0 +1,17 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="mt-5">Создание вакансии</h1>
+            <form class="" action="{% url 'vacancy:create' %}" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <br><br>
+              <input type="submit" name="Submit" value="Создать">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

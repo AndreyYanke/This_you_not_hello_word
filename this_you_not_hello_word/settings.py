@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-mni!%gcsua^8ld4te7kr5gn5e!!c5rc36heiqj3k^(zkqh57b4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -25,14 +25,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_filters',
+    'django_extensions',
+
     'userapp.apps.UserappConfig',
     'vacancyapp.apps.VacancyappConfig',
     'mainapp.apps.MainappConfig',
     'newsapp.apps.NewsappConfig',
     'resumeapp.apps.ResumeappConfig',
-    'mainapp.apps.MainappConfig',
-    'resumeapp.apps.ResumeappConfig',
+    'flower',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -45,6 +48,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'this_you_not_hello_word.urls'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+]
 
 TEMPLATES = [
     {
@@ -67,6 +74,13 @@ WSGI_APPLICATION = 'this_you_not_hello_word.wsgi.application'
 
 
 # Database
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -97,10 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-Ru'
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
@@ -109,12 +123,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 # Default primary key field type
 
@@ -124,3 +139,33 @@ AUTH_USER_MODEL = 'userapp.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/user/auth/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+#celery
+
+#smtp
+# https://myaccount.google.com/u/1/security?hl=ru
+#Ненадежные приложения, у которых есть доступ к аккаунту True
+# https://mail.google.com/mail/u/1/#settings/fwdandpop = Включить IMAP True
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'django.celery.redis@gmail.com'
+EMAIL_HOST_PASSWORD = 'Qwert123$'
+
+
+#REDIS related setting
+REDIS_HOST = '0.0.0.0'
+REDIS_PORT = '6379'
+REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_BROKER_URL =REDIS_URL
+CELERY_BROKER_TRANSPORT_OPTIONS ={'visibility_timeout':3600}#таймаут
+CELERY_RESULT_BACKEND =REDIS_URL
+CELERY_ACCEPT_CONTENT = ['application/json']#заголовки
+CELERY_TASK_SERIALIZER = 'json'#задачи в каком формате
+CELERY_RESULT_SERIALIZER = 'json'#получаем результат в какком формате
+
