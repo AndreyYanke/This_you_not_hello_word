@@ -1,2 +1,10 @@
 .idea
-db.sqlite3
+#db.sqlite3
+
+/*/migrations/0*
+/*/migrations/__pycache__
+/*/__pycache__
+/*/*/__pycache__
+/*/*/*/__pycache__
+/*/*/*/*/__pycache__
+/*/*/*/*/*/__pycache__

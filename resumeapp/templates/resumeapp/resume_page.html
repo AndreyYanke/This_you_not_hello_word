@@ -1,0 +1,93 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">{{ resume.position }}</h1>
+                    <p> {% if resume.salary %}
+                        <b>{{ resume.salary }} руб.</b>
+                        <br>
+                    {% endif %}
+                        {{ resume.first_name }}
+                        {{ resume.last_name }}
+                        {% if resume.user.partner_image %}
+                            <img width="100" src="{{ resume.user.partner_image.url }}"
+                                 alt="partner">
+                        {% endif %}
+                        <br>
+                        {{ resume.age }} лет
+                        <br>
+                        <b>Пол:</b> {{ sex }}
+                        <br>
+                        {{ resume.contact_info }}
+                        <br>
+                        <b>Город проживания:</b> {{ resume.city }}
+                        <br>
+                        {% if resume.ready_to_move == True %}
+                            <b>Готов к переезду:</b> да
+                        {% else %}
+                            <b>Готов к переезду:</b> нет
+                        {% endif %}
+                        <br>
+                        <b>Гражданство:</b> {{ resume.citizenship }}
+                        <br>
+                        <b>Желаемая позиция:</b> {{ resume.position }}
+                        <br>
+                        <b>Занятость:</b> {{ busyness }}
+                        <br>
+                        <b>График работы:</b> {{ work_schedule }}
+                        <br>
+                        {% if work_experiences %}
+                            <br>
+                            <b>Опыт работы:</b>
+                            <br>
+                            {% for work_exper in work_experiences %}
+                                <br>
+                                <b>{{ work_exper.organisation }}</b><br>
+                                {{ work_exper.position }}<br>
+                                <b>Дата работы:</b> <br>
+                                {% if work_exper.start_of_work %}
+                                    с {{ work_exper.start_of_work | date:'m-Y' }} до
+                                {% endif %}
+                                {{ work_exper.end_of_work|date:'m-Y'|default:"настоящего время" }}
+                                <br>
+                                <b>Обязанности: </b>
+                                <br>
+                                {{ work_exper.duties }}
+                                <br>
+                            {% endfor %}
+                        {% endif %}
+                        {% if key_skills %}
+                            <br>
+                            <h6>Ключевые навыки:<br>
+                                {% for key_skill in key_skills %}
+                                    {{ key_skill }},
+                                {% endfor %}
+                            </h6>
+                        {% endif %}
+                    <br>
+                    {% if resume.about_myself %}
+                        <b>О Себе:</b> {{ resume.about_myself }}
+                        <br>
+                        <br>
+                    {% endif %}
+                    {% if educations %}
+                        <b>Образование: </b>
+                        <br>
+                        {% for education in educations %}
+                            {{ education_level }}<br>
+                            {{ education.institution }}<br>
+                            {{ education.faculty }}<br>
+                            {{ education.specialisation }}<br>
+                            {{ education.year_of_completion }}<br>
+                            {{ education.image_sertiificate }}<br>
+                        {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

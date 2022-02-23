@@ -1,0 +1,55 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Правила портала</h1>
+                <p>
+                    Здесь будет размещаться мини-текст с правилами портала.
+                    <br>
+                    <b>Например</b>, Размещать и/или передавать посредством Сайта информацию в виде текста,
+                    изображения, видео, звука, ссылки или программного кода, которая может быть противозаконной,
+                    угрожающей, оскорбительной,
+                    клеветнической, заведомо ложной, грубой, непристойной
+                    (содержать информацию и материалы эротического и/или порнографического характера),
+                    призывающей граждан к насилию, агрессии, действиям, нарушающим законодательство,
+                    вредить другим посетителям Сайта, нарушать их права...
+                    <br>
+                    Прошу ознакомиться с полной редакцией <a href="{% url 'main:rules' %}">правил портала</a>
+
+                </p>
+            </div>
+            <div class="col-lg-6">
+                {% if not user.is_authenticated %}
+                    {% include 'userapp/authorisation.html' %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Новостная лента</h1>
+                {% for news in list_news %}
+                    <p>
+                        <a href="{% url 'news:detail_news' news.pk %}">{{ news.title }}</a>
+                    </p>
+                {% endfor %}
+                <a href="{% url 'news:list_news' %}">Все новости</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Партнеры</h1>
+                {% for company in list_company_partners %}
+
+                    <a href="{% url 'user:detail' company.id %}">
+                        {% if company.partner_image %}
+                            <img width="100" src="{{ company.partner_image.url }}" alt="partner_image">
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

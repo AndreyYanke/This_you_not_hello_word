@@ -1,0 +1,163 @@
+{% extends 'mainapp/base_main_page.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <form method="GET">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-8" for="{{ filter.form.name.id_for_label }}">Должность</label>
+                        {{ filter.form.name }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-8" for="{{ filter.form.city.id_for_label }}">Город</label>
+                        {{ filter.form.city }}
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="mb-8">
+                            <button style="margin-top: 33px" class="btn btn-primary">Найти</button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mt-5">Вакансии:</h1>
+            <ul>
+                {% for vacancy in filter.qs %}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col">
+                                    <li><b></b>
+                                        <a href="{% url 'vacancy:detail' vacancy.id %}" class="">{{ vacancy.name }}</a>:
+                                    </li>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <div class="col">
+                                        <form action="{% url 'vacancy:add_folower' vacancy.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button style=" background-size: contain;" type="submit">
+                                                <img width="20" src="{% static 'img/icons.gif' %}" alt="">
+                                            </button>
+
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <a href="{% url 'user:detail' vacancy.user.id %}">{{ vacancy.user.company_name }}</a>,
+                            {{ vacancy.city.name }}
+                            <br>
+                            Зарплата:
+                            {% if vacancy.salary_from %}
+                                от {{ vacancy.salary_from }} руб.
+                            {% endif %}
+                            {% if vacancy.salary_to %}
+                                до {{ vacancy.salary_to }} руб.
+                            {% endif %}
+                            <br>
+                            {{ vacancy.description|truncatechars:200 }}
+                            <br>
+                            {{ vacancy.updated_at|date:'d.m.Y' }}
+                            <br><br>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mt-6 mb-0">
+                                {#                                {% if not vacancy == response.selected_vacancy %}#}
+                                {% if user.is_authenticated %}
+                                    <form action="{% url 'resume:my_response_add' vacancy.id %}" method="POST">
+                                        {% csrf_token %}
+
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                                data-target="#exampleModal"
+                                                data-whatever="@mdo">Отклик
+                                        </button>
+
+                                        <!-- Модальное окно -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Новое
+                                                            сообщение</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{% url 'resume:my_response_add' vacancy.id %}"
+                                                              method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <label for="message-text"
+                                                                       class="col-form-label">Сообщение:</label>
+                                                                <textarea name="cover_letter" class="form-control"
+                                                                          id="message-text"></textarea>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                     <label for="id_resume"
+                                                                       class="col-form-label">Резюме:</label>
+                                                                    <select name="resume" class="form-control"
+                                                                            required="" id="id_resume">
+                                                                        {% for resume in form_user %}
+                                                                            <option value="{{ resume.id }}"> {{ resume.position }}</option>
+                                                                        {% endfor %}
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Закрыть
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">Отправить
+                                                                    сообщение
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <li>“Нет доступных резюме для отклика на вакансию“</li>
+                {% endfor %}
+                {% if page_obj.has_other_pages %}
+                    <div class="pagination">
+                        {% for p in paginator.page_range %}
+                            {% if page_obj.number == p %}
+                                <li class="page-item active">
+                                    <a href="?page={{ p }}" class="page-link active">{{ p }}</a>
+                                </li>
+                            {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    </div>
+
+{% endblock content %}
+
+

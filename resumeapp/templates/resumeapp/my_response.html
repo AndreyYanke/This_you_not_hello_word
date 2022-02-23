@@ -1,0 +1,24 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mt-5">Отклики:</h1>
+            <ul>
+                {% for selected_vac in object_list %}
+                    <h3 class="mt-5"> Компания: {{ selected_vac.selected_vacancy.user }}
+                        {% if selected_vac.selected_vacancy.user.partner_image %}
+                            <img width="70" src="{{ selected_vac.selected_vacancy.user.partner_image.url }}"
+                                 alt="partner">
+                        {% endif %}</h3><br>
+                    Вакансия: <a href="{% url 'user:detail' selected_vac.selected_vacancy.id %}" class="">
+                    {{ selected_vac.selected_vacancy }}   </a>
+                    статус:
+                    <div style="color: red">{{ selected_vac.status }} </div>
+                {% endfor %}
+                <br>
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}

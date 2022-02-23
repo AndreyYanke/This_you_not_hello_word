@@ -1,0 +1,28 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <section>
+        <div class="container">
+        <h1>Мои вакансии</h1>
+            <button class="btn btn-primary btn-lg"
+                    onclick="window.location.href = '{% url 'vacancy:create' %}';">
+                Создать вакансию
+            </button>
+            <div class="row">
+                <div class="col-lg-6">
+                    {% for vacancy in object_list %}
+                        <a href="{% url 'vacancy:detail' vacancy.id %}" class=""><h2>{{ vacancy }}</h2></a>
+                        <button class="btn btn-primary btn-lg"
+                                onclick="window.location.href = '{% url 'vacancy:update' vacancy.id %}';">
+                            Редактировать
+                        </button>
+                        <br>
+                        Обновлено: {{ vacancy.updated_at|date:'j F в H:i' }}
+                        <br>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

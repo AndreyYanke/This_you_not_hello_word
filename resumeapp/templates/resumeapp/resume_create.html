@@ -1,0 +1,62 @@
+{% extends 'mainapp/base_main_page.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Создание резюме </h1>
+                <form class="" action="{% url 'resume:create' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h6>
+                        {{ form.user }}
+                        {{ form.first_name.errors }}
+                        Имя: {{ form.first_name }} <br>
+                        {{ form.last_name.errors }}
+                        Фамилия: {{ form.last_name }}<br>
+                        {{ form.photo.errors }}
+                        Фото: {{ form.photo }}<br>
+                        {{ form.age.errors }}
+                        Возраст: {{ form.age }}<br>
+                        {{ form.sex.errors }}
+                        Пол: {{ form.sex }}<br>
+                        {{ form.contact_info.errors }}
+                        Контактная информация: {{ form.contact_info }}<br>
+                        {{ form.city.errors }}
+                        Город проживания: {{ form.city }}<br>
+                        {{ form.ready_to_move.errors }}
+                        Готов к переезду: {{ form.ready_to_move }}<br>
+                        {{ form.citizenship.errors }}
+                        Гражданство: {{ form.citizenship }}<br>
+                        {{ form.position.errors }}
+                        Желаемая позиция: {{ form.position }}<br>
+                        {{ form.salary.errors }}
+                        Желаемая зарплата: {{ form.salary }}<br>
+                        {{ form.busyness.errors }}
+                        Занятость: {{ form.busyness }}<br>
+                        {{ form.work_schedule.errors }}
+                        График работы: {{ form.work_schedule }}<br>
+                        {{ form.about_myself.errors }}
+                        О Себе:{{ form.about_myself }}<br>
+                        {{ form.work_experiences.errors }}
+                        Опыт работы: {{ form.work_experiences }}<br>
+                        {{ form.key_skills.errors }}
+                        Ключевые навыки: {{ form.key_skills }}<br>
+                        {{ form.education.errors }}
+                        Образование: {{ form.education }}<br>
+                        <div class="row">
+                            <div class="col">
+                                Черновик:
+                            </div>
+                            <div class="col">
+                                {{ form.draft }}
+                            </div>
+                        </div>
+                        <br>
+                    </h6>
+                    <br><br>
+                    <input type="submit" class="btn btn-primary" name="Submit" value="Сохранить">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
